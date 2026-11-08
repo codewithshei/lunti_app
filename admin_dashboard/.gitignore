@@ -43,3 +43,22 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Gradle caches and generated build output
+**/android/.gradle/
+**/android/build/
+**/android/local.properties
+**/android/captures/
+hs_err_pid*.log
+
+# Generated plugin symlinks
+**/ephemeral/
+
+# Node tooling (admin scripts / functions)
+node_modules/
+**/node_modules/
+
+# Local credentials — never commit
+**/service-account*.json
+.env
+**/.env
