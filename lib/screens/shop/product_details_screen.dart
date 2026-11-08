@@ -131,7 +131,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         : 'Natural \u00B7 no engraving';
 
     return Scaffold(
-      backgroundColor: LuntiColors.cream,
+      backgroundColor: context.lunti.background,
       body: SafeArea(
         bottom: false,
         child: ListView(
@@ -162,7 +162,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 children: [
                   Text(
                     _product.eyebrow.toUpperCase(),
-                    style: LuntiTextStyles.eyebrow,
+                    style: context.lunti.eyebrow,
                   ),
                   const SizedBox(height: LuntiSpacing.xs),
                   Row(
@@ -171,7 +171,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       Expanded(
                         child: Text(
                           _product.name,
-                          style: LuntiTextStyles.display.copyWith(fontSize: 26),
+                          style: context.lunti.display.copyWith(fontSize: 26),
                         ),
                       ),
                       const SizedBox(width: LuntiSpacing.xs),
@@ -188,9 +188,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     children: [
                       Text(
                         _currentPriceLabel(),
-                        style: LuntiTextStyles.sectionTitle.copyWith(
+                        style: context.lunti.sectionTitle.copyWith(
                           fontSize: 22,
-                          color: LuntiColors.ink,
+                          color: context.lunti.text,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
@@ -199,17 +199,17 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     ],
                   ),
                   const SizedBox(height: LuntiSpacing.sm),
-                  Text(_product.description, style: LuntiTextStyles.body),
+                  Text(_product.description, style: context.lunti.body),
                   if (_product.variantLabel != null) ...[
                     const SizedBox(height: LuntiSpacing.lg),
                     Row(
                       children: [
-                        const Text('Style', style: LuntiTextStyles.cardTitle),
+                        Text('Style', style: context.lunti.cardTitle),
                         const Spacer(),
                         Text(
                           styleLabelText,
-                          style: LuntiTextStyles.caption.copyWith(
-                            color: LuntiColors.secondary,
+                          style: context.lunti.caption.copyWith(
+                            color: context.lunti.textFaint,
                           ),
                         ),
                       ],
@@ -237,8 +237,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     Text(
                       'Make it yours: choose ${_product.variantLabel} to add a '
                       'name or short message.',
-                      style: LuntiTextStyles.caption.copyWith(
-                        color: LuntiColors.secondary,
+                      style: context.lunti.caption.copyWith(
+                        color: context.lunti.textFaint,
                       ),
                     ),
                   ],
@@ -284,7 +284,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   const SizedBox(height: LuntiSpacing.lg),
                   Text(
                     'Made with character',
-                    style: LuntiTextStyles.sectionTitle.copyWith(fontSize: 22),
+                    style: context.lunti.sectionTitle.copyWith(fontSize: 22),
                   ),
                   const SizedBox(height: LuntiSpacing.sm),
                   SpecRow(label: 'Material', value: _product.material),
@@ -294,24 +294,24 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   const SizedBox(height: LuntiSpacing.md),
                   Row(
                     children: [
-                      const Icon(
+                      Icon(
                         Icons.info_outline,
                         size: 16,
-                        color: LuntiColors.secondary,
+                        color: context.lunti.textFaint,
                       ),
                       const SizedBox(width: LuntiSpacing.xs),
                       Expanded(
                         child: Text(
                           'Check phone and case fit with LUNTI before ordering.',
-                          style: LuntiTextStyles.caption.copyWith(
-                            color: LuntiColors.secondary,
+                          style: context.lunti.caption.copyWith(
+                            color: context.lunti.textFaint,
                           ),
                         ),
                       ),
                     ],
                   ),
                   if (_product.variantLabel != null) ...[
-                    Divider(color: LuntiColors.beige, thickness: 0.5),
+                    Divider(color: context.lunti.border, thickness: 0.5),
                     const SizedBox(height: LuntiSpacing.xs),
                     LinkRow(
                       title: 'Planning a personalized gift?',
@@ -363,7 +363,7 @@ class _GalleryCard extends StatelessWidget {
         children: [
           Container(
             decoration: BoxDecoration(
-              color: LuntiColors.white,
+              color: context.lunti.surface,
               borderRadius: BorderRadius.circular(LuntiRadii.lg),
             ),
             clipBehavior: Clip.antiAlias,
@@ -409,14 +409,14 @@ class _GalleryCard extends StatelessWidget {
                       vertical: 4,
                     ),
                     decoration: BoxDecoration(
-                      color: LuntiColors.white,
+                      color: context.lunti.surface,
                       borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: LuntiColors.beige),
+                      border: Border.all(color: context.lunti.border),
                     ),
                     child: Text(
                       '${page + 1} / ${gallery.length}',
-                      style: LuntiTextStyles.caption.copyWith(
-                        color: LuntiColors.secondary,
+                      style: context.lunti.caption.copyWith(
+                        color: context.lunti.textFaint,
                       ),
                     ),
                   ),
@@ -439,8 +439,8 @@ class _GalleryCard extends StatelessWidget {
               Expanded(
                 child: Text(
                   'Natural grain. Every piece is unique.',
-                  style: LuntiTextStyles.caption.copyWith(
-                    color: LuntiColors.secondary,
+                  style: context.lunti.caption.copyWith(
+                    color: context.lunti.textFaint,
                   ),
                 ),
               ),
@@ -466,11 +466,11 @@ class _GalleryThumb extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: LuntiColors.sage,
+      color: context.lunti.surfaceAlt,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(LuntiRadii.md),
         side: BorderSide(
-          color: selected ? LuntiColors.ink : Colors.transparent,
+          color: selected ? context.lunti.text : Colors.transparent,
           width: 1.5,
         ),
       ),
@@ -521,15 +521,15 @@ class _StockChip extends StatelessWidget {
           width: 8,
           height: 8,
           decoration: BoxDecoration(
-            color: outOfStock ? LuntiColors.warning : const Color(0xFF4A7C59),
+            color: outOfStock ? context.lunti.warning : Color(0xFF4A7C59),
             shape: BoxShape.circle,
           ),
         ),
         const SizedBox(width: 6),
         Text(
           outOfStock ? 'Out of stock' : 'In stock \u00B7 $stockLeft left',
-          style: LuntiTextStyles.caption.copyWith(
-            color: outOfStock ? LuntiColors.warning : LuntiColors.secondary,
+          style: context.lunti.caption.copyWith(
+            color: outOfStock ? context.lunti.warning : context.lunti.textFaint,
             fontWeight: outOfStock ? FontWeight.w600 : FontWeight.w400,
           ),
         ),
@@ -548,7 +548,7 @@ class _DeliveryCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(LuntiSpacing.md),
       decoration: BoxDecoration(
-        color: LuntiColors.sage,
+        color: context.lunti.surfaceAlt,
         borderRadius: BorderRadius.circular(LuntiRadii.lg),
       ),
       child: Column(
@@ -556,16 +556,16 @@ class _DeliveryCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              const Icon(
+              Icon(
                 Icons.local_shipping_outlined,
                 size: 20,
-                color: LuntiColors.ink,
+                color: context.lunti.text,
               ),
               const SizedBox(width: LuntiSpacing.sm),
               Expanded(
                 child: Text(
                   'From Cardona to your doorstep',
-                  style: LuntiTextStyles.cardTitle.copyWith(
+                  style: context.lunti.cardTitle.copyWith(
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -573,30 +573,30 @@ class _DeliveryCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: LuntiSpacing.xs),
-          const Text(
+          Text(
             'Enter your postcode for delivery options and an estimated '
             'arrival.',
-            style: LuntiTextStyles.body,
+            style: context.lunti.body,
           ),
           const SizedBox(height: LuntiSpacing.sm),
           Container(
             height: 44,
             padding: const EdgeInsets.symmetric(horizontal: LuntiSpacing.md),
             decoration: BoxDecoration(
-              color: LuntiColors.white,
+              color: context.lunti.surface,
               borderRadius: BorderRadius.circular(LuntiRadii.md),
             ),
             child: Row(
               children: [
-                const Expanded(
-                  child: Text('Enter postcode', style: LuntiTextStyles.caption),
+                Expanded(
+                  child: Text('Enter postcode', style: context.lunti.caption),
                 ),
                 GestureDetector(
                   onTap: onCheck,
                   behavior: HitTestBehavior.opaque,
-                  child: const Padding(
+                  child: Padding(
                     padding: EdgeInsets.only(left: LuntiSpacing.sm),
-                    child: Text('Check', style: LuntiTextStyles.cardTitle),
+                    child: Text('Check', style: context.lunti.cardTitle),
                   ),
                 ),
               ],
@@ -605,8 +605,8 @@ class _DeliveryCard extends StatelessWidget {
           const SizedBox(height: LuntiSpacing.xs),
           Text(
             'Shipping cost calculated at checkout.',
-            style: LuntiTextStyles.caption.copyWith(
-              color: LuntiColors.secondary,
+            style: context.lunti.caption.copyWith(
+              color: context.lunti.textFaint,
             ),
           ),
         ],
@@ -629,8 +629,8 @@ class _RatingSummaryLine extends StatelessWidget {
         if (!summary.hasReviews) {
           return Text(
             'No reviews yet',
-            style: LuntiTextStyles.caption.copyWith(
-              color: LuntiColors.secondary,
+            style: context.lunti.caption.copyWith(
+              color: context.lunti.textFaint,
             ),
           );
         }
@@ -639,17 +639,17 @@ class _RatingSummaryLine extends StatelessWidget {
               'Rated ${summary.averageLabel} out of 5 from ${summary.count} reviews',
           child: Row(
             children: [
-              const Icon(
+              Icon(
                 Icons.star_rounded,
                 size: 18,
-                color: Color(0xFFC58A2B),
+                color: context.lunti.rating,
               ),
               const SizedBox(width: 4),
               Text(
                 '${summary.averageLabel} '
                 '(${summary.count} review${summary.count == 1 ? '' : 's'})',
-                style: LuntiTextStyles.caption.copyWith(
-                  color: LuntiColors.ink,
+                style: context.lunti.caption.copyWith(
+                  color: context.lunti.text,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -678,7 +678,7 @@ class _ReviewsSection extends StatelessWidget {
       children: [
         Text(
           'Reviews',
-          style: LuntiTextStyles.sectionTitle.copyWith(fontSize: 22),
+          style: context.lunti.sectionTitle.copyWith(fontSize: 22),
         ),
         const SizedBox(height: LuntiSpacing.sm),
         StreamBuilder<List<ProductReview>>(
@@ -708,7 +708,7 @@ class _ReviewsSection extends StatelessWidget {
                 width: double.infinity,
                 padding: const EdgeInsets.all(LuntiSpacing.md),
                 decoration: BoxDecoration(
-                  color: LuntiColors.sage,
+                  color: context.lunti.surfaceAlt,
                   borderRadius: BorderRadius.circular(LuntiRadii.md),
                 ),
                 child: Column(
@@ -716,14 +716,14 @@ class _ReviewsSection extends StatelessWidget {
                   children: [
                     Text(
                       'No reviews yet',
-                      style: LuntiTextStyles.cardTitle.copyWith(
+                      style: context.lunti.cardTitle.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                     const SizedBox(height: 2),
                     Text(
                       'Bought this piece? Share how it looks in your home.',
-                      style: LuntiTextStyles.body,
+                      style: context.lunti.body,
                     ),
                   ],
                 ),
@@ -742,14 +742,14 @@ class _ReviewsSection extends StatelessWidget {
                   width: double.infinity,
                   padding: const EdgeInsets.all(LuntiSpacing.md),
                   decoration: BoxDecoration(
-                    color: LuntiColors.sage,
+                    color: context.lunti.surfaceAlt,
                     borderRadius: BorderRadius.circular(LuntiRadii.md),
                   ),
                   child: Row(
                     children: [
                       Text(
                         average.toStringAsFixed(1),
-                        style: LuntiTextStyles.display.copyWith(fontSize: 34),
+                        style: context.lunti.display.copyWith(fontSize: 34),
                       ),
                       const SizedBox(width: LuntiSpacing.sm),
                       Column(
@@ -760,7 +760,7 @@ class _ReviewsSection extends StatelessWidget {
                           Text(
                             '${reviews.length} '
                             'review${reviews.length == 1 ? '' : 's'}',
-                            style: LuntiTextStyles.caption,
+                            style: context.lunti.caption,
                           ),
                         ],
                       ),
@@ -780,8 +780,8 @@ class _ReviewsSection extends StatelessWidget {
         OutlinedButton.icon(
           onPressed: () => _writeReview(context),
           style: OutlinedButton.styleFrom(
-            foregroundColor: LuntiColors.forest,
-            side: const BorderSide(color: LuntiColors.forest),
+            foregroundColor: context.lunti.accent,
+            side: BorderSide(color: context.lunti.accent),
             minimumSize: const Size.fromHeight(48),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(LuntiRadii.sm),
@@ -814,7 +814,7 @@ class _Stars extends StatelessWidget {
                       ? Icons.star_half_rounded
                       : Icons.star_border_rounded),
             size: size,
-            color: const Color(0xFFC58A2B),
+            color: context.lunti.rating,
           ),
       ],
     );
@@ -832,7 +832,7 @@ class _ReviewCard extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(LuntiSpacing.md),
       decoration: BoxDecoration(
-        color: LuntiColors.white,
+        color: context.lunti.surface,
         borderRadius: BorderRadius.circular(LuntiRadii.md),
       ),
       child: Column(
@@ -843,14 +843,14 @@ class _ReviewCard extends StatelessWidget {
               Expanded(
                 child: Text(
                   review.userName,
-                  style: LuntiTextStyles.cardTitle.copyWith(
+                  style: context.lunti.cardTitle.copyWith(
                     fontWeight: FontWeight.w600,
                   ),
                 ),
               ),
               Text(
                 _dateLabel(review.createdAt),
-                style: LuntiTextStyles.caption,
+                style: context.lunti.caption,
               ),
             ],
           ),
@@ -859,17 +859,17 @@ class _ReviewCard extends StatelessWidget {
             children: [
               _Stars(rating: review.rating.toDouble(), size: 14),
               const SizedBox(width: LuntiSpacing.xs),
-              const Icon(
+              Icon(
                 Icons.verified_outlined,
                 size: 13,
-                color: LuntiColors.forest,
+                color: context.lunti.accent,
               ),
               const SizedBox(width: 3),
-              Text('Verified purchase', style: LuntiTextStyles.caption),
+              Text('Verified purchase', style: context.lunti.caption),
             ],
           ),
           const SizedBox(height: LuntiSpacing.xs),
-          Text(review.text, style: LuntiTextStyles.body),
+          Text(review.text, style: context.lunti.body),
         ],
       ),
     );

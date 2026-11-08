@@ -91,7 +91,7 @@ class _SavedAddressesScreenState extends State<SavedAddressesScreen> {
     final saved = await showModalBottomSheet<Map<String, String>>(
       context: context,
       isScrollControlled: true,
-      backgroundColor: LuntiColors.white,
+      backgroundColor: context.lunti.surface,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(LuntiRadii.lg)),
       ),
@@ -123,7 +123,7 @@ class _SavedAddressesScreenState extends State<SavedAddressesScreen> {
     final userId = _userId;
 
     return Scaffold(
-      backgroundColor: LuntiColors.cream,
+      backgroundColor: context.lunti.background,
       body: SafeArea(
         bottom: false,
         child: Column(
@@ -181,11 +181,11 @@ class _SavedAddressesScreenState extends State<SavedAddressesScreen> {
     return ListView(
       padding: const EdgeInsets.all(LuntiSpacing.gutter),
       children: [
-        Text('Saved addresses', style: LuntiTextStyles.display),
+        Text('Saved addresses', style: context.lunti.display),
         const SizedBox(height: LuntiSpacing.xs),
         Text(
           'Your delivery details are filled in automatically at checkout.',
-          style: LuntiTextStyles.body,
+          style: context.lunti.body,
         ),
         const SizedBox(height: LuntiSpacing.md),
         child,
@@ -230,7 +230,7 @@ class _AddressCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(LuntiSpacing.md),
       decoration: BoxDecoration(
-        color: LuntiColors.white,
+        color: context.lunti.surface,
         borderRadius: BorderRadius.circular(LuntiRadii.md),
       ),
       child: Column(
@@ -241,14 +241,14 @@ class _AddressCard extends StatelessWidget {
               Container(
                 width: 36,
                 height: 36,
-                decoration: const BoxDecoration(
-                  color: LuntiColors.sage,
+                decoration: BoxDecoration(
+                  color: context.lunti.surfaceAlt,
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(
+                child: Icon(
                   Icons.home_filled,
                   size: 18,
-                  color: LuntiColors.forest,
+                  color: context.lunti.accent,
                   semanticLabel: 'Delivery address',
                 ),
               ),
@@ -257,10 +257,10 @@ class _AddressCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Home', style: LuntiTextStyles.cardTitle),
+                    Text('Home', style: context.lunti.cardTitle),
                     Text(
                       'Default delivery address',
-                      style: LuntiTextStyles.caption,
+                      style: context.lunti.caption,
                     ),
                   ],
                 ),
@@ -273,20 +273,20 @@ class _AddressCard extends StatelessWidget {
           ),
           const SizedBox(height: LuntiSpacing.sm),
           for (final line in lines) ...[
-            Text(line, style: LuntiTextStyles.body),
+            Text(line, style: context.lunti.body),
             const SizedBox(height: 2),
           ],
           if (phone.isNotEmpty) ...[
             const SizedBox(height: LuntiSpacing.xs),
             Row(
               children: [
-                const Icon(
+                Icon(
                   Icons.phone_outlined,
                   size: 16,
-                  color: LuntiColors.secondary,
+                  color: context.lunti.textFaint,
                 ),
                 const SizedBox(width: 6),
-                Text(phone, style: LuntiTextStyles.body),
+                Text(phone, style: context.lunti.body),
               ],
             ),
           ],
@@ -296,9 +296,9 @@ class _AddressCard extends StatelessWidget {
             icon: const Icon(Icons.edit_outlined, size: 18),
             label: const Text('Edit address'),
             style: OutlinedButton.styleFrom(
-              foregroundColor: LuntiColors.forest,
+              foregroundColor: context.lunti.accent,
               minimumSize: const Size.fromHeight(48),
-              side: const BorderSide(color: LuntiColors.beige),
+              side: BorderSide(color: context.lunti.border),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(LuntiRadii.sm),
               ),
@@ -320,27 +320,27 @@ class _EmptyAddressState extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(LuntiSpacing.lg),
       decoration: BoxDecoration(
-        color: LuntiColors.white,
+        color: context.lunti.surface,
         borderRadius: BorderRadius.circular(LuntiRadii.md),
       ),
       child: Column(
         children: [
-          const Icon(
+          Icon(
             Icons.location_on_outlined,
             size: 40,
-            color: LuntiColors.secondary,
+            color: context.lunti.textFaint,
           ),
           const SizedBox(height: LuntiSpacing.sm),
           Text(
             'No saved address yet',
-            style: LuntiTextStyles.sectionTitle,
+            style: context.lunti.sectionTitle,
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: LuntiSpacing.xs),
           Text(
             'Add your delivery details once and LUNTI will use them at '
             'checkout.',
-            style: LuntiTextStyles.body,
+            style: context.lunti.body,
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: LuntiSpacing.md),
@@ -363,26 +363,26 @@ class _SignedOutState extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(LuntiSpacing.lg),
       decoration: BoxDecoration(
-        color: LuntiColors.white,
+        color: context.lunti.surface,
         borderRadius: BorderRadius.circular(LuntiRadii.md),
       ),
       child: Column(
         children: [
-          const Icon(
+          Icon(
             Icons.lock_outline,
             size: 40,
-            color: LuntiColors.secondary,
+            color: context.lunti.textFaint,
           ),
           const SizedBox(height: LuntiSpacing.sm),
           Text(
             'Sign in to save an address',
-            style: LuntiTextStyles.sectionTitle,
+            style: context.lunti.sectionTitle,
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: LuntiSpacing.xs),
           Text(
             'Your delivery details are stored with your LUNTI account.',
-            style: LuntiTextStyles.body,
+            style: context.lunti.body,
             textAlign: TextAlign.center,
           ),
         ],
@@ -399,7 +399,7 @@ class _AddressLoading extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(LuntiSpacing.md),
       decoration: BoxDecoration(
-        color: LuntiColors.white,
+        color: context.lunti.surface,
         borderRadius: BorderRadius.circular(LuntiRadii.md),
       ),
       child: const LuntiShimmer(
@@ -428,26 +428,26 @@ class _AddressError extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(LuntiSpacing.lg),
       decoration: BoxDecoration(
-        color: LuntiColors.white,
+        color: context.lunti.surface,
         borderRadius: BorderRadius.circular(LuntiRadii.md),
       ),
       child: Column(
         children: [
-          const Icon(
+          Icon(
             Icons.cloud_off_outlined,
             size: 40,
-            color: LuntiColors.secondary,
+            color: context.lunti.textFaint,
           ),
           const SizedBox(height: LuntiSpacing.sm),
           Text(
             'Could not load your address',
-            style: LuntiTextStyles.sectionTitle,
+            style: context.lunti.sectionTitle,
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: LuntiSpacing.xs),
           Text(
             'Check your connection and try again.',
-            style: LuntiTextStyles.body,
+            style: context.lunti.body,
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: LuntiSpacing.md),

@@ -30,7 +30,7 @@ class AuthScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: LuntiColors.cream,
+      backgroundColor: context.lunti.background,
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -48,15 +48,15 @@ class AuthScaffold extends StatelessWidget {
                       alignment: Alignment.centerLeft,
                       child: TextButton.icon(
                         onPressed: onBack,
-                        icon: const Icon(
+                        icon: Icon(
                           Icons.arrow_back,
                           size: 18,
-                          color: LuntiColors.forest,
+                          color: context.lunti.accent,
                         ),
                         label: Text(
                           'Back',
-                          style: LuntiTextStyles.caption.copyWith(
-                            color: LuntiColors.forest,
+                          style: context.lunti.caption.copyWith(
+                            color: context.lunti.accent,
                           ),
                         ),
                       ),
@@ -65,21 +65,21 @@ class AuthScaffold extends StatelessWidget {
                   ],
                   Text(
                     'LUNTI',
-                    style: LuntiTextStyles.display.copyWith(
+                    style: context.lunti.display.copyWith(
                       fontSize: 34,
                       letterSpacing: 1.2,
                     ),
                   ),
                   const SizedBox(height: LuntiSpacing.xs),
-                  const Text(
+                  Text(
                     'Handcrafted bamboo, made personal.',
-                    style: LuntiTextStyles.caption,
+                    style: context.lunti.caption,
                   ),
                   const SizedBox(height: LuntiSpacing.lg),
                   Container(
                     padding: const EdgeInsets.all(LuntiSpacing.lg),
                     decoration: BoxDecoration(
-                      color: LuntiColors.white,
+                      color: context.lunti.surface,
                       borderRadius: BorderRadius.circular(LuntiRadii.lg),
                     ),
                     child: Column(
@@ -87,12 +87,12 @@ class AuthScaffold extends StatelessWidget {
                       children: [
                         Text(
                           title,
-                          style: LuntiTextStyles.sectionTitle.copyWith(
+                          style: context.lunti.sectionTitle.copyWith(
                             fontSize: 24,
                           ),
                         ),
                         const SizedBox(height: 4),
-                        Text(subtitle, style: LuntiTextStyles.body),
+                        Text(subtitle, style: context.lunti.body),
                         const SizedBox(height: LuntiSpacing.md),
                         if (socialActions != null) ...[
                           socialActions!,
@@ -154,37 +154,37 @@ class AuthField extends StatelessWidget {
         textCapitalization: textCapitalization,
         validator: validator,
         onFieldSubmitted: onFieldSubmitted,
-        style: LuntiTextStyles.body.copyWith(
-          color: LuntiColors.ink,
+        style: context.lunti.body.copyWith(
+          color: context.lunti.text,
           fontSize: 13,
         ),
         decoration: InputDecoration(
           labelText: label,
           hintText: hint,
           helperText: helper,
-          helperStyle: LuntiTextStyles.caption,
+          helperStyle: context.lunti.caption,
           filled: true,
-          fillColor: LuntiColors.cream,
-          labelStyle: LuntiTextStyles.body,
-          hintStyle: LuntiTextStyles.caption,
+          fillColor: context.lunti.background,
+          labelStyle: context.lunti.body,
+          hintStyle: context.lunti.caption,
           contentPadding: const EdgeInsets.symmetric(
             horizontal: LuntiSpacing.md,
             vertical: 14,
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(LuntiRadii.sm),
-            borderSide: const BorderSide(color: LuntiColors.beige),
+            borderSide: BorderSide(color: context.lunti.border),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(LuntiRadii.sm),
-            borderSide: const BorderSide(color: LuntiColors.beige),
+            borderSide: BorderSide(color: context.lunti.border),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(LuntiRadii.sm),
-            borderSide: const BorderSide(color: LuntiColors.forest, width: 1.5),
+            borderSide: BorderSide(color: context.lunti.accent, width: 1.5),
           ),
-          errorStyle: LuntiTextStyles.caption.copyWith(
-            color: const Color(0xFF9B3D3D),
+          errorStyle: context.lunti.caption.copyWith(
+            color: context.lunti.warning,
           ),
         ),
       ),
@@ -204,12 +204,12 @@ class AuthErrorBanner extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: LuntiSpacing.sm),
       padding: const EdgeInsets.all(LuntiSpacing.sm),
       decoration: BoxDecoration(
-        color: const Color(0xFFF6E4E1),
+        color: context.lunti.warning.withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(LuntiRadii.sm),
       ),
       child: Text(
         message,
-        style: LuntiTextStyles.caption.copyWith(color: const Color(0xFF7E2F2F)),
+        style: context.lunti.caption.copyWith(color: context.lunti.warning),
       ),
     );
   }
@@ -232,20 +232,20 @@ class AuthPrimaryAction extends StatelessWidget {
     if (loading) {
       return FilledButton(
         style: FilledButton.styleFrom(
-          backgroundColor: LuntiColors.forest,
-          foregroundColor: LuntiColors.white,
+          backgroundColor: context.lunti.accent,
+          foregroundColor: context.lunti.surface,
           minimumSize: const Size.fromHeight(52),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(LuntiRadii.sm),
           ),
         ),
         onPressed: null,
-        child: const SizedBox(
+        child: SizedBox(
           width: 20,
           height: 20,
           child: CircularProgressIndicator(
             strokeWidth: 2,
-            color: LuntiColors.white,
+            color: context.lunti.surface,
           ),
         ),
       );
@@ -276,13 +276,13 @@ class AuthSwitchLink extends StatelessWidget {
       child: Wrap(
         crossAxisAlignment: WrapCrossAlignment.center,
         children: [
-          Text(prompt, style: LuntiTextStyles.caption),
+          Text(prompt, style: context.lunti.caption),
           TextButton(
             onPressed: onTap,
             child: Text(
               actionLabel,
-              style: LuntiTextStyles.cardTitle.copyWith(
-                color: LuntiColors.forest,
+              style: context.lunti.cardTitle.copyWith(
+                color: context.lunti.accent,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -306,15 +306,15 @@ class AuthGoogleButton extends StatelessWidget {
     return showDialog<void>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        backgroundColor: LuntiColors.cream,
-        title: const Text(
+        backgroundColor: context.lunti.background,
+        title: Text(
           'Google Sign-In is not connected yet',
-          style: LuntiTextStyles.sectionTitle,
+          style: context.lunti.sectionTitle,
         ),
-        content: const Text(
+        content: Text(
           'This prototype signs in with email and password. Google Sign-In '
           'needs OAuth client credentials from the project owner.',
-          style: LuntiTextStyles.body,
+          style: context.lunti.body,
         ),
         actions: [
           TextButton(
@@ -330,22 +330,22 @@ class AuthGoogleButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return OutlinedButton.icon(
       onPressed: () => _showNotice(context),
-      icon: const Icon(
+      icon: Icon(
         Icons.g_mobiledata,
         size: 26,
-        color: LuntiColors.forest,
+        color: context.lunti.accent,
       ),
       label: Text(
         'Continue with Google',
-        style: LuntiTextStyles.cardTitle.copyWith(
-          color: LuntiColors.ink,
+        style: context.lunti.cardTitle.copyWith(
+          color: context.lunti.text,
           fontWeight: FontWeight.w600,
         ),
       ),
       style: OutlinedButton.styleFrom(
         minimumSize: const Size.fromHeight(48),
-        backgroundColor: LuntiColors.cream,
-        side: const BorderSide(color: LuntiColors.beige),
+        backgroundColor: context.lunti.background,
+        side: BorderSide(color: context.lunti.border),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(LuntiRadii.sm),
         ),
@@ -367,8 +367,8 @@ class AuthGuestAction extends StatelessWidget {
         onPressed: onTap,
         child: Text(
           'Continue browsing as guest',
-          style: LuntiTextStyles.cardTitle.copyWith(
-            color: LuntiColors.secondary,
+          style: context.lunti.cardTitle.copyWith(
+            color: context.lunti.textFaint,
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -399,20 +399,20 @@ class AuthRequiredCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(LuntiSpacing.lg),
       decoration: BoxDecoration(
-        color: LuntiColors.white,
+        color: context.lunti.surface,
         borderRadius: BorderRadius.circular(LuntiRadii.md),
       ),
       child: Column(
         children: [
-          Icon(icon, size: 40, color: LuntiColors.secondary),
+          Icon(icon, size: 40, color: context.lunti.textFaint),
           const SizedBox(height: LuntiSpacing.sm),
           Text(
             title,
-            style: LuntiTextStyles.sectionTitle.copyWith(fontSize: 20),
+            style: context.lunti.sectionTitle.copyWith(fontSize: 20),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: LuntiSpacing.xs),
-          Text(body, style: LuntiTextStyles.body, textAlign: TextAlign.center),
+          Text(body, style: context.lunti.body, textAlign: TextAlign.center),
           const SizedBox(height: LuntiSpacing.md),
           PrimaryButton(
             label: actionLabel,

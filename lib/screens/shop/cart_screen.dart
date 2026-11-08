@@ -68,7 +68,7 @@ class CartScreen extends StatelessWidget {
       builder: (context, catalog, _) {
         final products = {for (final p in catalog) p.id: p};
         return Scaffold(
-          backgroundColor: LuntiColors.cream,
+          backgroundColor: context.lunti.background,
           body: SafeArea(
             bottom: false,
             child: Column(
@@ -95,7 +95,7 @@ class CartScreen extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           if (hasStockIssue)
-                            const Padding(
+                            Padding(
                               padding: EdgeInsets.only(bottom: LuntiSpacing.xs),
                               child: Text(
                                 'Reduce the highlighted items to continue to '
@@ -105,7 +105,7 @@ class CartScreen extends StatelessWidget {
                                   fontFamily: 'Poppins',
                                   fontSize: 11,
                                   fontWeight: FontWeight.w600,
-                                  color: LuntiColors.warning,
+                                  color: context.lunti.warning,
                                 ),
                               ),
                             ),
@@ -195,9 +195,9 @@ class _CartBody extends StatelessWidget {
               onBagPressed: null,
             ),
             const SizedBox(height: LuntiSpacing.md),
-            const Padding(
+            Padding(
               padding: EdgeInsets.symmetric(horizontal: LuntiSpacing.gutter),
-              child: Text('Your bag', style: LuntiTextStyles.display),
+              child: Text('Your bag', style: context.lunti.display),
             ),
             const SizedBox(height: 4),
             Padding(
@@ -206,7 +206,7 @@ class _CartBody extends StatelessWidget {
               ),
               child: Text(
                 _subtitleFor(itemCount),
-                style: LuntiTextStyles.body,
+                style: context.lunti.body,
               ),
             ),
             const SizedBox(height: LuntiSpacing.md),
@@ -220,7 +220,7 @@ class _CartBody extends StatelessWidget {
                   vertical: lines.isEmpty ? LuntiSpacing.md : 8,
                 ),
                 decoration: BoxDecoration(
-                  color: LuntiColors.white,
+                  color: context.lunti.surface,
                   borderRadius: BorderRadius.circular(LuntiRadii.md),
                 ),
                 child: lines.isEmpty
@@ -238,8 +238,8 @@ class _CartBody extends StatelessWidget {
                         children: [
                           for (var i = 0; i < lines.length; i++) ...[
                             if (i > 0)
-                              const Divider(
-                                color: LuntiColors.beige,
+                              Divider(
+                                color: context.lunti.border,
                                 height: 1,
                               ),
                             _BagLineRow(
@@ -275,26 +275,26 @@ class _CartBody extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    const Expanded(
+                    Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             'Continue shopping',
-                            style: LuntiTextStyles.cardTitle,
+                            style: context.lunti.cardTitle,
                           ),
                           SizedBox(height: 2),
                           Text(
                             'Explore more bamboo crafts',
-                            style: LuntiTextStyles.caption,
+                            style: context.lunti.caption,
                           ),
                         ],
                       ),
                     ),
-                    const Icon(
+                    Icon(
                       Icons.chevron_right,
                       size: 26,
-                      color: LuntiColors.ink,
+                      color: context.lunti.text,
                       semanticLabel: 'Back to the shop',
                     ),
                   ],
@@ -302,11 +302,11 @@ class _CartBody extends StatelessWidget {
               ),
             ),
             const SizedBox(height: LuntiSpacing.sm),
-            const Padding(
+            Padding(
               padding: EdgeInsets.symmetric(horizontal: LuntiSpacing.gutter),
               child: Text(
                 'Prices and order details are illustrative samples.',
-                style: LuntiTextStyles.caption,
+                style: context.lunti.caption,
               ),
             ),
             const SizedBox(height: LuntiSpacing.lg),
@@ -340,7 +340,7 @@ class _BagLineRow extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: LuntiSpacing.md),
           child: Text(
             'Unknown product (${line.productId})',
-            style: LuntiTextStyles.body,
+            style: context.lunti.body,
           ),
         ),
       );
@@ -369,7 +369,7 @@ class _BagLineRow extends StatelessWidget {
                 child: Container(
                   width: 74,
                   height: 64,
-                  decoration: const BoxDecoration(color: LuntiColors.white),
+                  decoration: BoxDecoration(color: context.lunti.surface),
                   child: LuntiProductImage(
                     image: product.image,
                     semanticLabel: product.name,
@@ -381,23 +381,23 @@ class _BagLineRow extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(product.name, style: LuntiTextStyles.cardTitle),
+                    Text(product.name, style: context.lunti.cardTitle),
                     const SizedBox(height: 2),
                     Text(
                       '$styleText \u00B7 Quantity ${line.quantity}',
-                      style: LuntiTextStyles.caption,
+                      style: context.lunti.caption,
                     ),
                     if (engraving.isNotEmpty) ...[
                       const SizedBox(height: 2),
                       Text(
                         'Engraved: "$engraving"',
-                        style: LuntiTextStyles.caption.copyWith(
-                          color: LuntiColors.secondary,
+                        style: context.lunti.caption.copyWith(
+                          color: context.lunti.textFaint,
                         ),
                       ),
                     ],
                     const SizedBox(height: 4),
-                    Text('\u20B1$unitPrice', style: LuntiTextStyles.price),
+                    Text('\u20B1$unitPrice', style: context.lunti.price),
                   ],
                 ),
               ),
@@ -424,9 +424,9 @@ class _BagLineRow extends StatelessWidget {
                       : product.id,
                 ),
                 behavior: HitTestBehavior.opaque,
-                child: const Text(
+                child: Text(
                   'Edit',
-                  style: LuntiTextStyles.body,
+                  style: context.lunti.body,
                 ),
               ),
               const SizedBox(width: LuntiSpacing.lg),
@@ -448,9 +448,9 @@ class _BagLineRow extends StatelessWidget {
                     );
                 },
                 behavior: HitTestBehavior.opaque,
-                child: const Text(
+                child: Text(
                   'Remove',
-                  style: LuntiTextStyles.body,
+                  style: context.lunti.body,
                 ),
               ),
             ],
@@ -479,54 +479,54 @@ class _TotalsCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(LuntiSpacing.md),
       decoration: BoxDecoration(
-        color: LuntiColors.sage,
+        color: context.lunti.surfaceAlt,
         borderRadius: BorderRadius.circular(LuntiRadii.md),
       ),
       child: Column(
         children: [
           Row(
             children: [
-              const Text('Subtotal', style: LuntiTextStyles.body),
+              Text('Subtotal', style: context.lunti.body),
               const Spacer(),
-              Text('\u20B1$subtotal', style: LuntiTextStyles.body),
+              Text('\u20B1$subtotal', style: context.lunti.body),
             ],
           ),
-          const Row(
+          Row(
             children: [
-              Text('Standard shipping', style: LuntiTextStyles.body),
+              Text('Standard shipping', style: context.lunti.body),
               Spacer(),
               Text(
                 'At checkout',
-                style: LuntiTextStyles.body,
+                style: context.lunti.body,
               ),
             ],
           ),
-          const Divider(color: LuntiColors.beige, height: 16),
+          Divider(color: context.lunti.border, height: 16),
           Row(
             children: [
               Expanded(
                 child: Text(
                   'Subtotal \u00B7 $itemCount ${itemCount == 1 ? 'item' : 'items'}',
-                  style: LuntiTextStyles.cardTitle.copyWith(
+                  style: context.lunti.cardTitle.copyWith(
                     fontWeight: FontWeight.w700,
                   ),
                 ),
               ),
               Text(
                 '\u20B1$subtotal',
-                style: LuntiTextStyles.cardTitle.copyWith(
+                style: context.lunti.cardTitle.copyWith(
                   fontWeight: FontWeight.w700,
                 ),
               ),
             ],
           ),
           const SizedBox(height: LuntiSpacing.xs),
-          const Align(
+          Align(
             alignment: Alignment.centerLeft,
             child: Text(
               'Shipping is calculated in checkout. No engraving is included '
               'in this bag.',
-              style: LuntiTextStyles.caption,
+              style: context.lunti.caption,
             ),
           ),
         ],

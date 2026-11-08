@@ -63,7 +63,7 @@ class HomeScreen extends StatelessWidget {
     showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
-      backgroundColor: LuntiColors.cream,
+      backgroundColor: context.lunti.background,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(LuntiRadii.lg)),
       ),
@@ -87,20 +87,20 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: LuntiSpacing.md),
-                const Text(
+                Text(
                   'FROM CARDONA, RIZAL',
-                  style: LuntiTextStyles.eyebrow,
+                  style: context.lunti.eyebrow,
                 ),
                 const SizedBox(height: LuntiSpacing.sm),
                 Text(
                   'Local hands.\nLasting character.',
-                  style: LuntiTextStyles.display,
+                  style: context.lunti.display,
                 ),
                 const SizedBox(height: LuntiSpacing.sm),
-                const Text(
+                Text(
                   'Meet LUNTi handcrafted bamboo by local artisans, with room '
                   'for your own personal touch.',
-                  style: LuntiTextStyles.body,
+                  style: context.lunti.body,
                 ),
                 const SizedBox(height: LuntiSpacing.lg),
                 PrimaryButton(
@@ -153,7 +153,7 @@ class HomeScreen extends StatelessWidget {
     ];
 
     return Scaffold(
-      backgroundColor: LuntiColors.cream,
+      backgroundColor: context.lunti.background,
       body: SafeArea(
         bottom: false,
         child: ListView(
@@ -181,11 +181,11 @@ class HomeScreen extends StatelessWidget {
               child: EyebrowLabel(text: 'Rooted in craft'),
             ),
             const SizedBox(height: LuntiSpacing.sm),
-            const Padding(
+            Padding(
               padding: EdgeInsets.symmetric(horizontal: LuntiSpacing.gutter),
               child: Text(
                 'A little nature.\nA lot of character.',
-                style: LuntiTextStyles.display,
+                style: context.lunti.display,
               ),
             ),
             const SizedBox(height: LuntiSpacing.md),

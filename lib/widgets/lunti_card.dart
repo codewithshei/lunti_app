@@ -49,9 +49,9 @@ class LuntiCard extends StatelessWidget {
       padding: padding,
       clipBehavior: clipBehavior,
       decoration: BoxDecoration(
-        color: color ?? LuntiColors.white,
+        color: color ?? context.lunti.surface,
         borderRadius: BorderRadius.circular(radius),
-        border: Border.all(color: borderColor ?? LuntiColors.beige),
+        border: Border.all(color: borderColor ?? context.lunti.border),
         boxShadow: shadow,
       ),
       child: child,
@@ -81,12 +81,12 @@ class LuntiSummaryRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final style = emphasis
-        ? LuntiTextStyles.price.copyWith(
+        ? context.lunti.price.copyWith(
             fontSize: 14,
-            color: valueColor ?? LuntiColors.ink,
+            color: valueColor ?? context.lunti.text,
           )
-        : LuntiTextStyles.body.copyWith(
-            color: valueColor ?? LuntiColors.ink,
+        : context.lunti.body.copyWith(
+            color: valueColor ?? context.lunti.text,
             fontWeight: emphasis ? FontWeight.w600 : FontWeight.w400,
           );
 
@@ -95,7 +95,7 @@ class LuntiSummaryRow extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(child: Text(label, style: LuntiTextStyles.body)),
+          Expanded(child: Text(label, style: context.lunti.body)),
           const SizedBox(width: LuntiSpacing.sm),
           Text(value, style: style, textAlign: TextAlign.right),
         ],

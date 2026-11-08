@@ -18,15 +18,15 @@ class LuntiSearchField extends StatelessWidget {
         height: 48,
         padding: const EdgeInsets.symmetric(horizontal: LuntiSpacing.md),
         decoration: BoxDecoration(
-          color: LuntiColors.white,
+          color: context.lunti.surface,
           borderRadius: BorderRadius.circular(LuntiRadii.sm),
-          border: Border.all(color: LuntiColors.beige),
+          border: Border.all(color: context.lunti.border),
         ),
         child: Row(
           children: [
-            const Icon(Icons.search, size: 20, color: LuntiColors.secondary),
+            Icon(Icons.search, size: 20, color: context.lunti.textFaint),
             const SizedBox(width: LuntiSpacing.sm),
-            Text(hint, style: LuntiTextStyles.body),
+            Text(hint, style: context.lunti.body),
           ],
         ),
       ),
@@ -54,7 +54,7 @@ class SectionHeader extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Expanded(child: Text(title, style: LuntiTextStyles.sectionTitle)),
+          Expanded(child: Text(title, style: context.lunti.sectionTitle)),
           if (actionLabel != null)
             GestureDetector(
               onTap: onAction,
@@ -66,15 +66,15 @@ class SectionHeader extends StatelessWidget {
                   children: [
                     Text(
                       actionLabel!,
-                      style: LuntiTextStyles.cardTitle.copyWith(
-                        color: LuntiColors.forest,
+                      style: context.lunti.cardTitle.copyWith(
+                        color: context.lunti.accent,
                       ),
                     ),
                     const SizedBox(width: 4),
-                    const Icon(
+                    Icon(
                       Icons.chevron_right,
                       size: 18,
-                      color: LuntiColors.forest,
+                      color: context.lunti.accent,
                     ),
                   ],
                 ),
@@ -88,16 +88,18 @@ class SectionHeader extends StatelessWidget {
 
 /// Small uppercase eyebrow label used above headlines.
 class EyebrowLabel extends StatelessWidget {
-  const EyebrowLabel({super.key, required this.text, this.color = LuntiColors.ink});
+  const EyebrowLabel({super.key, required this.text, this.color});
 
   final String text;
-  final Color color;
+
+  /// Optional override; defaults to the palette's primary text colour.
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
     return Text(
       text.toUpperCase(),
-      style: LuntiTextStyles.eyebrow.copyWith(color: color),
+      style: context.lunti.eyebrow.copyWith(color: color),
     );
   }
 }

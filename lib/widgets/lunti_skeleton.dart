@@ -21,7 +21,7 @@ class SkeletonBox extends StatelessWidget {
       width: width,
       height: height,
       decoration: BoxDecoration(
-        color: const Color(0xFFE4E7DB),
+        color: context.lunti.surfaceAlt,
         borderRadius: BorderRadius.circular(radius),
       ),
     );
@@ -65,10 +65,10 @@ class _LuntiShimmerState extends State<LuntiShimmer>
           shaderCallback: (bounds) => LinearGradient(
             begin: Alignment(position - 1, 0),
             end: Alignment(position + 1, 0),
-            colors: const [
-              Color(0xFFE4E7DB),
-              Color(0xFFF7F8F2),
-              Color(0xFFE4E7DB),
+            colors: [
+              context.lunti.surfaceAlt,
+              context.lunti.surface,
+              context.lunti.surfaceAlt,
             ],
             stops: const [0.25, 0.5, 0.75],
           ).createShader(bounds),
@@ -89,7 +89,7 @@ class ProductCardSkeleton extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: LuntiColors.white,
+        color: context.lunti.surface,
         borderRadius: BorderRadius.circular(LuntiRadii.md),
         boxShadow: const [
           BoxShadow(
@@ -149,7 +149,7 @@ class ProductDetailsSkeleton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: LuntiColors.cream,
+      backgroundColor: context.lunti.background,
       body: SafeArea(
         bottom: false,
         child: ListView(
@@ -228,7 +228,7 @@ class SkeletonListTile extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(LuntiSpacing.md),
       decoration: BoxDecoration(
-        color: LuntiColors.white,
+        color: context.lunti.surface,
         borderRadius: BorderRadius.circular(LuntiRadii.md),
       ),
       child: LuntiShimmer(

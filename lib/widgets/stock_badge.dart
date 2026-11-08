@@ -13,13 +13,13 @@ class OutOfStockBadge extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         decoration: BoxDecoration(
-          color: LuntiColors.ink,
+          color: context.lunti.text,
           borderRadius: BorderRadius.circular(999),
         ),
         child: Text(
           'Out of Stock',
-          style: LuntiTextStyles.caption.copyWith(
-            color: LuntiColors.cream,
+          style: context.lunti.caption.copyWith(
+            color: context.lunti.background,
             fontWeight: FontWeight.w600,
             letterSpacing: 0.4,
           ),
@@ -46,8 +46,8 @@ class StockWarningText extends StatelessWidget {
         : 'Only $available items available in stock';
     return Text(
       text,
-      style: LuntiTextStyles.caption.copyWith(
-        color: LuntiColors.warning,
+      style: context.lunti.caption.copyWith(
+        color: context.lunti.warning,
         fontWeight: FontWeight.w600,
       ),
     );

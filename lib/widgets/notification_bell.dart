@@ -82,15 +82,15 @@ class _BellButton extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.all(3),
               constraints: const BoxConstraints(minWidth: 18),
-              decoration: const BoxDecoration(
-                color: LuntiColors.warning,
+              decoration: BoxDecoration(
+                color: context.lunti.warning,
                 shape: BoxShape.circle,
               ),
               child: Text(
                 count > 9 ? '9+' : '$count',
                 textAlign: TextAlign.center,
-                style: LuntiTextStyles.navLabel.copyWith(
-                  color: LuntiColors.cream,
+                style: context.lunti.navLabel.copyWith(
+                  color: context.lunti.background,
                   fontWeight: FontWeight.w600,
                 ),
               ),

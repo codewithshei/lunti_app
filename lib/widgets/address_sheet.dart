@@ -153,17 +153,17 @@ class AddressSheetState extends State<AddressSheet> {
                   height: 4,
                   margin: const EdgeInsets.only(bottom: LuntiSpacing.md),
                   decoration: BoxDecoration(
-                    color: LuntiColors.beige,
+                    color: context.lunti.border,
                     borderRadius: BorderRadius.circular(2),
                   ),
                 ),
               ),
               Text(
                 widget.title,
-                style: LuntiTextStyles.display.copyWith(fontSize: 22),
+                style: context.lunti.display.copyWith(fontSize: 22),
               ),
               const SizedBox(height: 4),
-              Text(widget.description, style: LuntiTextStyles.body),
+              Text(widget.description, style: context.lunti.body),
               const SizedBox(height: LuntiSpacing.md),
               _AddressField(
                 controller: _street,
@@ -209,8 +209,8 @@ class AddressSheetState extends State<AddressSheet> {
                 Text(
                   'Kept for this session only. Sign in to sync this '
                   'address to your account.',
-                  style: LuntiTextStyles.caption.copyWith(
-                    color: LuntiColors.secondary,
+                  style: context.lunti.caption.copyWith(
+                    color: context.lunti.textFaint,
                   ),
                 ),
               ],
@@ -218,7 +218,7 @@ class AddressSheetState extends State<AddressSheet> {
                 const SizedBox(height: LuntiSpacing.sm),
                 Text(
                   _saveError!,
-                  style: LuntiTextStyles.caption.copyWith(
+                  style: context.lunti.caption.copyWith(
                     color: Colors.red.shade700,
                   ),
                 ),
@@ -259,7 +259,7 @@ class _AddressField extends StatelessWidget {
       controller: controller,
       keyboardType: keyboardType,
       textInputAction: textInputAction,
-      style: LuntiTextStyles.body.copyWith(color: LuntiColors.ink),
+      style: context.lunti.body.copyWith(color: context.lunti.text),
       decoration: InputDecoration(labelText: label),
       validator: validator ??
           (value) {

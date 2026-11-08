@@ -160,7 +160,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     final saved = await showModalBottomSheet<Map<String, String>>(
       context: context,
       isScrollControlled: true,
-      backgroundColor: LuntiColors.white,
+      backgroundColor: context.lunti.surface,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(LuntiRadii.lg)),
       ),
@@ -328,10 +328,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     await showDialog<void>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        backgroundColor: LuntiColors.cream,
-        title: const Text(
+        backgroundColor: context.lunti.background,
+        title: Text(
           'Not enough stock',
-          style: LuntiTextStyles.sectionTitle,
+          style: context.lunti.sectionTitle,
         ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
@@ -342,14 +342,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 padding: const EdgeInsets.only(bottom: LuntiSpacing.xs),
                 child: Text(
                   '\u2022 ${conflict.message}',
-                  style: LuntiTextStyles.body,
+                  style: context.lunti.body,
                 ),
               ),
             const SizedBox(height: LuntiSpacing.xs),
             Text(
               'Adjust the highlighted items in your bag, then try again. '
               'Nothing was charged.',
-              style: LuntiTextStyles.caption,
+              style: context.lunti.caption,
             ),
           ],
         ),
@@ -366,7 +366,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: LuntiColors.cream,
+      backgroundColor: context.lunti.background,
       body: SafeArea(
         bottom: false,
         child: ValueListenableBuilder<List<SampleProduct>>(
@@ -403,7 +403,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           if (hasStockIssue)
-                            const Padding(
+                            Padding(
                               padding: EdgeInsets.only(bottom: LuntiSpacing.xs),
                               child: Text(
                                 'Reduce the highlighted items to place your '
@@ -413,7 +413,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                   fontFamily: 'Poppins',
                                   fontSize: 11,
                                   fontWeight: FontWeight.w600,
-                                  color: LuntiColors.warning,
+                                  color: context.lunti.warning,
                                 ),
                               ),
                             ),
@@ -477,19 +477,19 @@ class _CheckoutBody extends StatelessWidget {
           showBadge: false,
         ),
         const SizedBox(height: LuntiSpacing.md),
-        const Padding(
+        Padding(
           padding: EdgeInsets.symmetric(horizontal: LuntiSpacing.gutter),
           child: Text(
             'A few final details',
-            style: LuntiTextStyles.display,
+            style: context.lunti.display,
           ),
         ),
         const SizedBox(height: 4),
-        const Padding(
+        Padding(
           padding: EdgeInsets.symmetric(horizontal: LuntiSpacing.gutter),
           child: Text(
             'Delivery \u2192 Payment \u2192 Review',
-            style: LuntiTextStyles.body,
+            style: context.lunti.body,
           ),
         ),
         const SizedBox(height: LuntiSpacing.md),
@@ -503,16 +503,16 @@ class _CheckoutBody extends StatelessWidget {
           ),
         ),
         const SizedBox(height: LuntiSpacing.md),
-        const Padding(
+        Padding(
           padding: EdgeInsets.symmetric(horizontal: LuntiSpacing.gutter),
-          child: Text('Delivery', style: LuntiTextStyles.sectionTitle),
+          child: Text('Delivery', style: context.lunti.sectionTitle),
         ),
         const SizedBox(height: LuntiSpacing.sm),
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: LuntiSpacing.gutter),
           child: _ShippingChoice(),
         ),
-        const Padding(
+        Padding(
           padding: EdgeInsets.fromLTRB(
             LuntiSpacing.gutter,
             LuntiSpacing.xs,
@@ -522,7 +522,7 @@ class _CheckoutBody extends StatelessWidget {
           child: Text(
             'Illustrative shipping fee. Delivery timing is confirmed '
             'separately.',
-            style: LuntiTextStyles.caption,
+            style: context.lunti.caption,
           ),
         ),
         const SizedBox(height: LuntiSpacing.md),
@@ -539,15 +539,15 @@ class _CheckoutBody extends StatelessWidget {
           child: Text(
             'Your order \u00B7 ${totals.itemCount} '
             '${totals.itemCount == 1 ? 'item' : 'items'}',
-            style: LuntiTextStyles.sectionTitle,
+            style: context.lunti.sectionTitle,
           ),
         ),
         const SizedBox(height: LuntiSpacing.sm),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: LuntiSpacing.gutter),
           child: lines.isEmpty
-              ? const Text('Your bag is empty.', style: LuntiTextStyles.body)
-              : _orderCard(),
+              ? Text('Your bag is empty.', style: context.lunti.body)
+              : _orderCard(context),
         ),
         const SizedBox(height: LuntiSpacing.md),
         Padding(
@@ -555,20 +555,20 @@ class _CheckoutBody extends StatelessWidget {
           child: _TotalsCard(totals: totals),
         ),
         const SizedBox(height: LuntiSpacing.md),
-        const Padding(
+        Padding(
           padding: EdgeInsets.symmetric(horizontal: LuntiSpacing.gutter),
           child: Text(
             'By placing your order, you agree to the Terms and Privacy '
             'Policy. Please review your address, items and total before '
             'continuing.',
-            style: LuntiTextStyles.body,
+            style: context.lunti.body,
           ),
         ),
         const SizedBox(height: LuntiSpacing.md),
         GestureDetector(
           onTap: onOrderHelp,
           behavior: HitTestBehavior.opaque,
-          child: const Padding(
+          child: Padding(
             padding: EdgeInsets.symmetric(horizontal: LuntiSpacing.gutter),
             child: Row(
               children: [
@@ -577,7 +577,7 @@ class _CheckoutBody extends StatelessWidget {
                   child: Icon(
                     Icons.mode_comment_outlined,
                     size: 22,
-                    color: LuntiColors.ink,
+                    color: context.lunti.text,
                     semanticLabel: 'Need help with your order?',
                   ),
                 ),
@@ -587,12 +587,12 @@ class _CheckoutBody extends StatelessWidget {
                     children: [
                       Text(
                         'Need help with your order?',
-                        style: LuntiTextStyles.cardTitle,
+                        style: context.lunti.cardTitle,
                       ),
                       SizedBox(height: 2),
                       Text(
                         'Contact LUNTI before placing your order',
-                        style: LuntiTextStyles.caption,
+                        style: context.lunti.caption,
                       ),
                     ],
                   ),
@@ -600,7 +600,7 @@ class _CheckoutBody extends StatelessWidget {
                 Icon(
                   Icons.chevron_right,
                   size: 26,
-                  color: LuntiColors.ink,
+                  color: context.lunti.text,
                   semanticLabel: 'Order help',
                 ),
               ],
@@ -616,7 +616,7 @@ class _CheckoutBody extends StatelessWidget {
   ///
   /// Quantities are aggregated per product (Natural + Engraved lines count
   /// together) so the warning matches what the transactional stock check uses.
-  Widget _orderCard() {
+  Widget _orderCard(BuildContext context) {
     final requested = StockService.requestedQuantities(lines);
     final warnedProducts = <String>{};
     final rows = <Widget>[];
@@ -633,7 +633,7 @@ class _CheckoutBody extends StatelessWidget {
           overStock && warnedProducts.add(line.productId);
 
       if (i > 0) {
-        rows.add(const Divider(color: LuntiColors.beige, height: 1));
+        rows.add(Divider(color: context.lunti.border, height: 1));
       }
       rows.add(
         _OrderLineRow(
@@ -647,7 +647,7 @@ class _CheckoutBody extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: LuntiSpacing.md),
       decoration: BoxDecoration(
-        color: LuntiColors.white,
+        color: context.lunti.surface,
         borderRadius: BorderRadius.circular(LuntiRadii.md),
       ),
       child: Column(children: rows),
@@ -684,7 +684,7 @@ class _AddressCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(LuntiSpacing.md),
       decoration: BoxDecoration(
-        color: LuntiColors.white,
+        color: context.lunti.surface,
         borderRadius: BorderRadius.circular(LuntiRadii.md),
       ),
       child: Column(
@@ -692,7 +692,7 @@ class _AddressCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              const Text('Deliver to', style: LuntiTextStyles.cardTitle),
+              Text('Deliver to', style: context.lunti.cardTitle),
               const Spacer(),
               _OutlinedPill(label: 'Edit', onTap: onChange),
             ],
@@ -707,25 +707,25 @@ class _AddressCard extends StatelessWidget {
             )
           else if (error != null)
             Text('Error loading address: $error',
-                style: LuntiTextStyles.caption.copyWith(color: Colors.red))
+                style: context.lunti.caption.copyWith(color: Colors.red))
           else if (address['street']?.toString().trim().isEmpty == true)
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   children: [
-                    const Icon(Icons.home_filled, size: 20, color: LuntiColors.forest),
+                    Icon(Icons.home_filled, size: 20, color: context.lunti.accent),
                     const SizedBox(width: LuntiSpacing.sm),
                     Text('No saved address',
-                        style: LuntiTextStyles.body.copyWith(
-                          color: LuntiColors.mutedForeground,
+                        style: context.lunti.body.copyWith(
+                          color: context.lunti.textFaint,
                         )),
                   ],
                 ),
                 const SizedBox(height: 4),
                 Text('Tap Edit to add your delivery address',
-                    style: LuntiTextStyles.caption.copyWith(
-                      color: LuntiColors.mutedForeground,
+                    style: context.lunti.caption.copyWith(
+                      color: context.lunti.textFaint,
                     )),
               ],
             )
@@ -735,19 +735,19 @@ class _AddressCard extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    const Icon(Icons.home_filled,
-                        size: 20, color: LuntiColors.forest),
+                    Icon(Icons.home_filled,
+                        size: 20, color: context.lunti.accent),
                     const SizedBox(width: LuntiSpacing.sm),
                     Text('Home',
-                        style: LuntiTextStyles.cardTitle.copyWith(
+                        style: context.lunti.cardTitle.copyWith(
                           fontSize: 15,
                         )),
                   ],
                 ),
                 const SizedBox(height: 4),
-                Text(_fullAddress, style: LuntiTextStyles.body),
+                Text(_fullAddress, style: context.lunti.body),
                 if (address['phone']?.toString().trim().isNotEmpty == true)
-                  Text(address['phone']!, style: LuntiTextStyles.caption),
+                  Text(address['phone']!, style: context.lunti.caption),
               ],
             ),
         ],
@@ -765,8 +765,8 @@ class _OutlinedPill extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: LuntiColors.white,
-      shape: const StadiumBorder(side: BorderSide(color: LuntiColors.beige)),
+      color: context.lunti.surface,
+      shape: StadiumBorder(side: BorderSide(color: context.lunti.border)),
       child: InkWell(
         customBorder: const StadiumBorder(),
         onTap: onTap,
@@ -774,7 +774,7 @@ class _OutlinedPill extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
           child: Text(
             label,
-            style: LuntiTextStyles.cardTitle.copyWith(
+            style: context.lunti.cardTitle.copyWith(
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -793,10 +793,10 @@ class _ShippingChoice extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: LuntiColors.sage,
+      color: context.lunti.surfaceAlt,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(LuntiRadii.sm),
-        side: const BorderSide(color: LuntiColors.ink, width: 1.5),
+        side: BorderSide(color: context.lunti.text, width: 1.5),
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(
@@ -805,18 +805,18 @@ class _ShippingChoice extends StatelessWidget {
         ),
         child: Row(
           children: [
-            const Expanded(
+            Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     'Standard shipping \u00B7 \u20B180',
-                    style: LuntiTextStyles.cardTitle,
+                    style: context.lunti.cardTitle,
                   ),
                   SizedBox(height: 2),
                   Text(
                     'To your selected home address',
-                    style: LuntiTextStyles.body,
+                    style: context.lunti.body,
                   ),
                 ],
               ),
@@ -825,19 +825,19 @@ class _ShippingChoice extends StatelessWidget {
             Container(
               width: 22,
               height: 22,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: LuntiColors.forest,
+                color: context.lunti.accent,
                 border: Border.fromBorderSide(
-                  BorderSide(color: LuntiColors.forest, width: 2),
+                  BorderSide(color: context.lunti.accent, width: 2),
                 ),
               ),
               child: Center(
                 child: Container(
                   width: 8,
                   height: 8,
-                  decoration: const BoxDecoration(
-                    color: LuntiColors.sage,
+                  decoration: BoxDecoration(
+                    color: context.lunti.surfaceAlt,
                     shape: BoxShape.circle,
                   ),
                 ),
@@ -865,19 +865,19 @@ class _PaymentCard extends StatelessWidget {
         LuntiSpacing.sm,
       ),
       decoration: BoxDecoration(
-        color: LuntiColors.white,
+        color: context.lunti.surface,
         borderRadius: BorderRadius.circular(LuntiRadii.md),
       ),
       child: Column(
         children: [
           Row(
             children: [
-              const Padding(
+              Padding(
                 padding: EdgeInsets.only(right: LuntiSpacing.sm),
                 child: Icon(
                   Icons.account_balance_wallet_outlined,
                   size: 22,
-                  color: LuntiColors.ink,
+                  color: context.lunti.text,
                   semanticLabel: 'Payment method',
                 ),
               ),
@@ -897,7 +897,7 @@ class _PaymentCard extends StatelessWidget {
                             children: [
                               Text(
                                 'Payment \u00B7 ${method.shortLabel}',
-                                style: LuntiTextStyles.cardTitle,
+                                style: context.lunti.cardTitle,
                               ),
                               PaymentMethodBadge(method: method),
                             ],
@@ -909,7 +909,7 @@ class _PaymentCard extends StatelessWidget {
                             behavior: HitTestBehavior.opaque,
                             child: Text(
                               'Selected payment method \u00B7 Change',
-                              style: LuntiTextStyles.body,
+                              style: context.lunti.body,
                             ),
                           ),
                         ],
@@ -922,12 +922,12 @@ class _PaymentCard extends StatelessWidget {
                 key: const Key('paymentChangeChevron'),
                 onTap: onChange,
                 behavior: HitTestBehavior.opaque,
-                child: const Padding(
+                child: Padding(
                   padding: EdgeInsets.all(6),
                   child: Icon(
                     Icons.chevron_right,
                     size: 26,
-                    color: LuntiColors.ink,
+                    color: context.lunti.text,
                     semanticLabel: 'Change payment method',
                   ),
                 ),
@@ -941,7 +941,7 @@ class _PaymentCard extends StatelessWidget {
               valueListenable: MockAppState.paymentMethod,
               builder: (context, method, _) => Text(
                 method.checkoutNote,
-                style: LuntiTextStyles.caption,
+                style: context.lunti.caption,
               ),
             ),
           ),
@@ -973,7 +973,7 @@ class _OrderLineRow extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: LuntiSpacing.sm),
         child: Text(
           'Unknown product (${line.productId})',
-          style: LuntiTextStyles.caption,
+          style: context.lunti.caption,
         ),
       );
     }
@@ -989,7 +989,7 @@ class _OrderLineRow extends StatelessWidget {
             width: 64,
             height: 56,
             decoration: BoxDecoration(
-              color: LuntiColors.white,
+              color: context.lunti.surface,
               borderRadius: BorderRadius.circular(LuntiRadii.sm),
             ),
             child: LuntiProductImage(
@@ -1002,11 +1002,11 @@ class _OrderLineRow extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(product.name, style: LuntiTextStyles.cardTitle),
+                Text(product.name, style: context.lunti.cardTitle),
                 const SizedBox(height: 2),
                 Text(
                   '$styleText \u00B7 Quantity ${line.quantity}',
-                  style: LuntiTextStyles.caption,
+                  style: context.lunti.caption,
                 ),
                 if (line.engravingText != null &&
                     line.engravingText!.isNotEmpty &&
@@ -1014,8 +1014,8 @@ class _OrderLineRow extends StatelessWidget {
                   const SizedBox(height: 2),
                   Text(
                     'Engraved: "${line.engravingText}"',
-                    style: LuntiTextStyles.caption.copyWith(
-                      color: LuntiColors.secondary,
+                    style: context.lunti.caption.copyWith(
+                      color: context.lunti.textFaint,
                     ),
                   ),
                 ],
@@ -1027,7 +1027,7 @@ class _OrderLineRow extends StatelessWidget {
             ),
           ),
           const SizedBox(width: LuntiSpacing.sm),
-          Text('\u20B1$unitPrice', style: LuntiTextStyles.price),
+          Text('\u20B1$unitPrice', style: context.lunti.price),
         ],
       ),
     );
@@ -1044,38 +1044,38 @@ class _TotalsCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(LuntiSpacing.md),
       decoration: BoxDecoration(
-        color: LuntiColors.sage,
+        color: context.lunti.surfaceAlt,
         borderRadius: BorderRadius.circular(LuntiRadii.md),
       ),
       child: Column(
         children: [
           Row(
             children: [
-              const Text('Subtotal', style: LuntiTextStyles.body),
+              Text('Subtotal', style: context.lunti.body),
               const Spacer(),
-              Text('\u20B1${totals.subtotal}', style: LuntiTextStyles.body),
+              Text('\u20B1${totals.subtotal}', style: context.lunti.body),
             ],
           ),
           const SizedBox(height: LuntiSpacing.xs),
           Row(
             children: [
-              const Text('Standard shipping', style: LuntiTextStyles.body),
+              Text('Standard shipping', style: context.lunti.body),
               const Spacer(),
               Text(
                 '\u20B1${totals.shippingFeePeso}',
-                style: LuntiTextStyles.body,
+                style: context.lunti.body,
               ),
             ],
           ),
           const SizedBox(height: LuntiSpacing.xs),
           Row(
             children: [
-              const Expanded(
-                child: Text('Total', style: LuntiTextStyles.cardTitle),
+              Expanded(
+                child: Text('Total', style: context.lunti.cardTitle),
               ),
               Text(
                 '\u20B1${totals.total}',
-                style: LuntiTextStyles.cardTitle.copyWith(
+                style: context.lunti.cardTitle.copyWith(
                   fontWeight: FontWeight.w700,
                   fontSize: 15,
                 ),

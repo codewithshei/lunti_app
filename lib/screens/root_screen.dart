@@ -213,7 +213,7 @@ class _RootScreenState extends State<RootScreen> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text('$action is not available in this prototype yet.'),
-        backgroundColor: LuntiColors.forest,
+        backgroundColor: context.lunti.accent,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(LuntiRadii.sm),
@@ -382,7 +382,7 @@ class _RootScreenState extends State<RootScreen> {
         _handleSystemBack();
       },
       child: Scaffold(
-        backgroundColor: LuntiColors.cream,
+        backgroundColor: context.lunti.background,
         body: switch (_tab) {
           LuntiTab.home => HomeScreen(
             onPrototypeAction: _onPrototypeAction,

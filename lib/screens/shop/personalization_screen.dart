@@ -131,7 +131,7 @@ class _PersonalizationScreenState extends State<PersonalizationScreen> {
     final text = _engravingController.text.trim();
 
     return Scaffold(
-      backgroundColor: LuntiColors.cream,
+      backgroundColor: context.lunti.background,
       body: SafeArea(
         bottom: false,
         child: ListenableBuilder(
@@ -158,19 +158,19 @@ class _PersonalizationScreenState extends State<PersonalizationScreen> {
                   onBagPressed: () => Navigator.of(context).pushNamed('/bag'),
                 ),
                 const SizedBox(height: LuntiSpacing.md),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.symmetric(horizontal: LuntiSpacing.gutter),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         'Make it yours',
-                        style: LuntiTextStyles.display,
+                        style: context.lunti.display,
                       ),
                       SizedBox(height: 4),
                       Text(
                         'A personal touch, shaped in bamboo.',
-                        style: LuntiTextStyles.body,
+                        style: context.lunti.body,
                       ),
                     ],
                   ),
@@ -183,7 +183,7 @@ class _PersonalizationScreenState extends State<PersonalizationScreen> {
                     children: [
                       Container(
                         decoration: BoxDecoration(
-                          color: LuntiColors.white,
+                          color: context.lunti.surface,
                           borderRadius: BorderRadius.circular(LuntiRadii.lg),
                         ),
                         clipBehavior: Clip.antiAlias,
@@ -215,29 +215,29 @@ class _PersonalizationScreenState extends State<PersonalizationScreen> {
                     children: [
                       Text(
                         _product.name,
-                        style: LuntiTextStyles.sectionTitle.copyWith(
+                        style: context.lunti.sectionTitle.copyWith(
                           fontSize: 24,
                         ),
                       ),
                       const SizedBox(height: 2),
                       Text(
                         '\u20B1$_engravedPrice',
-                        style: LuntiTextStyles.sectionTitle.copyWith(
+                        style: context.lunti.sectionTitle.copyWith(
                           fontSize: 20,
                           fontWeight: FontWeight.w700,
-                          color: LuntiColors.ink,
+                          color: context.lunti.text,
                         ),
                       ),
                       const SizedBox(height: LuntiSpacing.xs),
                       Text(
                         'Original product photo \u00B7 natural grain shown. '
                         'Engraving is not previewed on this image.',
-                        style: LuntiTextStyles.caption.copyWith(
-                          color: LuntiColors.secondary,
+                        style: context.lunti.caption.copyWith(
+                          color: context.lunti.textFaint,
                         ),
                       ),
                       const SizedBox(height: LuntiSpacing.lg),
-                      const Text('Style', style: LuntiTextStyles.cardTitle),
+                      Text('Style', style: context.lunti.cardTitle),
                       const SizedBox(height: LuntiSpacing.sm),
                       Row(
                         children: [
@@ -259,9 +259,9 @@ class _PersonalizationScreenState extends State<PersonalizationScreen> {
                         ],
                       ),
                       const SizedBox(height: LuntiSpacing.lg),
-                      const Text(
+                      Text(
                         'Name or short message',
-                        style: LuntiTextStyles.cardTitle,
+                        style: context.lunti.cardTitle,
                       ),
                       const SizedBox(height: LuntiSpacing.xs),
                       _EngravingField(
@@ -280,8 +280,8 @@ class _PersonalizationScreenState extends State<PersonalizationScreen> {
                                       'to your bag.'
                                   : 'Enter the text to engrave before adding '
                                       'to your bag.',
-                              style: LuntiTextStyles.caption.copyWith(
-                                color: LuntiColors.secondary,
+                              style: context.lunti.caption.copyWith(
+                                color: context.lunti.textFaint,
                               ),
                             ),
                           ),
@@ -289,14 +289,14 @@ class _PersonalizationScreenState extends State<PersonalizationScreen> {
                           Text(
                             '${_engravingController.text.length}/'
                             '$_maxEngravingLength',
-                            style: LuntiTextStyles.caption.copyWith(
-                              color: LuntiColors.secondary,
+                            style: context.lunti.caption.copyWith(
+                              color: context.lunti.textFaint,
                             ),
                           ),
                         ],
                       ),
                       const SizedBox(height: LuntiSpacing.lg),
-                      Text('Quantity', style: LuntiTextStyles.cardTitle),
+                      Text('Quantity', style: context.lunti.cardTitle),
                       const SizedBox(height: LuntiSpacing.sm),
                       QuantityStepper(
                         value: quantity,
@@ -352,22 +352,22 @@ class _EngravingField extends StatelessWidget {
       height: 48,
       padding: const EdgeInsets.symmetric(horizontal: LuntiSpacing.md),
       decoration: BoxDecoration(
-        color: LuntiColors.white,
+        color: context.lunti.surface,
         borderRadius: BorderRadius.circular(LuntiRadii.sm),
-        border: Border.all(color: LuntiColors.beige),
+        border: Border.all(color: context.lunti.border),
       ),
       alignment: Alignment.centerLeft,
       child: TextField(
         controller: controller,
         maxLength: maxLength,
-        style: LuntiTextStyles.body.copyWith(color: LuntiColors.ink),
+        style: context.lunti.body.copyWith(color: context.lunti.text),
         textCapitalization: TextCapitalization.words,
-        decoration: const InputDecoration(
+        decoration: InputDecoration(
           isCollapsed: true,
           border: InputBorder.none,
           counterText: '',
           hintText: 'e.g. A name or short message',
-          hintStyle: LuntiTextStyles.caption,
+          hintStyle: context.lunti.caption,
         ),
       ),
     );
@@ -383,21 +383,21 @@ class _PersonalNoteCard extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(LuntiSpacing.md),
       decoration: BoxDecoration(
-        color: LuntiColors.sage,
+        color: context.lunti.surfaceAlt,
         borderRadius: BorderRadius.circular(LuntiRadii.lg),
       ),
-      child: const Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             'A note on your personal piece',
-            style: LuntiTextStyles.cardTitle,
+            style: context.lunti.cardTitle,
           ),
           SizedBox(height: LuntiSpacing.xs),
           Text(
             'Engraving is finished by hand, so placement and depth can vary '
             'slightly from piece to piece.',
-            style: LuntiTextStyles.body,
+            style: context.lunti.body,
           ),
         ],
       ),

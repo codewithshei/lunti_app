@@ -78,21 +78,21 @@ class ProductCard extends StatelessWidget {
             const SizedBox(height: 10),
             Text(
               product.name,
-              style: LuntiTextStyles.cardTitle,
+              style: context.lunti.cardTitle,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
             const SizedBox(height: 2),
             Text(
               product.priceLabel,
-              style: LuntiTextStyles.price,
+              style: context.lunti.price,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
             const SizedBox(height: 2),
             Text(
               product.note,
-              style: LuntiTextStyles.caption,
+              style: context.lunti.caption,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
@@ -141,21 +141,21 @@ class CatalogProductCard extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               product.name,
-              style: LuntiTextStyles.cardTitle,
+              style: context.lunti.cardTitle,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
             const SizedBox(height: 2),
             Text(
               product.priceLabel,
-              style: LuntiTextStyles.price,
+              style: context.lunti.price,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
             const SizedBox(height: 2),
             Text(
               'Bamboo craft',
-              style: LuntiTextStyles.caption,
+              style: context.lunti.caption,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
@@ -200,7 +200,7 @@ class _ProductPhoto extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(LuntiRadii.sm),
               child: Container(
-                color: LuntiColors.cream,
+                color: context.lunti.background,
                 padding: const EdgeInsets.all(6),
                 child: image,
               ),
@@ -270,7 +270,7 @@ class _WishlistHeart extends StatelessWidget {
         child: Icon(
           isWishlisted ? Icons.favorite_rounded : Icons.favorite_border_rounded,
           size: 18,
-          color: isWishlisted ? LuntiColors.forest : LuntiColors.ink,
+          color: isWishlisted ? context.lunti.accent : context.lunti.text,
           semanticLabel: isWishlisted
               ? 'Remove ${product.name} from wishlist'
               : 'Add ${product.name} to wishlist',
@@ -311,16 +311,16 @@ class _RatingBadge extends StatelessWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Icon(
+                Icon(
                   Icons.star_rounded,
                   size: 13,
-                  color: Color(0xFFC58A2B),
+                  color: context.lunti.rating,
                 ),
                 const SizedBox(width: 2),
                 Text(
                   summary.averageLabel,
-                  style: LuntiTextStyles.caption.copyWith(
-                    color: LuntiColors.ink,
+                  style: context.lunti.caption.copyWith(
+                    color: context.lunti.text,
                     fontWeight: FontWeight.w600,
                   ),
                 ),

@@ -35,7 +35,7 @@ class OrderHistoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: LuntiColors.cream,
+      backgroundColor: context.lunti.background,
       body: SafeArea(
         bottom: false,
         child: Column(
@@ -95,11 +95,11 @@ class OrderHistoryScreen extends StatelessWidget {
       return ListView(
         padding: const EdgeInsets.all(LuntiSpacing.gutter),
         children: [
-          Text('Order history', style: LuntiTextStyles.display),
+          Text('Order history', style: context.lunti.display),
           const SizedBox(height: LuntiSpacing.xs),
           Text(
             'Track each order from workshop to doorstep.',
-            style: LuntiTextStyles.body,
+            style: context.lunti.body,
           ),
           const SizedBox(height: LuntiSpacing.lg),
           AuthRequiredCard(
@@ -197,11 +197,11 @@ class _OrderList extends StatelessWidget {
       return ListView(
         padding: const EdgeInsets.all(LuntiSpacing.gutter),
         children: [
-          Text('Order history', style: LuntiTextStyles.display),
+          Text('Order history', style: context.lunti.display),
           const SizedBox(height: LuntiSpacing.xs),
           Text(
             'Every order you place with LUNTI will appear here.',
-            style: LuntiTextStyles.body,
+            style: context.lunti.body,
           ),
           if (notice != null) ...[
             const SizedBox(height: LuntiSpacing.sm),
@@ -223,11 +223,11 @@ class _OrderList extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.all(LuntiSpacing.gutter),
       children: [
-        Text('Order history', style: LuntiTextStyles.display),
+        Text('Order history', style: context.lunti.display),
         const SizedBox(height: LuntiSpacing.xs),
         Text(
           'Track each order from workshop to doorstep.',
-          style: LuntiTextStyles.body,
+          style: context.lunti.body,
         ),
         if (notice != null) ...[
           const SizedBox(height: LuntiSpacing.sm),
@@ -254,7 +254,7 @@ class _OrderCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: LuntiColors.white,
+      color: context.lunti.surface,
       borderRadius: BorderRadius.circular(LuntiRadii.md),
       child: InkWell(
         borderRadius: BorderRadius.circular(LuntiRadii.md),
@@ -267,16 +267,16 @@ class _OrderCard extends StatelessWidget {
               Row(
                 children: [
                   Expanded(
-                    child: Text(order.id, style: LuntiTextStyles.cardTitle),
+                    child: Text(order.id, style: context.lunti.cardTitle),
                   ),
                   OrderStatusPill(status: order.status),
                 ],
               ),
               const SizedBox(height: 4),
               Text(formatOrderDate(order.createdAt),
-                  style: LuntiTextStyles.caption),
+                  style: context.lunti.caption),
               const SizedBox(height: LuntiSpacing.sm),
-              const Divider(color: LuntiColors.beige, height: 1),
+              Divider(color: context.lunti.border, height: 1),
               const SizedBox(height: LuntiSpacing.sm),
               Row(
                 children: [
@@ -286,12 +286,12 @@ class _OrderCard extends StatelessWidget {
                       children: [
                         Text(
                           '${order.itemCount} item(s)',
-                          style: LuntiTextStyles.body,
+                          style: context.lunti.body,
                         ),
                         const SizedBox(height: 2),
                         Text(
                           '\u20B1${order.total}',
-                          style: LuntiTextStyles.price,
+                          style: context.lunti.price,
                         ),
                         const SizedBox(height: 4),
                         PaymentStatusBadge(
@@ -303,15 +303,15 @@ class _OrderCard extends StatelessWidget {
                   ),
                   Text(
                     'View details',
-                    style: LuntiTextStyles.caption.copyWith(
-                      color: LuntiColors.forest,
+                    style: context.lunti.caption.copyWith(
+                      color: context.lunti.accent,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  const Icon(
+                  Icon(
                     Icons.chevron_right,
                     size: 20,
-                    color: LuntiColors.forest,
+                    color: context.lunti.accent,
                   ),
                 ],
               ),
@@ -333,19 +333,19 @@ class _NoticeBanner extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(LuntiSpacing.sm),
       decoration: BoxDecoration(
-        color: LuntiColors.sage,
+        color: context.lunti.surfaceAlt,
         borderRadius: BorderRadius.circular(LuntiRadii.sm),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Icon(
+          Icon(
             Icons.info_outline,
             size: 16,
-            color: LuntiColors.secondary,
+            color: context.lunti.textFaint,
           ),
           const SizedBox(width: 6),
-          Expanded(child: Text(message, style: LuntiTextStyles.caption)),
+          Expanded(child: Text(message, style: context.lunti.caption)),
         ],
       ),
     );

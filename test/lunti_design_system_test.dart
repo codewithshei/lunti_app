@@ -21,7 +21,7 @@ void main() {
           .widget<Container>(find.byType(Container).first)
           .decoration! as BoxDecoration;
 
-      expect(decoration.color, LuntiColors.white);
+      expect(decoration.color, LuntiPalette.light.surface);
       expect(decoration.borderRadius, BorderRadius.circular(LuntiRadii.md));
       expect(decoration.border, isA<Border>());
       expect(decoration.boxShadow, LuntiShadows.card);
@@ -162,8 +162,8 @@ void main() {
       // WCAG AA at 11-12px needs a darker tone than the brand grey when the
       // text sits on the sage tint.
       expect(
-        LuntiColors.secondaryText.computeLuminance(),
-        lessThan(LuntiColors.secondary.computeLuminance()),
+        LuntiPalette.light.textMuted.computeLuminance(),
+        lessThan(LuntiPalette.light.textFaint.computeLuminance()),
       );
     });
 

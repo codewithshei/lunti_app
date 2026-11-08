@@ -69,14 +69,14 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        backgroundColor: LuntiColors.cream,
-        title: const Text(
+        backgroundColor: context.lunti.background,
+        title: Text(
           'Cancel this order?',
-          style: LuntiTextStyles.sectionTitle,
+          style: context.lunti.sectionTitle,
         ),
         content: Text(
           'Are you sure you want to cancel Order ${_order.id}?',
-          style: LuntiTextStyles.body,
+          style: context.lunti.body,
         ),
         actions: [
           TextButton(
@@ -119,7 +119,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
   Widget build(BuildContext context) {
     final order = _order;
     return Scaffold(
-      backgroundColor: LuntiColors.cream,
+      backgroundColor: context.lunti.background,
       body: SafeArea(
         bottom: false,
         child: Column(
@@ -140,14 +140,14 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                   return ListView(
                     padding: const EdgeInsets.all(LuntiSpacing.gutter),
                     children: [
-                      Text('Order details', style: LuntiTextStyles.display),
+                      Text('Order details', style: context.lunti.display),
                       const SizedBox(height: LuntiSpacing.xs),
                       Row(
                         children: [
                           Expanded(
                             child: Text(
                               order.id,
-                              style: LuntiTextStyles.caption,
+                              style: context.lunti.caption,
                             ),
                           ),
                           OrderStatusPill(status: order.status),
@@ -156,7 +156,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                       const SizedBox(height: 4),
                       Text(
                         formatOrderDate(order.createdAt),
-                        style: LuntiTextStyles.caption,
+                        style: context.lunti.caption,
                       ),
                       const SizedBox(height: LuntiSpacing.md),
                       _SectionCard(
@@ -170,8 +170,8 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                           children: [
                             for (var i = 0; i < order.items.length; i++) ...[
                               if (i > 0)
-                                const Divider(
-                                  color: LuntiColors.beige,
+                                Divider(
+                                  color: context.lunti.border,
                                   height: LuntiSpacing.lg,
                                 ),
                               _OrderItemRow(
@@ -196,8 +196,8 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                           ),
                         ),
                         style: OutlinedButton.styleFrom(
-                          foregroundColor: LuntiColors.forest,
-                          side: const BorderSide(color: LuntiColors.forest),
+                          foregroundColor: context.lunti.accent,
+                          side: BorderSide(color: context.lunti.accent),
                           minimumSize: const Size.fromHeight(48),
                           shape: RoundedRectangleBorder(
                             borderRadius:
@@ -212,8 +212,8 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                         ElevatedButton(
                           onPressed: widget.onTrack,
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: LuntiColors.forest,
-                            foregroundColor: LuntiColors.white,
+                            backgroundColor: context.lunti.accent,
+                            foregroundColor: context.lunti.surface,
                             minimumSize: const Size.fromHeight(48),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(LuntiRadii.sm),
@@ -227,8 +227,8 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                         OutlinedButton(
                           onPressed: _isCancelling ? null : _confirmCancel,
                           style: OutlinedButton.styleFrom(
-                            foregroundColor: LuntiColors.warning,
-                            side: const BorderSide(color: LuntiColors.warning),
+                            foregroundColor: context.lunti.warning,
+                            side: BorderSide(color: context.lunti.warning),
                             minimumSize: const Size.fromHeight(48),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(LuntiRadii.sm),
@@ -242,7 +242,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                         Text(
                           'Pending orders can be cancelled. Stock is returned '
                           'to the shop automatically.',
-                          style: LuntiTextStyles.caption,
+                          style: context.lunti.caption,
                           textAlign: TextAlign.center,
                         ),
                       ],
@@ -251,14 +251,14 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                         Container(
                           padding: const EdgeInsets.all(LuntiSpacing.md),
                           decoration: BoxDecoration(
-                            color: LuntiColors.sage,
+                            color: context.lunti.surfaceAlt,
                             borderRadius: BorderRadius.circular(LuntiRadii.md),
                           ),
                           child: Row(
                             children: [
-                              const Icon(
+                              Icon(
                                 Icons.cancel_outlined,
-                                color: LuntiColors.warning,
+                                color: context.lunti.warning,
                                 semanticLabel: 'Order cancelled',
                               ),
                               const SizedBox(width: LuntiSpacing.sm),
@@ -266,7 +266,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                 child: Text(
                                   'This order was cancelled. Any reserved stock '
                                   'has been returned to the shop.',
-                                  style: LuntiTextStyles.body,
+                                  style: context.lunti.body,
                                 ),
                               ),
                             ],
@@ -297,13 +297,13 @@ class _SectionCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(LuntiSpacing.md),
       decoration: BoxDecoration(
-        color: LuntiColors.white,
+        color: context.lunti.surface,
         borderRadius: BorderRadius.circular(LuntiRadii.md),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: LuntiTextStyles.cardTitle),
+          Text(title, style: context.lunti.cardTitle),
           const SizedBox(height: LuntiSpacing.sm),
           child,
         ],
@@ -331,16 +331,16 @@ class _DeliveryDetails extends StatelessWidget {
         if (lines.isEmpty)
           Text(
             'No delivery address on file.',
-            style: LuntiTextStyles.body.copyWith(
-              color: LuntiColors.mutedForeground,
+            style: context.lunti.body.copyWith(
+              color: context.lunti.textFaint,
             ),
           )
         else
           for (final line in lines)
-            Text(line, style: LuntiTextStyles.body),
+            Text(line, style: context.lunti.body),
         if (order.phone.trim().isNotEmpty) ...[
           const SizedBox(height: LuntiSpacing.xs),
-          Text(order.phone, style: LuntiTextStyles.caption),
+          Text(order.phone, style: context.lunti.caption),
         ],
       ],
     );
@@ -357,7 +357,7 @@ class _TotalsCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(LuntiSpacing.md),
       decoration: BoxDecoration(
-        color: LuntiColors.sage,
+        color: context.lunti.surfaceAlt,
         borderRadius: BorderRadius.circular(LuntiRadii.md),
       ),
       child: Column(
@@ -376,8 +376,8 @@ class _TotalsCard extends StatelessWidget {
           const SizedBox(height: LuntiSpacing.xs),
           Row(
             children: [
-              const Expanded(
-                child: Text('Payment status', style: LuntiTextStyles.body),
+              Expanded(
+                child: Text('Payment status', style: context.lunti.body),
               ),
               PaymentStatusBadge(
                 status: order.paymentStatusDisplay,
@@ -409,17 +409,17 @@ class _TotalRow extends StatelessWidget {
           child: Text(
             label,
             style: emphasised
-                ? LuntiTextStyles.cardTitle
-                : LuntiTextStyles.body,
+                ? context.lunti.cardTitle
+                : context.lunti.body,
           ),
         ),
         Text(
           value,
           style: emphasised
-              ? LuntiTextStyles.cardTitle.copyWith(
+              ? context.lunti.cardTitle.copyWith(
                   fontWeight: FontWeight.w700,
                 )
-              : LuntiTextStyles.body,
+              : context.lunti.body,
         ),
       ],
     );
@@ -444,7 +444,7 @@ class _OrderItemRow extends StatelessWidget {
     if (product == null) {
       return Text(
         'Unknown product (${line.productId})',
-        style: LuntiTextStyles.caption,
+        style: context.lunti.caption,
       );
     }
     final unitPrice = BagPricing.unitPrice(product!, line);
@@ -456,7 +456,7 @@ class _OrderItemRow extends StatelessWidget {
           width: 56,
           height: 48,
           decoration: BoxDecoration(
-            color: LuntiColors.cream,
+            color: context.lunti.background,
             borderRadius: BorderRadius.circular(LuntiRadii.sm),
           ),
           child: LuntiProductImage(
@@ -469,16 +469,16 @@ class _OrderItemRow extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(product!.name, style: LuntiTextStyles.cardTitle),
+              Text(product!.name, style: context.lunti.cardTitle),
               Text(
                 '$styleText \u00B7 Qty ${line.quantity}',
-                style: LuntiTextStyles.caption,
+                style: context.lunti.caption,
               ),
               if (line.engravingText != null &&
                   line.engravingText!.isNotEmpty)
                 Text(
                   'Engraved: "${line.engravingText}"',
-                  style: LuntiTextStyles.caption,
+                  style: context.lunti.caption,
                 ),
               if (canReview) ...[
                 const SizedBox(height: 6),
@@ -488,7 +488,7 @@ class _OrderItemRow extends StatelessWidget {
           ),
         ),
         const SizedBox(width: LuntiSpacing.xs),
-        Text('\u20B1$unitPrice', style: LuntiTextStyles.price),
+        Text('\u20B1$unitPrice', style: context.lunti.price),
       ],
     );
   }
@@ -514,25 +514,25 @@ class _ReviewAction extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               decoration: BoxDecoration(
-                color: LuntiColors.sage,
+                color: context.lunti.surfaceAlt,
                 borderRadius: BorderRadius.circular(999),
                 border: Border.all(
-                  color: LuntiColors.forest.withValues(alpha: 0.35),
+                  color: context.lunti.accent.withValues(alpha: 0.35),
                 ),
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(
+                  Icon(
                     Icons.star_rounded,
                     size: 15,
-                    color: Color(0xFFC58A2B),
+                    color: context.lunti.rating,
                   ),
                   const SizedBox(width: 4),
                   Text(
                     'Reviewed',
-                    style: LuntiTextStyles.caption.copyWith(
-                      color: LuntiColors.forest,
+                    style: context.lunti.caption.copyWith(
+                      color: context.lunti.accent,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -545,7 +545,7 @@ class _ReviewAction extends StatelessWidget {
         return TextButton.icon(
           onPressed: () => startProductReview(context, product),
           style: TextButton.styleFrom(
-            foregroundColor: LuntiColors.forest,
+            foregroundColor: context.lunti.accent,
             minimumSize: const Size(0, 44),
             padding: const EdgeInsets.symmetric(horizontal: 8),
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,

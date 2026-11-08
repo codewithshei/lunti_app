@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import '../app/app_theme.dart';
+import '../app/theme_controller.dart';
 import '../data/mock_app_state.dart';
 import '../services/database_service.dart';
 import '../widgets/brand_header.dart';
@@ -166,7 +167,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         : (user?.photoURL?.trim() ?? '');
 
     return Scaffold(
-      backgroundColor: LuntiColors.cream,
+      backgroundColor: context.lunti.background,
       body: SafeArea(
         bottom: false,
         child: _ProfileBody(
@@ -256,12 +257,12 @@ class _ProfileBody extends StatelessWidget {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        backgroundColor: LuntiColors.cream,
-        title: const Text('Sign out?', style: LuntiTextStyles.sectionTitle),
-        content: const Text(
+        backgroundColor: context.lunti.background,
+        title: Text('Sign out?', style: context.lunti.sectionTitle),
+        content: Text(
           'Your bag and wishlist are saved to your account and will be here '
           'when you sign back in. Guest browsing starts with a clean bag.',
-          style: LuntiTextStyles.body,
+          style: context.lunti.body,
         ),
         actions: [
           TextButton(
@@ -282,9 +283,9 @@ class _ProfileBody extends StatelessWidget {
     } catch (_) {
       if (!context.mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+        SnackBar(
           content: Text('Could not sign out. Please try again.'),
-          backgroundColor: LuntiColors.forest,
+          backgroundColor: context.lunti.accent,
           behavior: SnackBarBehavior.floating,
         ),
       );
@@ -314,11 +315,11 @@ class _ProfileBody extends StatelessWidget {
           child: ListView(
             padding: const EdgeInsets.all(LuntiSpacing.gutter),
             children: [
-              Text('Profile', style: LuntiTextStyles.display),
+              Text('Profile', style: context.lunti.display),
               const SizedBox(height: LuntiSpacing.xs),
               Text(
                 'Your account, delivery details and saved pieces.',
-                style: LuntiTextStyles.body,
+                style: context.lunti.body,
               ),
               const SizedBox(height: LuntiSpacing.md),
               _ProfileHeaderCard(
@@ -338,7 +339,7 @@ class _ProfileBody extends StatelessWidget {
                 onManage: onManageAddresses,
               ),
               const SizedBox(height: LuntiSpacing.lg),
-              Text('Account', style: LuntiTextStyles.sectionTitle),
+              Text('Account', style: context.lunti.sectionTitle),
               const SizedBox(height: LuntiSpacing.sm),
               if (onEditProfile != null) ...[
                 _ProfileTile(
@@ -383,6 +384,21 @@ class _ProfileBody extends StatelessWidget {
                 ),
               ],
               const SizedBox(height: LuntiSpacing.lg),
+              Text('Appearance', style: context.lunti.sectionTitle),
+              const SizedBox(height: LuntiSpacing.sm),
+              ListenableBuilder(
+                listenable: ThemeController.instance,
+                builder: (context, _) => _ProfileSwitchTile(
+                  icon: Icons.dark_mode_outlined,
+                  title: 'Dark Mode',
+                  subtitle: ThemeController.instance.isDark
+                      ? 'Deep charcoal sage, warm cream text'
+                      : 'Warm sand palette',
+                  value: ThemeController.instance.isDark,
+                  onChanged: (value) => ThemeController.instance.setDark(value),
+                ),
+              ),
+              const SizedBox(height: LuntiSpacing.lg),
             ],
           ),
         ),
@@ -415,7 +431,7 @@ class _ProfileHeaderCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(LuntiSpacing.md),
       decoration: BoxDecoration(
-        color: LuntiColors.forest,
+        color: context.lunti.accent,
         borderRadius: BorderRadius.circular(LuntiRadii.lg),
       ),
       child: Row(
@@ -429,32 +445,32 @@ class _ProfileHeaderCard extends StatelessWidget {
               children: [
                 Text(
                   name,
-                  style: LuntiTextStyles.sectionTitle.copyWith(
-                    color: LuntiColors.cream,
+                  style: context.lunti.sectionTitle.copyWith(
+                    color: context.lunti.background,
                     fontSize: 19,
                   ),
                 ),
                 const SizedBox(height: 2),
                 Text(
                   email,
-                  style: LuntiTextStyles.caption.copyWith(
-                    color: LuntiColors.sage,
+                  style: context.lunti.caption.copyWith(
+                    color: context.lunti.surfaceAlt,
                   ),
                 ),
                 if (phone.trim().isNotEmpty) ...[
                   const SizedBox(height: 2),
                   Text(
                     phone,
-                    style: LuntiTextStyles.caption.copyWith(
-                      color: LuntiColors.sage,
+                    style: context.lunti.caption.copyWith(
+                      color: context.lunti.surfaceAlt,
                     ),
                   ),
                 ],
                 const SizedBox(height: LuntiSpacing.xs),
                 Text(
                   isSignedIn ? 'Signed in to LUNTI' : 'Browsing as a guest',
-                  style: LuntiTextStyles.caption.copyWith(
-                    color: LuntiColors.sage,
+                  style: context.lunti.caption.copyWith(
+                    color: context.lunti.surfaceAlt,
                   ),
                 ),
               ],
@@ -465,7 +481,7 @@ class _ProfileHeaderCard extends StatelessWidget {
               onPressed: onEdit,
               tooltip: 'Edit profile',
               icon: const Icon(Icons.edit_outlined, size: 20),
-              color: LuntiColors.cream,
+              color: context.lunti.background,
             ),
         ],
       ),
@@ -485,8 +501,8 @@ class _ProfileAvatar extends StatelessWidget {
       width: 56,
       height: 56,
       clipBehavior: Clip.antiAlias,
-      decoration: const BoxDecoration(
-        color: LuntiColors.sage,
+      decoration: BoxDecoration(
+        color: context.lunti.surfaceAlt,
         shape: BoxShape.circle,
       ),
       child: ProfilePhotoImage(
@@ -494,7 +510,7 @@ class _ProfileAvatar extends StatelessWidget {
         fallback: Center(
           child: Text(
             initials,
-            style: LuntiTextStyles.cardTitle.copyWith(
+            style: context.lunti.cardTitle.copyWith(
               fontSize: 16,
               fontWeight: FontWeight.w600,
             ),
@@ -536,7 +552,7 @@ class _AddressSummaryCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(LuntiSpacing.md),
       decoration: BoxDecoration(
-        color: LuntiColors.white,
+        color: context.lunti.surface,
         borderRadius: BorderRadius.circular(LuntiRadii.md),
       ),
       child: Column(
@@ -544,16 +560,16 @@ class _AddressSummaryCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              const Icon(
+              Icon(
                 Icons.location_on_outlined,
                 size: 20,
-                color: LuntiColors.forest,
+                color: context.lunti.accent,
               ),
               const SizedBox(width: LuntiSpacing.xs),
-              const Expanded(
+              Expanded(
                 child: Text(
                   'Saved addresses',
-                  style: LuntiTextStyles.cardTitle,
+                  style: context.lunti.cardTitle,
                 ),
               ),
               TextButton(
@@ -570,19 +586,19 @@ class _AddressSummaryCard extends StatelessWidget {
           else if (loadFailed)
             Text(
               'Could not load your saved address.',
-              style: LuntiTextStyles.body,
+              style: context.lunti.body,
             )
           else if (!_hasAddress)
             Text(
               'No saved address yet. Add one to speed up checkout.',
-              style: LuntiTextStyles.body,
+              style: context.lunti.body,
             )
           else ...[
-            Text('Home', style: LuntiTextStyles.cardTitle),
+            Text('Home', style: context.lunti.cardTitle),
             const SizedBox(height: 2),
-            Text(_fullAddress, style: LuntiTextStyles.body),
+            Text(_fullAddress, style: context.lunti.body),
             if (address['phone']?.trim().isNotEmpty == true)
-              Text(address['phone']!, style: LuntiTextStyles.caption),
+              Text(address['phone']!, style: context.lunti.caption),
           ],
         ],
       ),
@@ -606,7 +622,7 @@ class _ProfileTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: LuntiColors.white,
+      color: context.lunti.surface,
       borderRadius: BorderRadius.circular(LuntiRadii.md),
       child: InkWell(
         borderRadius: BorderRadius.circular(LuntiRadii.md),
@@ -615,20 +631,67 @@ class _ProfileTile extends StatelessWidget {
           padding: const EdgeInsets.all(LuntiSpacing.md),
           child: Row(
             children: [
-              Icon(icon, color: LuntiColors.forest),
+              Icon(icon, color: context.lunti.accent),
               const SizedBox(width: LuntiSpacing.md),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(title, style: LuntiTextStyles.cardTitle),
-                    Text(subtitle, style: LuntiTextStyles.caption),
+                    Text(title, style: context.lunti.cardTitle),
+                    Text(subtitle, style: context.lunti.caption),
                   ],
                 ),
               ),
-              const Icon(Icons.chevron_right, color: LuntiColors.secondary),
+              Icon(Icons.chevron_right, color: context.lunti.textFaint),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Account tile whose trailing control is a switch instead of a chevron.
+class _ProfileSwitchTile extends StatelessWidget {
+  const _ProfileSwitchTile({
+    required this.icon,
+    required this.title,
+    required this.subtitle,
+    required this.value,
+    required this.onChanged,
+  });
+
+  final IconData icon;
+  final String title;
+  final String subtitle;
+  final bool value;
+  final ValueChanged<bool> onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: context.lunti.surface,
+      borderRadius: BorderRadius.circular(LuntiRadii.md),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: LuntiSpacing.md,
+          vertical: LuntiSpacing.xs,
+        ),
+        child: Row(
+          children: [
+            Icon(icon, color: context.lunti.accent),
+            const SizedBox(width: LuntiSpacing.md),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(title, style: context.lunti.cardTitle),
+                  Text(subtitle, style: context.lunti.caption),
+                ],
+              ),
+            ),
+            Switch(value: value, onChanged: onChanged),
+          ],
         ),
       ),
     );

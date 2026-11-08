@@ -34,7 +34,7 @@ class OrderTrackingScreen extends StatelessWidget {
         : _TrackingBody(order: order, onBack: onBack);
 
     return Scaffold(
-      backgroundColor: LuntiColors.cream,
+      backgroundColor: context.lunti.background,
       body: SafeArea(bottom: false, child: live),
     );
   }
@@ -65,9 +65,9 @@ class _TrackingBody extends StatelessWidget {
           child: ListView(
             padding: const EdgeInsets.all(LuntiSpacing.gutter),
             children: <Widget>[
-              Text('Order tracking', style: LuntiTextStyles.display),
+              Text('Order tracking', style: context.lunti.display),
               const SizedBox(height: LuntiSpacing.xs),
-              Text(order.id, style: LuntiTextStyles.caption),
+              Text(order.id, style: context.lunti.caption),
               const SizedBox(height: LuntiSpacing.sm),
               if (isCancelled)
                 _CancelledCard(order: order)
@@ -76,13 +76,13 @@ class _TrackingBody extends StatelessWidget {
                   width: double.infinity,
                   padding: const EdgeInsets.all(LuntiSpacing.sm),
                   decoration: BoxDecoration(
-                    color: LuntiColors.sage,
+                    color: context.lunti.surfaceAlt,
                     borderRadius: BorderRadius.circular(LuntiRadii.sm),
                   ),
                   child: Text(
                     'Status: ${order.status.label} · updates in real time.',
-                    style: LuntiTextStyles.body.copyWith(
-                      color: LuntiColors.ink,
+                    style: context.lunti.body.copyWith(
+                      color: context.lunti.text,
                     ),
                   ),
                 ),
@@ -90,7 +90,7 @@ class _TrackingBody extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(LuntiSpacing.md),
                   decoration: BoxDecoration(
-                    color: LuntiColors.white,
+                    color: context.lunti.surface,
                     borderRadius: BorderRadius.circular(LuntiRadii.md),
                   ),
                   child: _TrackingTimeline(
@@ -105,7 +105,7 @@ class _TrackingBody extends StatelessWidget {
               Text(
                 'This is a prototype tracking view. No real courier is '
                 'connected.',
-                style: LuntiTextStyles.caption,
+                style: context.lunti.caption,
                 textAlign: TextAlign.center,
               ),
             ],
@@ -287,14 +287,14 @@ class _TrackingTimelineState extends State<_TrackingTimeline>
                   children: <Widget>[
                     Text(
                       step.label,
-                      style: LuntiTextStyles.cardTitle.copyWith(
+                      style: context.lunti.cardTitle.copyWith(
                         color: isReached
-                            ? LuntiColors.ink
-                            : LuntiColors.secondary,
+                            ? context.lunti.text
+                            : context.lunti.textFaint,
                       ),
                     ),
                     const SizedBox(height: 2),
-                    Text(timeLabel, style: LuntiTextStyles.caption),
+                    Text(timeLabel, style: context.lunti.caption),
                     const SizedBox(height: 2),
                     Text(
                       isCurrent
@@ -302,14 +302,14 @@ class _TrackingTimelineState extends State<_TrackingTimeline>
                           : isDone
                               ? 'Completed'
                               : 'Pending',
-                      style: LuntiTextStyles.caption.copyWith(
+                      style: context.lunti.caption.copyWith(
                         color: isReached
-                            ? LuntiColors.secondary
-                            : LuntiColors.beige,
+                            ? context.lunti.textFaint
+                            : context.lunti.border,
                       ),
                     ),
                     const SizedBox(height: 2),
-                    Text(step.detail, style: LuntiTextStyles.caption),
+                    Text(step.detail, style: context.lunti.caption),
                   ],
                 ),
               ),
@@ -338,7 +338,7 @@ class _StepBadge extends StatelessWidget {
       decoration: state == _StepState.current
           ? BoxDecoration(
               shape: BoxShape.circle,
-              border: Border.all(color: LuntiColors.forest, width: 1.5),
+              border: Border.all(color: context.lunti.accent, width: 1.5),
             )
           : null,
       alignment: Alignment.center,
@@ -346,13 +346,13 @@ class _StepBadge extends StatelessWidget {
         width: 32,
         height: 32,
         decoration: BoxDecoration(
-          color: reached ? LuntiColors.forest : LuntiColors.beige,
+          color: reached ? context.lunti.accent : context.lunti.border,
           shape: BoxShape.circle,
         ),
         child: Icon(
           icon,
           size: 17,
-          color: reached ? LuntiColors.white : LuntiColors.secondary,
+          color: reached ? context.lunti.surface : context.lunti.textFaint,
         ),
       ),
     );
@@ -376,13 +376,13 @@ class _StepConnector extends StatelessWidget {
       width: 2,
       height: height,
       child: ColoredBox(
-        color: LuntiColors.beige,
+        color: context.lunti.border,
         child: Align(
           alignment: Alignment.topCenter,
           child: FractionallySizedBox(
             heightFactor: fill.clamp(0.0, 1.0),
             widthFactor: 1,
-            child: ColoredBox(color: LuntiColors.forest),
+            child: ColoredBox(color: context.lunti.accent),
           ),
         ),
       ),
@@ -408,16 +408,16 @@ class _CancelledCard extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(LuntiSpacing.md),
       decoration: BoxDecoration(
-        color: const Color(0xFFF6E4E1),
+        color: context.lunti.warning.withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(LuntiRadii.md),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Icon(
+          Icon(
             Icons.cancel_outlined,
             size: 22,
-            color: Color(0xFF9C3D2E),
+            color: context.lunti.warning,
           ),
           const SizedBox(width: LuntiSpacing.sm),
           Expanded(
@@ -426,8 +426,8 @@ class _CancelledCard extends StatelessWidget {
               children: <Widget>[
                 Text(
                   'Order cancelled',
-                  style: LuntiTextStyles.cardTitle.copyWith(
-                    color: const Color(0xFF7E2F2F),
+                  style: context.lunti.cardTitle.copyWith(
+                    color: context.lunti.warning,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -435,16 +435,16 @@ class _CancelledCard extends StatelessWidget {
                 Text(
                   'This order was cancelled. Contact LUNTI if you need help '
                   'placing a new order.',
-                  style: LuntiTextStyles.body.copyWith(
-                    color: const Color(0xFF7E2F2F),
+                  style: context.lunti.body.copyWith(
+                    color: context.lunti.warning,
                   ),
                 ),
                 if (cancelledAt != null) ...<Widget>[
                   const SizedBox(height: 4),
                   Text(
                     'Cancelled on ${formatOrderDateTime(cancelledAt)}',
-                    style: LuntiTextStyles.caption.copyWith(
-                      color: const Color(0xFF7E2F2F),
+                    style: context.lunti.caption.copyWith(
+                      color: context.lunti.warning,
                     ),
                   ),
                 ],

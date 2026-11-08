@@ -36,7 +36,7 @@ class WishlistScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: LuntiColors.cream,
+      backgroundColor: context.lunti.background,
       body: SafeArea(
         bottom: false,
         child: ValueListenableBuilder<List<SampleProduct>>(
@@ -95,19 +95,19 @@ class _WishlistBody extends StatelessWidget {
               onBagPressed: () => onPrototypeAction('Shopping bag'),
             ),
             const SizedBox(height: LuntiSpacing.md),
-            const Padding(
+            Padding(
               padding: EdgeInsets.symmetric(horizontal: LuntiSpacing.gutter),
               child: Text(
                 'Worth coming back to',
-                style: LuntiTextStyles.display,
+                style: context.lunti.display,
               ),
             ),
             const SizedBox(height: 4),
-            const Padding(
+            Padding(
               padding: EdgeInsets.symmetric(horizontal: LuntiSpacing.gutter),
               child: Text(
                 'Your saved bamboo pieces.',
-                style: LuntiTextStyles.body,
+                style: context.lunti.body,
               ),
             ),
             const SizedBox(height: LuntiSpacing.md),
@@ -184,7 +184,7 @@ class _WishlistCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(LuntiSpacing.md),
       decoration: BoxDecoration(
-        color: LuntiColors.white,
+        color: context.lunti.surface,
         borderRadius: BorderRadius.circular(LuntiRadii.md),
       ),
       child: Column(
@@ -202,7 +202,7 @@ class _WishlistCard extends StatelessWidget {
                       width: 88,
                       height: 78,
                       decoration: BoxDecoration(
-                        color: LuntiColors.white,
+                        color: context.lunti.surface,
                         borderRadius: BorderRadius.circular(LuntiRadii.sm),
                       ),
                       child: LuntiProductImage(
@@ -231,15 +231,15 @@ class _WishlistCard extends StatelessWidget {
                     GestureDetector(
                       onTap: openDetails,
                       behavior: HitTestBehavior.opaque,
-                      child: Text(title, style: LuntiTextStyles.cardTitle),
+                      child: Text(title, style: context.lunti.cardTitle),
                     ),
                     const SizedBox(height: 2),
-                    const Text(
+                    Text(
                       'Saved to your wishlist',
-                      style: LuntiTextStyles.caption,
+                      style: context.lunti.caption,
                     ),
                     const SizedBox(height: 6),
-                    Text(product.priceLabel, style: LuntiTextStyles.price),
+                    Text(product.priceLabel, style: context.lunti.price),
                     const SizedBox(height: 6),
                     GestureDetector(
                       onTap: () {
@@ -262,13 +262,13 @@ class _WishlistCard extends StatelessWidget {
                           );
                       },
                       behavior: HitTestBehavior.opaque,
-                      child: const Text(
+                      child: Text(
                         'Remove',
                         style: TextStyle(
                           fontFamily: 'Poppins',
                           fontSize: 13,
                           fontWeight: FontWeight.w500,
-                          color: LuntiColors.ink,
+                          color: context.lunti.text,
                           decoration: TextDecoration.underline,
                         ),
                       ),
@@ -276,13 +276,13 @@ class _WishlistCard extends StatelessWidget {
                   ],
                 ),
               ),
-              const Center(
+              Center(
                 child: Padding(
                   padding: EdgeInsets.only(left: LuntiSpacing.xs),
                   child: Icon(
                     Icons.bookmark_border_rounded,
                     size: 24,
-                    color: LuntiColors.ink,
+                    color: context.lunti.text,
                     semanticLabel: 'Saved to wishlist',
                   ),
                 ),
@@ -333,7 +333,7 @@ class _KeepExploringButton extends StatelessWidget {
     return PressableScale(
       pressedScale: 0.97,
       child: Material(
-        color: LuntiColors.sage,
+        color: context.lunti.surfaceAlt,
         borderRadius: BorderRadius.circular(999),
         child: InkWell(
           onTap: onTap,
@@ -343,9 +343,9 @@ class _KeepExploringButton extends StatelessWidget {
             alignment: Alignment.center,
             child: Text(
               'Keep exploring the shop',
-              style: LuntiTextStyles.cardTitle.copyWith(
+              style: context.lunti.cardTitle.copyWith(
                 fontWeight: FontWeight.w600,
-                color: LuntiColors.ink,
+                color: context.lunti.text,
               ),
             ),
           ),

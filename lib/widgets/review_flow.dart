@@ -32,15 +32,15 @@ Future<void> startProductReview(
       await showDialog<void>(
         context: context,
         builder: (dialogContext) => AlertDialog(
-          backgroundColor: LuntiColors.cream,
-          title: const Text(
+          backgroundColor: context.lunti.background,
+          title: Text(
             'Reviews come after delivery',
-            style: LuntiTextStyles.sectionTitle,
+            style: context.lunti.sectionTitle,
           ),
-          content: const Text(
+          content: Text(
             'You can review this product once an order containing it is '
             'completed. Thanks for helping us keep reviews verified.',
-            style: LuntiTextStyles.body,
+            style: context.lunti.body,
           ),
           actions: [
             TextButton(
@@ -68,7 +68,7 @@ Future<bool?> showReviewForm(BuildContext context, SampleProduct product) {
   return showModalBottomSheet<bool>(
     context: context,
     isScrollControlled: true,
-    backgroundColor: LuntiColors.cream,
+    backgroundColor: context.lunti.background,
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: Radius.circular(LuntiRadii.lg)),
     ),
@@ -137,9 +137,9 @@ class _ReviewFormState extends State<ReviewForm> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Write a review', style: LuntiTextStyles.sectionTitle),
+            Text('Write a review', style: context.lunti.sectionTitle),
             const SizedBox(height: 2),
-            Text(widget.product.name, style: LuntiTextStyles.caption),
+            Text(widget.product.name, style: context.lunti.caption),
             const SizedBox(height: LuntiSpacing.md),
             Row(
               children: [
@@ -155,7 +155,7 @@ class _ReviewFormState extends State<ReviewForm> {
                           ? Icons.star_rounded
                           : Icons.star_border_rounded,
                       size: 34,
-                      color: const Color(0xFFC58A2B),
+                      color: context.lunti.rating,
                     ),
                   ),
               ],
@@ -168,17 +168,17 @@ class _ReviewFormState extends State<ReviewForm> {
               maxLength: 500,
               decoration: InputDecoration(
                 hintText: 'What did you like about this piece?',
-                hintStyle: LuntiTextStyles.caption,
+                hintStyle: context.lunti.caption,
                 filled: true,
-                fillColor: LuntiColors.white,
+                fillColor: context.lunti.surface,
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(LuntiRadii.sm),
-                  borderSide: const BorderSide(color: LuntiColors.beige),
+                  borderSide: BorderSide(color: context.lunti.border),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(LuntiRadii.sm),
-                  borderSide: const BorderSide(
-                    color: LuntiColors.forest,
+                  borderSide: BorderSide(
+                    color: context.lunti.accent,
                     width: 1.5,
                   ),
                 ),
@@ -188,8 +188,8 @@ class _ReviewFormState extends State<ReviewForm> {
               const SizedBox(height: LuntiSpacing.xs),
               Text(
                 _error!,
-                style: LuntiTextStyles.caption.copyWith(
-                  color: LuntiColors.warning,
+                style: context.lunti.caption.copyWith(
+                  color: context.lunti.warning,
                 ),
               ),
             ],

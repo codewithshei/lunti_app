@@ -13,10 +13,10 @@ class OrderStatusPill extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final color = switch (status) {
-      OrderStatus.cancelled => LuntiColors.warning,
-      OrderStatus.completed => LuntiColors.forest,
-      OrderStatus.pending => LuntiColors.secondary,
-      _ => LuntiColors.forest,
+      OrderStatus.cancelled => context.lunti.warning,
+      OrderStatus.completed => context.lunti.accent,
+      OrderStatus.pending => context.lunti.textFaint,
+      _ => context.lunti.accent,
     };
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
@@ -27,7 +27,7 @@ class OrderStatusPill extends StatelessWidget {
       ),
       child: Text(
         status.label,
-        style: LuntiTextStyles.caption.copyWith(
+        style: context.lunti.caption.copyWith(
           color: color,
           fontWeight: FontWeight.w600,
         ),

@@ -30,7 +30,7 @@ class GuestAccountScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: LuntiColors.cream,
+      backgroundColor: context.lunti.background,
       body: SafeArea(
         bottom: false,
         child: Column(
@@ -45,18 +45,18 @@ class GuestAccountScreen extends StatelessWidget {
               child: ListView(
                 padding: const EdgeInsets.all(LuntiSpacing.gutter),
                 children: [
-                  Text('Your account', style: LuntiTextStyles.display),
+                  Text('Your account', style: context.lunti.display),
                   const SizedBox(height: LuntiSpacing.xs),
                   Text(
                     'LUNTI keeps your details, addresses and orders in one '
                     'place.',
-                    style: LuntiTextStyles.body,
+                    style: context.lunti.body,
                   ),
                   const SizedBox(height: LuntiSpacing.lg),
                   Container(
                     padding: const EdgeInsets.all(LuntiSpacing.lg),
                     decoration: BoxDecoration(
-                      color: LuntiColors.white,
+                      color: context.lunti.surface,
                       borderRadius: BorderRadius.circular(LuntiRadii.md),
                     ),
                     child: Column(
@@ -64,20 +64,20 @@ class GuestAccountScreen extends StatelessWidget {
                         Container(
                           width: 64,
                           height: 64,
-                          decoration: const BoxDecoration(
-                            color: LuntiColors.sage,
+                          decoration: BoxDecoration(
+                            color: context.lunti.surfaceAlt,
                             shape: BoxShape.circle,
                           ),
-                          child: const Icon(
+                          child: Icon(
                             Icons.person_outline,
                             size: 32,
-                            color: LuntiColors.forest,
+                            color: context.lunti.accent,
                           ),
                         ),
                         const SizedBox(height: LuntiSpacing.md),
                         Text(
                           'Sign in to view your profile and order history',
-                          style: LuntiTextStyles.sectionTitle.copyWith(
+                          style: context.lunti.sectionTitle.copyWith(
                             fontSize: 20,
                           ),
                           textAlign: TextAlign.center,
@@ -86,7 +86,7 @@ class GuestAccountScreen extends StatelessWidget {
                         Text(
                           'You can keep browsing, adding pieces to your bag '
                           'and saving favourites as a guest.',
-                          style: LuntiTextStyles.body,
+                          style: context.lunti.body,
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: LuntiSpacing.lg),
@@ -101,8 +101,8 @@ class GuestAccountScreen extends StatelessWidget {
                             onPressed: onBrowseShop,
                             child: Text(
                               'Continue browsing',
-                              style: LuntiTextStyles.cardTitle.copyWith(
-                                color: LuntiColors.forest,
+                              style: context.lunti.cardTitle.copyWith(
+                                color: context.lunti.accent,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
@@ -156,19 +156,19 @@ class _GuestPerk extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(LuntiSpacing.md),
       decoration: BoxDecoration(
-        color: LuntiColors.white,
+        color: context.lunti.surface,
         borderRadius: BorderRadius.circular(LuntiRadii.md),
       ),
       child: Row(
         children: [
-          Icon(icon, color: LuntiColors.forest),
+          Icon(icon, color: context.lunti.accent),
           const SizedBox(width: LuntiSpacing.md),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: LuntiTextStyles.cardTitle),
-                Text(body, style: LuntiTextStyles.caption),
+                Text(title, style: context.lunti.cardTitle),
+                Text(body, style: context.lunti.caption),
               ],
             ),
           ),

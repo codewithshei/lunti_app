@@ -107,7 +107,7 @@ class _HomeCarouselState extends State<HomeCarousel> {
                 width: i == _index ? 20 : 6,
                 height: 6,
                 decoration: BoxDecoration(
-                  color: i == _index ? LuntiColors.forest : LuntiColors.beige,
+                  color: i == _index ? context.lunti.accent : context.lunti.border,
                   borderRadius: BorderRadius.circular(999),
                 ),
               ),
@@ -170,15 +170,15 @@ class _SlideCard extends StatelessWidget {
                   children: [
                     Text(
                       slide.eyebrow.toUpperCase(),
-                      style: LuntiTextStyles.eyebrow.copyWith(
-                        color: LuntiColors.sage,
+                      style: context.lunti.eyebrow.copyWith(
+                        color: context.lunti.surfaceAlt,
                       ),
                     ),
                     const SizedBox(height: 6),
                     Text(
                       slide.headline,
-                      style: LuntiTextStyles.sectionTitle.copyWith(
-                        color: LuntiColors.cream,
+                      style: context.lunti.sectionTitle.copyWith(
+                        color: context.lunti.background,
                         fontSize: 23,
                         height: 1.12,
                       ),
@@ -188,16 +188,16 @@ class _SlideCard extends StatelessWidget {
                       children: [
                         Text(
                           slide.actionLabel,
-                          style: LuntiTextStyles.cardTitle.copyWith(
-                            color: LuntiColors.white,
+                          style: context.lunti.cardTitle.copyWith(
+                            color: context.lunti.surface,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
                         const SizedBox(width: 6),
-                        const Icon(
+                        Icon(
                           Icons.arrow_forward_rounded,
                           size: 16,
-                          color: LuntiColors.white,
+                          color: context.lunti.surface,
                         ),
                       ],
                     ),

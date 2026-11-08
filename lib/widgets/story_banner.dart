@@ -30,7 +30,7 @@ class StoryBanner extends StatelessWidget {
       onTap: onAction,
       child: Container(
         decoration: BoxDecoration(
-          color: LuntiColors.forest,
+          color: context.lunti.accent,
           borderRadius: BorderRadius.circular(LuntiRadii.lg),
         ),
         padding: const EdgeInsets.all(6),
@@ -56,20 +56,20 @@ class StoryBanner extends StatelessWidget {
               children: [
                 Text(
                   eyebrow.toUpperCase(),
-                  style: LuntiTextStyles.eyebrow.copyWith(
-                    color: LuntiColors.sage,
+                  style: context.lunti.eyebrow.copyWith(
+                    color: context.lunti.surfaceAlt,
                   ),
                 ),
                 const SizedBox(height: LuntiSpacing.sm),
                 Text(
                   headline,
-                  style: LuntiTextStyles.sectionTitle.copyWith(
-                    color: LuntiColors.cream,
+                  style: context.lunti.sectionTitle.copyWith(
+                    color: context.lunti.background,
                     fontSize: 24,
                   ),
                 ),
                 const SizedBox(height: LuntiSpacing.sm),
-                Text(copy, style: LuntiTextStyles.onDarkBody),
+                Text(copy, style: context.lunti.onDarkBody),
                 const SizedBox(height: LuntiSpacing.md),
                 GestureDetector(
                   onTap: onAction,
@@ -78,16 +78,16 @@ class StoryBanner extends StatelessWidget {
                     children: [
                       Text(
                         actionLabel,
-                        style: LuntiTextStyles.cardTitle.copyWith(
+                        style: context.lunti.cardTitle.copyWith(
                           fontWeight: FontWeight.w600,
-                          color: LuntiColors.white,
+                          color: context.lunti.surface,
                         ),
                       ),
                       const Spacer(),
-                      const Icon(
+                      Icon(
                         Icons.north_east,
                         size: 18,
-                        color: LuntiColors.white,
+                        color: context.lunti.surface,
                       ),
                     ],
                   ),

@@ -35,7 +35,7 @@ class OrderConfirmationScreen extends StatelessWidget {
     final isCod = method == PaymentMethod.cashOnDelivery;
 
     return Scaffold(
-      backgroundColor: LuntiColors.cream,
+      backgroundColor: context.lunti.background,
       body: SafeArea(
         child: Column(
           children: [
@@ -55,8 +55,8 @@ class OrderConfirmationScreen extends StatelessWidget {
                     Container(
                       width: 72,
                       height: 72,
-                      decoration: const BoxDecoration(
-                        color: LuntiColors.sage,
+                      decoration: BoxDecoration(
+                        color: context.lunti.surfaceAlt,
                         shape: BoxShape.circle,
                       ),
                       child: Icon(
@@ -64,13 +64,13 @@ class OrderConfirmationScreen extends StatelessWidget {
                             ? Icons.payments_outlined
                             : Icons.check_rounded,
                         size: 40,
-                        color: LuntiColors.forest,
+                        color: context.lunti.accent,
                       ),
                     ),
                     const SizedBox(height: LuntiSpacing.md),
                     Text(
                       isCod ? 'Order request received' : 'Order confirmed',
-                      style: LuntiTextStyles.display,
+                      style: context.lunti.display,
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: LuntiSpacing.sm),
@@ -80,14 +80,14 @@ class OrderConfirmationScreen extends StatelessWidget {
                               'bamboo pieces arrive.'
                           : 'Your simulated payment is recorded. We\'re '
                               'getting your bamboo pieces ready.',
-                      style: LuntiTextStyles.body,
+                      style: context.lunti.body,
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: LuntiSpacing.md),
                     Container(
                       padding: const EdgeInsets.all(LuntiSpacing.md),
                       decoration: BoxDecoration(
-                        color: LuntiColors.white,
+                        color: context.lunti.surface,
                         borderRadius: BorderRadius.circular(LuntiRadii.md),
                       ),
                       child: Column(
@@ -105,7 +105,7 @@ class OrderConfirmationScreen extends StatelessWidget {
                                     '${order.itemCount == 1 ? 'item' : 'items'}',
                           ),
                           const SizedBox(height: LuntiSpacing.sm),
-                          const Divider(color: LuntiColors.beige, height: 1),
+                          Divider(color: context.lunti.border, height: 1),
                           const SizedBox(height: LuntiSpacing.sm),
                           _ReceiptRow(
                             label: 'Subtotal',
@@ -123,7 +123,7 @@ class OrderConfirmationScreen extends StatelessWidget {
                             emphasised: true,
                           ),
                           const SizedBox(height: LuntiSpacing.sm),
-                          const Divider(color: LuntiColors.beige, height: 1),
+                          Divider(color: context.lunti.border, height: 1),
                           const SizedBox(height: LuntiSpacing.sm),
                           _ReceiptRow(
                             label: 'Payment method',
@@ -134,10 +134,10 @@ class OrderConfirmationScreen extends StatelessWidget {
                           const SizedBox(height: LuntiSpacing.sm),
                           Row(
                             children: [
-                              const Expanded(
+                              Expanded(
                                 child: Text(
                                   'Payment status',
-                                  style: LuntiTextStyles.body,
+                                  style: context.lunti.body,
                                 ),
                               ),
                               PaymentStatusBadge(status: status),
@@ -150,7 +150,7 @@ class OrderConfirmationScreen extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.all(LuntiSpacing.sm),
                       decoration: BoxDecoration(
-                        color: LuntiColors.sage,
+                        color: context.lunti.surfaceAlt,
                         borderRadius: BorderRadius.circular(LuntiRadii.sm),
                       ),
                       child: Row(
@@ -161,7 +161,7 @@ class OrderConfirmationScreen extends StatelessWidget {
                                 ? Icons.info_outline
                                 : Icons.verified_outlined,
                             size: 18,
-                            color: LuntiColors.forest,
+                            color: context.lunti.accent,
                           ),
                           const SizedBox(width: LuntiSpacing.xs),
                           Expanded(
@@ -172,8 +172,8 @@ class OrderConfirmationScreen extends StatelessWidget {
                                   : 'This is a prototype receipt. No real '
                                       'payment was processed and no card or '
                                       'wallet details were collected.',
-                              style: LuntiTextStyles.body.copyWith(
-                                color: LuntiColors.ink,
+                              style: context.lunti.body.copyWith(
+                                color: context.lunti.text,
                               ),
                             ),
                           ),
@@ -226,8 +226,8 @@ class _ReceiptRow extends StatelessWidget {
           child: Text(
             label,
             style: emphasised
-                ? LuntiTextStyles.cardTitle
-                : LuntiTextStyles.body,
+                ? context.lunti.cardTitle
+                : context.lunti.body,
           ),
         ),
         const SizedBox(width: LuntiSpacing.sm),
@@ -236,10 +236,10 @@ class _ReceiptRow extends StatelessWidget {
             value,
             textAlign: TextAlign.right,
             style: emphasised
-                ? LuntiTextStyles.cardTitle.copyWith(
+                ? context.lunti.cardTitle.copyWith(
                     fontWeight: FontWeight.w700,
                   )
-                : LuntiTextStyles.body.copyWith(color: LuntiColors.ink),
+                : context.lunti.body.copyWith(color: context.lunti.text),
           ),
         ),
       ],

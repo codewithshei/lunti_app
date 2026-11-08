@@ -167,8 +167,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
               const SizedBox(height: LuntiSpacing.xs),
               Text(
                 'Prototype account. Never enter real payment details.',
-                style: LuntiTextStyles.caption.copyWith(
-                  color: LuntiColors.secondary,
+                style: context.lunti.caption.copyWith(
+                  color: context.lunti.textFaint,
                 ),
                 textAlign: TextAlign.center,
               ),

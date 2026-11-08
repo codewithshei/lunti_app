@@ -41,7 +41,7 @@ class _SupportChatScreenState extends State<SupportChatScreen> {
         final user = snapshot.data;
         if (user != null) return _ChatScaffold(uid: user.uid);
         return Scaffold(
-          backgroundColor: LuntiColors.cream,
+          backgroundColor: context.lunti.background,
           body: SafeArea(
             bottom: false,
             child: Column(
@@ -137,7 +137,7 @@ class _ChatScaffoldState extends State<_ChatScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: LuntiColors.cream,
+      backgroundColor: context.lunti.background,
       body: SafeArea(
         bottom: false,
         child: Column(
@@ -157,12 +157,12 @@ class _ChatScaffoldState extends State<_ChatScaffold> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Chat with us', style: LuntiTextStyles.display),
+                  Text('Chat with us', style: context.lunti.display),
                   const SizedBox(height: LuntiSpacing.xs),
                   Text(
                     'Questions about an order, engraving or delivery? '
                     'Send us a message.',
-                    style: LuntiTextStyles.body,
+                    style: context.lunti.body,
                   ),
                 ],
               ),
@@ -221,27 +221,27 @@ class _EmptyChat extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(LuntiSpacing.lg),
           decoration: BoxDecoration(
-            color: LuntiColors.white,
+            color: context.lunti.surface,
             borderRadius: BorderRadius.circular(LuntiRadii.md),
           ),
           child: Column(
             children: [
-              const Icon(
+              Icon(
                 Icons.chat_bubble_outline,
                 size: 40,
-                color: LuntiColors.secondary,
+                color: context.lunti.textFaint,
               ),
               const SizedBox(height: LuntiSpacing.sm),
               Text(
                 'Start a conversation',
-                style: LuntiTextStyles.sectionTitle.copyWith(fontSize: 20),
+                style: context.lunti.sectionTitle.copyWith(fontSize: 20),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: LuntiSpacing.xs),
               Text(
                 'Ask us about an order, engraving, delivery or anything else. '
                 'Our team replies here.',
-                style: LuntiTextStyles.body,
+                style: context.lunti.body,
                 textAlign: TextAlign.center,
               ),
             ],
@@ -269,8 +269,8 @@ class _MessageBubble extends StatelessWidget {
           if (isAdmin) ...[
             Text(
               'LUNTI Support',
-              style: LuntiTextStyles.caption.copyWith(
-                color: LuntiColors.forest,
+              style: context.lunti.caption.copyWith(
+                color: context.lunti.accent,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -285,7 +285,7 @@ class _MessageBubble extends StatelessWidget {
               vertical: 10,
             ),
             decoration: BoxDecoration(
-              color: isAdmin ? LuntiColors.sage : LuntiColors.forest,
+              color: isAdmin ? context.lunti.surfaceAlt : context.lunti.accent,
               borderRadius: BorderRadius.only(
                 topLeft: const Radius.circular(LuntiRadii.md),
                 topRight: const Radius.circular(LuntiRadii.md),
@@ -295,15 +295,15 @@ class _MessageBubble extends StatelessWidget {
             ),
             child: Text(
               message.text,
-              style: LuntiTextStyles.body.copyWith(
-                color: isAdmin ? LuntiColors.ink : LuntiColors.cream,
+              style: context.lunti.body.copyWith(
+                color: isAdmin ? context.lunti.text : context.lunti.background,
               ),
             ),
           ),
           const SizedBox(height: 2),
           Text(
             _timeLabel(message.timestamp),
-            style: LuntiTextStyles.caption,
+            style: context.lunti.caption,
           ),
         ],
       ),
@@ -342,9 +342,9 @@ class _Composer extends StatelessWidget {
           LuntiSpacing.gutter,
           LuntiSpacing.sm,
         ),
-        decoration: const BoxDecoration(
-          color: LuntiColors.cream,
-          border: Border(top: BorderSide(color: LuntiColors.beige)),
+        decoration: BoxDecoration(
+          color: context.lunti.background,
+          border: Border(top: BorderSide(color: context.lunti.border)),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.end,
@@ -357,21 +357,21 @@ class _Composer extends StatelessWidget {
                 textInputAction: TextInputAction.newline,
                 decoration: InputDecoration(
                   hintText: 'Write a message\u2026',
-                  hintStyle: LuntiTextStyles.caption,
+                  hintStyle: context.lunti.caption,
                   filled: true,
-                  fillColor: LuntiColors.white,
+                  fillColor: context.lunti.surface,
                   contentPadding: const EdgeInsets.symmetric(
                     horizontal: LuntiSpacing.md,
                     vertical: 12,
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(LuntiRadii.md),
-                    borderSide: const BorderSide(color: LuntiColors.beige),
+                    borderSide: BorderSide(color: context.lunti.border),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(LuntiRadii.md),
-                    borderSide: const BorderSide(
-                      color: LuntiColors.forest,
+                    borderSide: BorderSide(
+                      color: context.lunti.accent,
                       width: 1.5,
                     ),
                   ),
@@ -385,20 +385,20 @@ class _Composer extends StatelessWidget {
               child: FilledButton(
                 onPressed: canSend ? onSend : null,
                 style: FilledButton.styleFrom(
-                  backgroundColor: LuntiColors.forest,
-                  foregroundColor: LuntiColors.white,
+                  backgroundColor: context.lunti.accent,
+                  foregroundColor: context.lunti.surface,
                   padding: EdgeInsets.zero,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(LuntiRadii.md),
                   ),
                 ),
                 child: sending
-                    ? const SizedBox(
+                    ? SizedBox(
                         width: 18,
                         height: 18,
                         child: CircularProgressIndicator(
                           strokeWidth: 2,
-                          color: LuntiColors.white,
+                          color: context.lunti.surface,
                         ),
                       )
                     : const Icon(Icons.send, size: 20),

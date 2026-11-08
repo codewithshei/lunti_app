@@ -16,16 +16,16 @@ class PaymentMethodBadge extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
       decoration: BoxDecoration(
-        color: real ? LuntiColors.forest : LuntiColors.sage,
+        color: real ? context.lunti.accent : context.lunti.surfaceAlt,
         borderRadius: BorderRadius.circular(999),
         border: Border.all(
-          color: real ? LuntiColors.forest : LuntiColors.beige,
+          color: real ? context.lunti.accent : context.lunti.border,
         ),
       ),
       child: Text(
         method.badgeLabel,
-        style: LuntiTextStyles.caption.copyWith(
-          color: real ? LuntiColors.cream : LuntiColors.forest,
+        style: context.lunti.caption.copyWith(
+          color: real ? context.lunti.background : context.lunti.accent,
           fontSize: 9,
           fontWeight: FontWeight.w700,
           letterSpacing: 0.6,
@@ -51,7 +51,7 @@ class PaymentStatusBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = _isPaid ? LuntiColors.forest : LuntiColors.warning;
+    final color = _isPaid ? context.lunti.accent : context.lunti.warning;
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: compact ? 8 : 10,
@@ -64,7 +64,7 @@ class PaymentStatusBadge extends StatelessWidget {
       ),
       child: Text(
         status.isEmpty ? 'Not recorded' : status,
-        style: LuntiTextStyles.caption.copyWith(
+        style: context.lunti.caption.copyWith(
           color: color,
           fontWeight: FontWeight.w600,
           fontSize: compact ? 9 : 11,

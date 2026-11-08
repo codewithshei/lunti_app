@@ -234,7 +234,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: LuntiColors.cream,
+      backgroundColor: context.lunti.background,
       body: SafeArea(
         bottom: false,
         child: Column(
@@ -250,11 +250,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 child: ListView(
                   padding: const EdgeInsets.all(LuntiSpacing.gutter),
                   children: [
-                    Text('Edit profile', style: LuntiTextStyles.display),
+                    Text('Edit profile', style: context.lunti.display),
                     const SizedBox(height: LuntiSpacing.xs),
                     Text(
                       'Update the details saved to your LUNTI account.',
-                      style: LuntiTextStyles.body,
+                      style: context.lunti.body,
                     ),
                     const SizedBox(height: LuntiSpacing.lg),
                     Center(child: _buildAvatar()),
@@ -272,9 +272,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               _hasPhoto ? 'Change photo' : 'Upload photo',
                             ),
                             style: OutlinedButton.styleFrom(
-                              foregroundColor: LuntiColors.forest,
+                              foregroundColor: context.lunti.accent,
                               minimumSize: const Size(0, 44),
-                              side: const BorderSide(color: LuntiColors.beige),
+                              side: BorderSide(color: context.lunti.border),
                               shape: RoundedRectangleBorder(
                                 borderRadius:
                                     BorderRadius.circular(LuntiRadii.sm),
@@ -302,8 +302,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     TextFormField(
                       initialValue: widget.user.email ?? 'No email on file',
                       readOnly: true,
-                      style: LuntiTextStyles.body.copyWith(
-                        color: LuntiColors.secondary,
+                      style: context.lunti.body.copyWith(
+                        color: context.lunti.textFaint,
                       ),
                       decoration: const InputDecoration(
                         labelText: 'Email address',
@@ -324,7 +324,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     const SizedBox(height: LuntiSpacing.xs),
                     Text(
                       'Leave the address blank to clear it from your account.',
-                      style: LuntiTextStyles.caption,
+                      style: context.lunti.caption,
                     ),
                     const SizedBox(height: LuntiSpacing.sm),
                     _ProfileField(
@@ -362,7 +362,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       const SizedBox(height: LuntiSpacing.sm),
                       Text(
                         _saveError!,
-                        style: LuntiTextStyles.caption.copyWith(
+                        style: context.lunti.caption.copyWith(
                           color: Colors.red.shade700,
                         ),
                       ),
@@ -392,8 +392,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           width: 92,
           height: 92,
           clipBehavior: Clip.antiAlias,
-          decoration: const BoxDecoration(
-            color: LuntiColors.sage,
+          decoration: BoxDecoration(
+            color: context.lunti.surfaceAlt,
             shape: BoxShape.circle,
           ),
           child: _avatarContent(),
@@ -405,14 +405,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             width: 32,
             height: 32,
             decoration: BoxDecoration(
-              color: LuntiColors.forest,
+              color: context.lunti.accent,
               shape: BoxShape.circle,
-              border: Border.all(color: LuntiColors.cream, width: 2),
+              border: Border.all(color: context.lunti.background, width: 2),
             ),
-            child: const Icon(
+            child: Icon(
               Icons.photo_camera_outlined,
               size: 16,
-              color: LuntiColors.cream,
+              color: context.lunti.background,
             ),
           ),
         ),
@@ -434,8 +434,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     return Center(
       child: Text(
         _initials,
-        style: LuntiTextStyles.sectionTitle.copyWith(
-          color: LuntiColors.forest,
+        style: context.lunti.sectionTitle.copyWith(
+          color: context.lunti.accent,
           fontSize: 26,
         ),
       ),
@@ -450,7 +450,7 @@ class _SectionLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(text, style: LuntiTextStyles.sectionTitle);
+    return Text(text, style: context.lunti.sectionTitle);
   }
 }
 
@@ -475,7 +475,7 @@ class _ProfileField extends StatelessWidget {
       controller: controller,
       keyboardType: keyboardType,
       textInputAction: textInputAction,
-      style: LuntiTextStyles.body.copyWith(color: LuntiColors.ink),
+      style: context.lunti.body.copyWith(color: context.lunti.text),
       decoration: InputDecoration(labelText: label),
       validator: validator,
     );

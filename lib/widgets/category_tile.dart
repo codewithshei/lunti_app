@@ -24,7 +24,7 @@ class CategoryTile extends StatelessWidget {
     return PressableScale(
       pressedScale: 0.97,
       child: Material(
-        color: LuntiColors.sage,
+        color: context.lunti.surfaceAlt,
         borderRadius: BorderRadius.circular(LuntiRadii.md),
         child: InkWell(
           borderRadius: BorderRadius.circular(LuntiRadii.md),
@@ -37,7 +37,7 @@ class CategoryTile extends StatelessWidget {
                   child: Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: LuntiColors.white,
+                      color: context.lunti.surface,
                       borderRadius: BorderRadius.circular(LuntiRadii.sm),
                     ),
                     alignment: Alignment.center,
@@ -53,7 +53,7 @@ class CategoryTile extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 6),
                   child: Text(
                     useShopLabel ? category.shopLabel : category.label,
-                    style: LuntiTextStyles.cardTitle,
+                    style: context.lunti.cardTitle,
                   ),
                 ),
               ],
@@ -89,7 +89,7 @@ class CategoryHeroTile extends StatelessWidget {
     return PressableScale(
       pressedScale: 0.97,
       child: Material(
-        color: LuntiColors.sage,
+        color: context.lunti.surfaceAlt,
         borderRadius: BorderRadius.circular(LuntiRadii.md),
         clipBehavior: Clip.antiAlias,
         child: InkWell(
@@ -125,8 +125,8 @@ class CategoryHeroTile extends StatelessWidget {
                   padding: const EdgeInsets.all(LuntiSpacing.md),
                   child: Text(
                     useShopLabel ? category.shopLabel : category.label,
-                    style: LuntiTextStyles.cardTitle.copyWith(
-                      color: LuntiColors.white,
+                    style: context.lunti.cardTitle.copyWith(
+                      color: context.lunti.surface,
                       fontSize: 18,
                       fontWeight: FontWeight.w700,
                     ),

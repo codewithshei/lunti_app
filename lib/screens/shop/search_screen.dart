@@ -22,7 +22,7 @@ class SearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: LuntiColors.cream,
+      backgroundColor: context.lunti.background,
       body: SafeArea(
         bottom: false,
         child: _SearchBody(onPrototypeAction: onPrototypeAction),
@@ -122,11 +122,11 @@ class _SearchBodyState extends State<_SearchBody> {
               onBagPressed: () => widget.onPrototypeAction('Shopping bag'),
             ),
             const SizedBox(height: LuntiSpacing.md),
-            const Padding(
+            Padding(
               padding: EdgeInsets.symmetric(horizontal: LuntiSpacing.gutter),
               child: Text(
                 'Find a little character',
-                style: LuntiTextStyles.display,
+                style: context.lunti.display,
               ),
             ),
             const SizedBox(height: LuntiSpacing.md),
@@ -149,7 +149,7 @@ class _SearchBodyState extends State<_SearchBody> {
                   matches.length == 1
                       ? 'Result for \u201C${_controller.text.trim()}\u201D'
                       : '${matches.length} results for \u201C${_controller.text.trim()}\u201D',
-                  style: LuntiTextStyles.eyebrow,
+                  style: context.lunti.eyebrow,
                 ),
               ),
               const SizedBox(height: LuntiSpacing.sm),
@@ -163,9 +163,9 @@ class _SearchBodyState extends State<_SearchBody> {
               ),
               if (matches.length > 1) ...[
                 const SizedBox(height: LuntiSpacing.md),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.symmetric(horizontal: LuntiSpacing.gutter),
-                  child: Text('More matches', style: LuntiTextStyles.sectionTitle),
+                  child: Text('More matches', style: context.lunti.sectionTitle),
                 ),
                 const SizedBox(height: LuntiSpacing.xs),
                 Padding(
@@ -190,11 +190,11 @@ class _SearchBodyState extends State<_SearchBody> {
             ],
             const SizedBox(height: LuntiSpacing.lg),
             if (_recent.isNotEmpty) ...[
-              const Padding(
+              Padding(
                 padding: EdgeInsets.symmetric(horizontal: LuntiSpacing.gutter),
                 child: Text(
                   'Recently searched',
-                  style: LuntiTextStyles.sectionTitle,
+                  style: context.lunti.sectionTitle,
                 ),
               ),
               const SizedBox(height: LuntiSpacing.xs),
@@ -213,16 +213,16 @@ class _SearchBodyState extends State<_SearchBody> {
                 ),
               ),
               Divider(
-                color: LuntiColors.beige,
+                color: context.lunti.border,
                 thickness: 0.5,
                 indent: LuntiSpacing.gutter,
                 endIndent: LuntiSpacing.gutter,
               ),
               const SizedBox(height: LuntiSpacing.sm),
             ],
-            const Padding(
+            Padding(
               padding: EdgeInsets.symmetric(horizontal: LuntiSpacing.gutter),
-              child: Text('More to explore', style: LuntiTextStyles.cardTitle),
+              child: Text('More to explore', style: context.lunti.cardTitle),
             ),
             const SizedBox(height: LuntiSpacing.sm),
             Padding(
@@ -268,13 +268,13 @@ class _QueryField extends StatelessWidget {
       height: 48,
       padding: const EdgeInsets.symmetric(horizontal: LuntiSpacing.md),
       decoration: BoxDecoration(
-        color: LuntiColors.white,
+        color: context.lunti.surface,
         borderRadius: BorderRadius.circular(LuntiRadii.sm),
-        border: Border.all(color: LuntiColors.beige),
+        border: Border.all(color: context.lunti.border),
       ),
       child: Row(
         children: [
-          const Icon(Icons.search, size: 20, color: LuntiColors.secondary),
+          Icon(Icons.search, size: 20, color: context.lunti.textFaint),
           const SizedBox(width: LuntiSpacing.sm),
           Expanded(
             child: TextField(
@@ -282,12 +282,12 @@ class _QueryField extends StatelessWidget {
               onChanged: onChanged,
               onSubmitted: onSubmitted,
               textInputAction: TextInputAction.search,
-              style: LuntiTextStyles.body.copyWith(color: LuntiColors.ink),
-              decoration: const InputDecoration(
+              style: context.lunti.body.copyWith(color: context.lunti.text),
+              decoration: InputDecoration(
                 isCollapsed: true,
                 border: InputBorder.none,
                 hintText: 'Try "speaker", "coaster" or "engraving"',
-                hintStyle: LuntiTextStyles.caption,
+                hintStyle: context.lunti.caption,
               ),
             ),
           ),
@@ -295,10 +295,10 @@ class _QueryField extends StatelessWidget {
             GestureDetector(
               onTap: onClear,
               behavior: HitTestBehavior.opaque,
-              child: const Icon(
+              child: Icon(
                 Icons.close,
                 size: 20,
-                color: LuntiColors.secondary,
+                color: context.lunti.textFaint,
               ),
             ),
         ],
@@ -316,7 +316,7 @@ class _ResultCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: LuntiColors.white,
+        color: context.lunti.surface,
         borderRadius: BorderRadius.circular(LuntiRadii.lg),
       ),
       padding: const EdgeInsets.all(LuntiSpacing.md),
@@ -333,18 +333,18 @@ class _ResultCard extends StatelessWidget {
           const SizedBox(height: LuntiSpacing.md),
           Text(
             product.name,
-            style: LuntiTextStyles.sectionTitle.copyWith(fontSize: 20),
+            style: context.lunti.sectionTitle.copyWith(fontSize: 20),
           ),
           const SizedBox(height: LuntiSpacing.xs),
           Text(
             '${product.note} \u00B7 ${product.priceLabel}',
-            style: LuntiTextStyles.cardTitle,
+            style: context.lunti.cardTitle,
           ),
           const SizedBox(height: 2),
           if (product.variantLabel != null)
             Text(
               '${product.variantLabel} option \u00B7 \u20B1${product.variantPricePeso}',
-              style: LuntiTextStyles.caption,
+              style: context.lunti.caption,
             ),
           const SizedBox(height: LuntiSpacing.md),
           PrimaryButton(
@@ -377,7 +377,7 @@ class _MoreMatchRow extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.all(LuntiSpacing.sm),
           decoration: BoxDecoration(
-            color: LuntiColors.white,
+            color: context.lunti.surface,
             borderRadius: BorderRadius.circular(LuntiRadii.sm),
           ),
           child: Row(
@@ -394,12 +394,12 @@ class _MoreMatchRow extends StatelessWidget {
               Expanded(
                 child: Text(
                   product.name,
-                  style: LuntiTextStyles.cardTitle,
+                  style: context.lunti.cardTitle,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
-              Text('\u20B1${product.pricePeso}', style: LuntiTextStyles.price),
+              Text('\u20B1${product.pricePeso}', style: context.lunti.price),
             ],
           ),
         ),

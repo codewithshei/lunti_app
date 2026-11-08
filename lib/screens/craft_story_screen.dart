@@ -50,7 +50,7 @@ class CraftStoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: LuntiColors.cream,
+      backgroundColor: context.lunti.background,
       body: SafeArea(
         bottom: false,
         child: Column(
@@ -73,7 +73,7 @@ class CraftStoryScreen extends StatelessWidget {
                     child: _StoryHero(),
                   ),
                   const SizedBox(height: LuntiSpacing.lg),
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.symmetric(
                       horizontal: LuntiSpacing.gutter,
                     ),
@@ -84,7 +84,7 @@ class CraftStoryScreen extends StatelessWidget {
                         SizedBox(height: LuntiSpacing.xs),
                         Text(
                           'Made slowly,\nby local hands.',
-                          style: LuntiTextStyles.display,
+                          style: context.lunti.display,
                         ),
                         SizedBox(height: LuntiSpacing.sm),
                         Text(
@@ -92,19 +92,19 @@ class CraftStoryScreen extends StatelessWidget {
                           'Every piece starts in the grove, passes through the '
                           'workshop, and leaves with a little room for your own '
                           'story.',
-                          style: LuntiTextStyles.body,
+                          style: context.lunti.body,
                         ),
                       ],
                     ),
                   ),
                   const SizedBox(height: LuntiSpacing.lg),
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.symmetric(
                       horizontal: LuntiSpacing.gutter,
                     ),
                     child: Text(
                       'From grove to home',
-                      style: LuntiTextStyles.sectionTitle,
+                      style: context.lunti.sectionTitle,
                     ),
                   ),
                   const SizedBox(height: LuntiSpacing.sm),
@@ -236,7 +236,7 @@ class _StoryHeroState extends State<_StoryHero> {
                 ),
               ),
             ),
-            const Positioned(
+            Positioned(
               left: LuntiSpacing.md,
               right: LuntiSpacing.md,
               bottom: LuntiSpacing.lg,
@@ -250,7 +250,7 @@ class _StoryHeroState extends State<_StoryHero> {
                       fontSize: 10,
                       fontWeight: FontWeight.w600,
                       letterSpacing: 1.6,
-                      color: LuntiColors.sage,
+                      color: context.lunti.surfaceAlt,
                     ),
                   ),
                   SizedBox(height: LuntiSpacing.xs),
@@ -261,7 +261,7 @@ class _StoryHeroState extends State<_StoryHero> {
                       fontSize: 26,
                       height: 1.1,
                       fontWeight: FontWeight.w600,
-                      color: LuntiColors.cream,
+                      color: context.lunti.background,
                     ),
                   ),
                 ],
@@ -283,8 +283,8 @@ class _StoryHeroState extends State<_StoryHero> {
                       height: 6,
                       decoration: BoxDecoration(
                         color: _page == i
-                            ? LuntiColors.cream
-                            : LuntiColors.cream.withValues(alpha: 0.45),
+                            ? context.lunti.background
+                            : context.lunti.background.withValues(alpha: 0.45),
                         borderRadius: BorderRadius.circular(3),
                       ),
                     ),
@@ -308,7 +308,7 @@ class _StepCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(LuntiSpacing.sm),
       decoration: BoxDecoration(
-        color: LuntiColors.white,
+        color: context.lunti.surface,
         borderRadius: BorderRadius.circular(LuntiRadii.md),
       ),
       child: Row(
@@ -329,14 +329,14 @@ class _StepCard extends StatelessWidget {
               children: [
                 Text(
                   'STEP ${step.number}',
-                  style: LuntiTextStyles.eyebrow.copyWith(
-                    color: LuntiColors.secondary,
+                  style: context.lunti.eyebrow.copyWith(
+                    color: context.lunti.textFaint,
                   ),
                 ),
                 const SizedBox(height: 2),
-                Text(step.title, style: LuntiTextStyles.cardTitle),
+                Text(step.title, style: context.lunti.cardTitle),
                 const SizedBox(height: 4),
-                Text(step.copy, style: LuntiTextStyles.caption),
+                Text(step.copy, style: context.lunti.caption),
               ],
             ),
           ),
@@ -354,7 +354,7 @@ class _ArtisanCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(6),
       decoration: BoxDecoration(
-        color: LuntiColors.forest,
+        color: context.lunti.accent,
         borderRadius: BorderRadius.circular(LuntiRadii.lg),
       ),
       child: Column(
@@ -378,15 +378,15 @@ class _ArtisanCard extends StatelessWidget {
               children: [
                 Text(
                   'THE ARTISANS',
-                  style: LuntiTextStyles.eyebrow.copyWith(
-                    color: LuntiColors.sage,
+                  style: context.lunti.eyebrow.copyWith(
+                    color: context.lunti.surfaceAlt,
                   ),
                 ),
                 const SizedBox(height: LuntiSpacing.xs),
                 Text(
                   'Every curve is shaped by someone who knows the material.',
-                  style: LuntiTextStyles.sectionTitle.copyWith(
-                    color: LuntiColors.cream,
+                  style: context.lunti.sectionTitle.copyWith(
+                    color: context.lunti.background,
                     fontSize: 20,
                   ),
                 ),
@@ -395,7 +395,7 @@ class _ArtisanCard extends StatelessWidget {
                   'No two pieces leave the workshop exactly alike. Small '
                   'differences in grain, tone and engraving are part of the '
                   'craft, not a defect.',
-                  style: LuntiTextStyles.onDarkBody,
+                  style: context.lunti.onDarkBody,
                 ),
               ],
             ),
@@ -420,9 +420,9 @@ class _StickyCta extends StatelessWidget {
         LuntiSpacing.gutter,
         LuntiSpacing.sm,
       ),
-      decoration: const BoxDecoration(
-        color: LuntiColors.cream,
-        border: Border(top: BorderSide(color: LuntiColors.beige)),
+      decoration: BoxDecoration(
+        color: context.lunti.background,
+        border: Border(top: BorderSide(color: context.lunti.border)),
       ),
       child: PrimaryButton(
         label: 'Explore Collection',

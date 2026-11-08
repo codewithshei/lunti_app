@@ -52,20 +52,20 @@ class _LuntiSplashScreenState extends State<LuntiSplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFDFBF7),
+      backgroundColor: context.lunti.background,
       body: Stack(
         children: [
           // Soft sage wash behind the mark so the cream canvas still feels warm
           // rather than flat.
-          const Positioned(
+          Positioned(
             top: -120,
             right: -80,
-            child: _SplashAura(color: LuntiColors.sage, size: 320),
+            child: _SplashAura(color: context.lunti.surfaceAlt, size: 320),
           ),
-          const Positioned(
+          Positioned(
             bottom: -150,
             left: -100,
-            child: _SplashAura(color: LuntiColors.beige, size: 340),
+            child: _SplashAura(color: context.lunti.border, size: 340),
           ),
           Center(
             child: Semantics(
@@ -92,10 +92,10 @@ class _LuntiSplashScreenState extends State<LuntiSplashScreen>
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: LuntiColors.sage.withValues(alpha: 0.55),
+                              color: context.lunti.surfaceAlt.withValues(alpha: 0.55),
                               boxShadow: [
                                 BoxShadow(
-                                  color: LuntiColors.forest.withValues(
+                                  color: context.lunti.accent.withValues(
                                     alpha: 0.08 + (0.06 * pulse),
                                   ),
                                   blurRadius: 30 + (14 * pulse),
@@ -107,14 +107,14 @@ class _LuntiSplashScreenState extends State<LuntiSplashScreen>
                               width: 84,
                               height: 84,
                               alignment: Alignment.center,
-                              decoration: const BoxDecoration(
-                                color: LuntiColors.sage,
+                              decoration: BoxDecoration(
+                                color: context.lunti.surfaceAlt,
                                 shape: BoxShape.circle,
                               ),
-                              child: const Icon(
+                              child: Icon(
                                 Icons.eco_rounded,
                                 size: 42,
-                                color: LuntiColors.forest,
+                                color: context.lunti.accent,
                                 semanticLabel: 'LUNTI leaf',
                               ),
                             ),
@@ -124,22 +124,22 @@ class _LuntiSplashScreenState extends State<LuntiSplashScreen>
                     },
                   ),
                   const SizedBox(height: 30),
-                  const Text(
+                  Text(
                     'LUNTI',
                     style: TextStyle(
                       fontFamily: 'Playfair Display',
                       fontSize: 32,
                       fontWeight: FontWeight.w600,
                       letterSpacing: 8,
-                      color: LuntiColors.forest,
+                      color: context.lunti.accent,
                     ),
                   ),
                   const SizedBox(height: 12),
-                  Container(width: 34, height: 1, color: LuntiColors.beige),
+                  Container(width: 34, height: 1, color: context.lunti.border),
                   const SizedBox(height: 14),
                   Text(
                     widget.message,
-                    style: LuntiTextStyles.body.copyWith(letterSpacing: 0.5),
+                    style: context.lunti.body.copyWith(letterSpacing: 0.5),
                   ),
                   const SizedBox(height: 22),
                   AnimatedBuilder(
@@ -190,8 +190,8 @@ class _LoadingDot extends StatelessWidget {
       child: Container(
         width: 6,
         height: 6,
-        decoration: const BoxDecoration(
-          color: LuntiColors.forest,
+        decoration: BoxDecoration(
+          color: context.lunti.accent,
           shape: BoxShape.circle,
         ),
       ),

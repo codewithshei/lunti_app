@@ -42,21 +42,21 @@ class _ReceiptDownloadButtonState extends State<ReceiptDownloadButton> {
       width: double.infinity,
       child: OutlinedButton.icon(
         style: OutlinedButton.styleFrom(
-          foregroundColor: LuntiColors.forest,
+          foregroundColor: context.lunti.accent,
           minimumSize: const Size(double.infinity, 52),
-          side: const BorderSide(color: LuntiColors.beige),
+          side: BorderSide(color: context.lunti.border),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(LuntiRadii.sm),
           ),
         ),
         onPressed: _loading ? null : _download,
         icon: _loading
-            ? const SizedBox(
+            ? SizedBox(
                 width: 16,
                 height: 16,
                 child: CircularProgressIndicator(
                   strokeWidth: 2,
-                  color: LuntiColors.forest,
+                  color: context.lunti.accent,
                 ),
               )
             : const Icon(Icons.download_outlined, size: 18),

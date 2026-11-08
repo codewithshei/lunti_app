@@ -21,7 +21,7 @@ class PaymentScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: LuntiColors.cream,
+      backgroundColor: context.lunti.background,
       body: SafeArea(
         bottom: false,
         child: ValueListenableBuilder<List<SampleProduct>>(
@@ -81,19 +81,19 @@ class _PaymentBody extends StatelessWidget {
                 showBadge: false,
               ),
               const SizedBox(height: LuntiSpacing.md),
-              const Padding(
+              Padding(
                 padding: EdgeInsets.symmetric(horizontal: LuntiSpacing.gutter),
                 child: Text(
                   'How would you like to pay?',
-                  style: LuntiTextStyles.display,
+                  style: context.lunti.display,
                 ),
               ),
               const SizedBox(height: 4),
-              const Padding(
+              Padding(
                 padding: EdgeInsets.symmetric(horizontal: LuntiSpacing.gutter),
                 child: Text(
                   'Delivery \u2192 Payment \u2192 Review',
-                  style: LuntiTextStyles.body,
+                  style: context.lunti.body,
                 ),
               ),
               const SizedBox(height: LuntiSpacing.md),
@@ -104,7 +104,7 @@ class _PaymentBody extends StatelessWidget {
                 child: Container(
                   padding: const EdgeInsets.all(LuntiSpacing.md),
                   decoration: BoxDecoration(
-                    color: LuntiColors.sage,
+                    color: context.lunti.surfaceAlt,
                     borderRadius: BorderRadius.circular(LuntiRadii.md),
                   ),
                   child: Column(
@@ -112,7 +112,7 @@ class _PaymentBody extends StatelessWidget {
                     children: [
                       Text(
                         'Order total \u00B7 \u20B1$total',
-                        style: LuntiTextStyles.cardTitle.copyWith(
+                        style: context.lunti.cardTitle.copyWith(
                           fontWeight: FontWeight.w700,
                         ),
                       ),
@@ -121,7 +121,7 @@ class _PaymentBody extends StatelessWidget {
                         '$itemCount '
                         '${itemCount == 1 ? 'item' : 'items'} \u00B7 '
                         'Standard shipping included',
-                        style: LuntiTextStyles.body,
+                        style: context.lunti.body,
                       ),
                     ],
                   ),
@@ -148,7 +148,7 @@ class _PaymentBody extends StatelessWidget {
                       Container(
                         padding: const EdgeInsets.all(LuntiSpacing.md),
                         decoration: BoxDecoration(
-                          color: LuntiColors.white,
+                          color: context.lunti.surface,
                           borderRadius: BorderRadius.circular(LuntiRadii.md),
                         ),
                         child: Column(
@@ -161,7 +161,7 @@ class _PaymentBody extends StatelessWidget {
                               children: [
                                 Text(
                                   selected.label,
-                                  style: LuntiTextStyles.cardTitle,
+                                  style: context.lunti.cardTitle,
                                 ),
                                 PaymentMethodBadge(method: selected),
                               ],
@@ -174,18 +174,18 @@ class _PaymentBody extends StatelessWidget {
                                       'a real payment.'
                                   : 'You will pay the rider in cash when '
                                       'your order is delivered.',
-                              style: LuntiTextStyles.body,
+                              style: context.lunti.body,
                             ),
                           ],
                         ),
                       ),
                       const SizedBox(height: LuntiSpacing.md),
-                      const Align(
+                      Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
                           "You'll return to checkout to review the total "
                           'and place your order.',
-                          style: LuntiTextStyles.caption,
+                          style: context.lunti.caption,
                         ),
                       ),
                     ],
@@ -252,10 +252,10 @@ class _MethodCard extends StatelessWidget {
           vertical: LuntiSpacing.sm,
         ),
         decoration: BoxDecoration(
-          color: LuntiColors.white,
+          color: context.lunti.surface,
           borderRadius: BorderRadius.circular(LuntiRadii.sm),
           border: Border.all(
-            color: selected ? LuntiColors.ink : LuntiColors.beige,
+            color: selected ? context.lunti.text : context.lunti.border,
             width: selected ? 1.5 : 1,
           ),
         ),
@@ -264,11 +264,11 @@ class _MethodCard extends StatelessWidget {
             Container(
               width: 44,
               height: 44,
-              decoration: const BoxDecoration(
-                color: LuntiColors.sage,
+              decoration: BoxDecoration(
+                color: context.lunti.surfaceAlt,
                 shape: BoxShape.circle,
               ),
-              child: Icon(_icon, size: 22, color: LuntiColors.forest),
+              child: Icon(_icon, size: 22, color: context.lunti.accent),
             ),
             const SizedBox(width: LuntiSpacing.sm),
             Expanded(
@@ -280,12 +280,12 @@ class _MethodCard extends StatelessWidget {
                     runSpacing: 4,
                     crossAxisAlignment: WrapCrossAlignment.center,
                     children: [
-                      Text(method.label, style: LuntiTextStyles.cardTitle),
+                      Text(method.label, style: context.lunti.cardTitle),
                       PaymentMethodBadge(method: method),
                     ],
                   ),
                   const SizedBox(height: 2),
-                  Text(method.caption, style: LuntiTextStyles.caption),
+                  Text(method.caption, style: context.lunti.caption),
                 ],
               ),
             ),
@@ -312,23 +312,23 @@ class _RadioDot extends StatelessWidget {
         height: 22,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          border: Border.all(color: LuntiColors.secondary, width: 2),
+          border: Border.all(color: context.lunti.textFaint, width: 2),
         ),
       );
     }
     return Container(
       width: 22,
       height: 22,
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: LuntiColors.forest,
+        color: context.lunti.accent,
       ),
       child: Center(
         child: Container(
           width: 8,
           height: 8,
-          decoration: const BoxDecoration(
-            color: LuntiColors.sage,
+          decoration: BoxDecoration(
+            color: context.lunti.surfaceAlt,
             shape: BoxShape.circle,
           ),
         ),

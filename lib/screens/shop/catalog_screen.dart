@@ -36,7 +36,7 @@ class CatalogScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: LuntiColors.cream,
+      backgroundColor: context.lunti.background,
       body: SafeArea(
         bottom: false,
         child: _CatalogBody(
@@ -132,7 +132,7 @@ class _CatalogBodyState extends State<_CatalogBody> {
   Future<void> _showFilterSheet() async {
     await showModalBottomSheet<({bool engraved, Set<String> bands})>(
       context: context,
-      backgroundColor: LuntiColors.cream,
+      backgroundColor: context.lunti.background,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(LuntiRadii.lg)),
       ),
@@ -159,9 +159,9 @@ class _CatalogBodyState extends State<_CatalogBody> {
                 children: [
                   Row(
                     children: [
-                      const Expanded(
+                      Expanded(
                         child:
-                            Text('Filters', style: LuntiTextStyles.sectionTitle),
+                            Text('Filters', style: context.lunti.sectionTitle),
                       ),
                       GestureDetector(
                         behavior: HitTestBehavior.opaque,
@@ -169,15 +169,15 @@ class _CatalogBodyState extends State<_CatalogBody> {
                           engravedOnly = false;
                           priceBands.clear();
                         }),
-                        child: const Text(
+                        child: Text(
                           'Reset',
-                          style: LuntiTextStyles.cardTitle,
+                          style: context.lunti.cardTitle,
                         ),
                       ),
                     ],
                   ),
                   const SizedBox(height: LuntiSpacing.md),
-                  const Text('Price', style: LuntiTextStyles.eyebrow),
+                  Text('Price', style: context.lunti.eyebrow),
                   const SizedBox(height: LuntiSpacing.xs),
                   Wrap(
                     spacing: LuntiSpacing.xs,
@@ -200,7 +200,7 @@ class _CatalogBodyState extends State<_CatalogBody> {
                     ],
                   ),
                   const SizedBox(height: LuntiSpacing.md),
-                  const Text('Style', style: LuntiTextStyles.eyebrow),
+                  Text('Style', style: context.lunti.eyebrow),
                   const SizedBox(height: LuntiSpacing.xs),
                   Wrap(
                     spacing: LuntiSpacing.xs,
@@ -244,7 +244,7 @@ class _CatalogBodyState extends State<_CatalogBody> {
   Future<void> _showSortSheet() async {
     await showModalBottomSheet<String>(
       context: context,
-      backgroundColor: LuntiColors.cream,
+      backgroundColor: context.lunti.background,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(LuntiRadii.lg)),
       ),
@@ -259,7 +259,7 @@ class _CatalogBodyState extends State<_CatalogBody> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('Sort', style: LuntiTextStyles.sectionTitle),
+            Text('Sort', style: context.lunti.sectionTitle),
             const SizedBox(height: LuntiSpacing.md),
             RadioGroup<String>(
               groupValue: _sortMode,
@@ -271,8 +271,8 @@ class _CatalogBodyState extends State<_CatalogBody> {
                   for (final entry in _sortLabels.entries)
                     RadioListTile<String>(
                       value: entry.key,
-                      title: Text(entry.value, style: LuntiTextStyles.body),
-                      activeColor: LuntiColors.forest,
+                      title: Text(entry.value, style: context.lunti.body),
+                      activeColor: context.lunti.accent,
                       dense: true,
                       contentPadding: EdgeInsets.zero,
                     ),
@@ -304,16 +304,16 @@ class _CatalogBodyState extends State<_CatalogBody> {
           actions: const [NotificationBell()],
         ),
         const SizedBox(height: LuntiSpacing.md),
-        const Padding(
+        Padding(
           padding: EdgeInsets.symmetric(horizontal: LuntiSpacing.gutter),
-          child: Text('The bamboo collection', style: LuntiTextStyles.display),
+          child: Text('The bamboo collection', style: context.lunti.display),
         ),
         const SizedBox(height: 4),
-        const Padding(
+        Padding(
           padding: EdgeInsets.symmetric(horizontal: LuntiSpacing.gutter),
           child: Text(
             'Handcrafted pieces, rooted in Cardona.',
-            style: LuntiTextStyles.body,
+            style: context.lunti.body,
           ),
         ),
         const SizedBox(height: LuntiSpacing.md),
@@ -373,7 +373,7 @@ class _CatalogBodyState extends State<_CatalogBody> {
                     _engravedOnly || _priceBands.isNotEmpty
                         ? 'Nothing matches these filters \u2014 try resetting them.'
                         : 'No sample pieces in this craft yet.',
-                    style: LuntiTextStyles.caption,
+                    style: context.lunti.caption,
                   ),
                 )
               : ValueListenableBuilder<WishlistEntry>(
@@ -404,11 +404,11 @@ class _CatalogBodyState extends State<_CatalogBody> {
                 ),
         ),
         const SizedBox(height: LuntiSpacing.md),
-        const Padding(
+        Padding(
           padding: EdgeInsets.symmetric(horizontal: LuntiSpacing.gutter),
           child: Text(
             'Phone Speaker also available Engraved \u00B7 \u20B1550.',
-            style: LuntiTextStyles.caption,
+            style: context.lunti.caption,
           ),
         ),
         const SizedBox(height: LuntiSpacing.lg),

@@ -83,7 +83,7 @@ class _SimulatedPaymentScreenState extends State<SimulatedPaymentScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: LuntiColors.cream,
+      backgroundColor: context.lunti.background,
       body: SafeArea(
         bottom: false,
         child: Column(
@@ -107,7 +107,7 @@ class _SimulatedPaymentScreenState extends State<SimulatedPaymentScreen> {
                       _isCod
                           ? 'Confirm cash on delivery'
                           : 'Complete your payment',
-                      style: LuntiTextStyles.display,
+                      style: context.lunti.display,
                     ),
                   ),
                   const SizedBox(height: 4),
@@ -119,7 +119,7 @@ class _SimulatedPaymentScreenState extends State<SimulatedPaymentScreen> {
                       _isCod
                           ? 'Review your COD request before confirming.'
                           : 'This is a safe simulation. No real money moves.',
-                      style: LuntiTextStyles.body,
+                      style: context.lunti.body,
                     ),
                   ),
                   const SizedBox(height: LuntiSpacing.md),
@@ -197,8 +197,8 @@ class _SimulatedPaymentScreenState extends State<SimulatedPaymentScreen> {
             onPressed: _returnToCheckout,
             style: OutlinedButton.styleFrom(
               minimumSize: const Size.fromHeight(48),
-              foregroundColor: LuntiColors.forest,
-              side: const BorderSide(color: LuntiColors.beige),
+              foregroundColor: context.lunti.accent,
+              side: BorderSide(color: context.lunti.border),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(LuntiRadii.sm),
               ),
@@ -224,7 +224,7 @@ class _SimulatedPaymentScreenState extends State<SimulatedPaymentScreen> {
             'Pay \u20B1${widget.total} upon delivery. The rider collects '
             'cash when your order arrives.',
             textAlign: TextAlign.center,
-            style: LuntiTextStyles.caption,
+            style: context.lunti.caption,
           ),
         ],
       );
@@ -247,8 +247,8 @@ class _SimulatedPaymentScreenState extends State<SimulatedPaymentScreen> {
           onPressed: _processing ? null : _simulateFailure,
           style: OutlinedButton.styleFrom(
             minimumSize: const Size.fromHeight(48),
-            foregroundColor: LuntiColors.warning,
-            side: const BorderSide(color: LuntiColors.warning),
+            foregroundColor: context.lunti.warning,
+            side: BorderSide(color: context.lunti.warning),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(LuntiRadii.sm),
             ),
@@ -276,11 +276,11 @@ class _ProviderCard extends StatelessWidget {
     final isCod = method == PaymentMethod.cashOnDelivery;
     final isGcash = method == PaymentMethod.gcash;
     final background = isCod
-        ? LuntiColors.sage
+        ? context.lunti.surfaceAlt
         : isGcash
             ? const Color(0xFF007DFE)
-            : LuntiColors.forest;
-    final foreground = isCod ? LuntiColors.forest : LuntiColors.white;
+            : context.lunti.accent;
+    final foreground = isCod ? context.lunti.accent : context.lunti.surface;
 
     return Container(
       padding: const EdgeInsets.all(LuntiSpacing.md),
@@ -315,7 +315,7 @@ class _ProviderCard extends StatelessWidget {
               children: [
                 Text(
                   providerName,
-                  style: LuntiTextStyles.sectionTitle.copyWith(
+                  style: context.lunti.sectionTitle.copyWith(
                     color: foreground,
                     fontSize: 20,
                   ),
@@ -325,7 +325,7 @@ class _ProviderCard extends StatelessWidget {
                   isCod
                       ? 'Pay the rider when your order arrives'
                       : 'Prototype payment · no real charge',
-                  style: LuntiTextStyles.caption.copyWith(
+                  style: context.lunti.caption.copyWith(
                     color: foreground.withValues(alpha: 0.85),
                   ),
                 ),
@@ -339,16 +339,16 @@ class _ProviderCard extends StatelessWidget {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
               decoration: BoxDecoration(
-                color: LuntiColors.white.withValues(alpha: 0.18),
+                color: context.lunti.surface.withValues(alpha: 0.18),
                 borderRadius: BorderRadius.circular(999),
                 border: Border.all(
-                  color: LuntiColors.white.withValues(alpha: 0.45),
+                  color: context.lunti.surface.withValues(alpha: 0.45),
                 ),
               ),
               child: Text(
                 'SIMULATION',
-                style: LuntiTextStyles.caption.copyWith(
-                  color: LuntiColors.white,
+                style: context.lunti.caption.copyWith(
+                  color: context.lunti.surface,
                   fontSize: 9,
                   fontWeight: FontWeight.w700,
                   letterSpacing: 0.6,
@@ -377,7 +377,7 @@ class _AmountCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(LuntiSpacing.md),
       decoration: BoxDecoration(
-        color: LuntiColors.white,
+        color: context.lunti.surface,
         borderRadius: BorderRadius.circular(LuntiRadii.md),
       ),
       child: Column(
@@ -385,18 +385,18 @@ class _AmountCard extends StatelessWidget {
         children: [
           Text(
             isCod ? 'Amount to pay on delivery' : 'Amount due',
-            style: LuntiTextStyles.caption,
+            style: context.lunti.caption,
           ),
           const SizedBox(height: 4),
           Text(
             '\u20B1$total',
-            style: LuntiTextStyles.display.copyWith(fontSize: 34),
+            style: context.lunti.display.copyWith(fontSize: 34),
           ),
           const SizedBox(height: 2),
           Text(
             '$itemCount ${itemCount == 1 ? 'item' : 'items'} · Standard '
             'shipping included',
-            style: LuntiTextStyles.body,
+            style: context.lunti.body,
           ),
         ],
       ),
@@ -412,16 +412,16 @@ class _SimulationDisclaimer extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(LuntiSpacing.sm),
       decoration: BoxDecoration(
-        color: LuntiColors.sage,
+        color: context.lunti.surfaceAlt,
         borderRadius: BorderRadius.circular(LuntiRadii.sm),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Icon(
+          Icon(
             Icons.info_outline,
             size: 18,
-            color: LuntiColors.forest,
+            color: context.lunti.accent,
           ),
           const SizedBox(width: LuntiSpacing.xs),
           Expanded(
@@ -429,7 +429,7 @@ class _SimulationDisclaimer extends StatelessWidget {
               'Demo only. This screen does not connect to GCash, a bank or a '
               'card network. No wallet number, card number or CVV is '
               'collected, and no real payment is processed.',
-              style: LuntiTextStyles.body.copyWith(color: LuntiColors.ink),
+              style: context.lunti.body.copyWith(color: context.lunti.text),
             ),
           ),
         ],
@@ -446,7 +446,7 @@ class _CodDetailsCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(LuntiSpacing.md),
       decoration: BoxDecoration(
-        color: LuntiColors.sage,
+        color: context.lunti.surfaceAlt,
         borderRadius: BorderRadius.circular(LuntiRadii.md),
       ),
       child: Column(
@@ -454,15 +454,15 @@ class _CodDetailsCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              const Icon(
+              Icon(
                 Icons.payments_outlined,
                 size: 20,
-                color: LuntiColors.forest,
+                color: context.lunti.accent,
               ),
               const SizedBox(width: LuntiSpacing.xs),
               Text(
                 'Pay in cash upon delivery',
-                style: LuntiTextStyles.cardTitle.copyWith(
+                style: context.lunti.cardTitle.copyWith(
                   fontWeight: FontWeight.w700,
                 ),
               ),
@@ -473,7 +473,7 @@ class _CodDetailsCard extends StatelessWidget {
             'Your order will be prepared after you confirm this request. '
             'The rider collects the full amount in cash when your bamboo '
             'pieces arrive. No online payment is taken now.',
-            style: LuntiTextStyles.body.copyWith(color: LuntiColors.ink),
+            style: context.lunti.body.copyWith(color: context.lunti.text),
           ),
         ],
       ),
@@ -491,10 +491,10 @@ class _FailureCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(LuntiSpacing.md),
       decoration: BoxDecoration(
-        color: const Color(0xFFF6E4E1),
+        color: context.lunti.warning.withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(LuntiRadii.md),
         border: Border.all(
-          color: LuntiColors.warning.withValues(alpha: 0.4),
+          color: context.lunti.warning.withValues(alpha: 0.4),
         ),
       ),
       child: Column(
@@ -502,16 +502,16 @@ class _FailureCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              const Icon(
+              Icon(
                 Icons.error_outline,
                 size: 20,
-                color: LuntiColors.warning,
+                color: context.lunti.warning,
               ),
               const SizedBox(width: LuntiSpacing.xs),
               Text(
                 'Simulated payment failed',
-                style: LuntiTextStyles.cardTitle.copyWith(
-                  color: LuntiColors.warning,
+                style: context.lunti.cardTitle.copyWith(
+                  color: context.lunti.warning,
                   fontWeight: FontWeight.w700,
                 ),
               ),
@@ -521,13 +521,13 @@ class _FailureCard extends StatelessWidget {
           Text(
             'No order was created and nothing was charged. You can try the '
             'simulation again or return to checkout.',
-            style: LuntiTextStyles.body.copyWith(color: LuntiColors.ink),
+            style: context.lunti.body.copyWith(color: context.lunti.text),
           ),
           const SizedBox(height: LuntiSpacing.xs),
           TextButton(
             onPressed: onReturn,
             style: TextButton.styleFrom(
-              foregroundColor: LuntiColors.warning,
+              foregroundColor: context.lunti.warning,
               padding: EdgeInsets.zero,
               minimumSize: const Size(0, 36),
               tapTargetSize: MaterialTapTargetSize.shrinkWrap,

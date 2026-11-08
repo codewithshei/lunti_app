@@ -6,6 +6,7 @@ import 'package:firebase_core/firebase_core.dart';
 
 import 'firebase_options.dart';
 import 'app/app_theme.dart';
+import 'app/theme_controller.dart';
 import 'data/mock_app_state.dart';
 import 'screens/auth/auth_gate.dart';
 import 'screens/root_screen.dart';
@@ -29,6 +30,9 @@ void main() async {
     debugPrint('Could not read the signed-in account: $error');
   }
   await MockAppState.initializePersistence(scope: initialScope);
+
+  // Restore the customer's light/dark choice before the first frame.
+  await ThemeController.instance.load();
 
   // Seed any bundled products missing from Firestore so the mobile app and
   // the admin dashboard share one catalog. Signed-in accounts retry this in
@@ -64,11 +68,18 @@ class LuntiApp extends StatelessWidget {
         ? const RootScreen()
         : const AuthGate();
 
-    return MaterialApp(
-      title: 'LUNTI',
-      debugShowCheckedModeBanner: false,
-      theme: buildLuntiTheme(),
-      home: _iphoneFrame ? DevIphoneChrome(child: home) : home,
+    return ListenableBuilder(
+      listenable: ThemeController.instance,
+      builder: (context, _) {
+        return MaterialApp(
+          title: 'LUNTI',
+          debugShowCheckedModeBanner: false,
+          theme: buildLuntiTheme(),
+          darkTheme: buildLuntiDarkTheme(),
+          themeMode: ThemeController.instance.mode,
+          home: _iphoneFrame ? DevIphoneChrome(child: home) : home,
+        );
+      },
     );
   }
 }

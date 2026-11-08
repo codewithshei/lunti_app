@@ -22,7 +22,7 @@ class LuntiIconButton extends StatelessWidget {
     return PressableScale(
       pressedScale: 0.9,
       child: Material(
-        color: LuntiColors.white,
+        color: context.lunti.surface,
         shape: const CircleBorder(),
         child: InkWell(
           customBorder: const CircleBorder(),
@@ -33,7 +33,7 @@ class LuntiIconButton extends StatelessWidget {
             child: Icon(
               icon,
               size: 20,
-              color: LuntiColors.ink,
+              color: context.lunti.text,
               semanticLabel: label,
             ),
           ),
@@ -94,13 +94,13 @@ class BrandHeader extends StatelessWidget {
               child: InkWell(
                 customBorder: const CircleBorder(),
                 onTap: onBack,
-                child: const SizedBox(
+                child: SizedBox(
                   width: 40,
                   height: 44,
                   child: Icon(
                     Icons.chevron_left,
                     size: 26,
-                    color: LuntiColors.ink,
+                    color: context.lunti.text,
                     semanticLabel: 'Back',
                   ),
                 ),
@@ -114,19 +114,19 @@ class BrandHeader extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   'LUNTI',
                   style: TextStyle(
                     fontFamily: 'Playfair Display',
                     fontSize: 22,
                     fontWeight: FontWeight.w600,
                     letterSpacing: 2.4,
-                    color: LuntiColors.ink,
+                    color: context.lunti.text,
                   ),
                 ),
                 if (location != null) ...[
                   const SizedBox(height: 2),
-                  Text(location!, style: LuntiTextStyles.caption),
+                  Text(location!, style: context.lunti.caption),
                 ],
               ],
             ),
@@ -192,7 +192,7 @@ class _BagButton extends StatelessWidget {
             child: SizedBox(
               width: 44,
               height: 44,
-              child: Icon(icon, size: 20, color: LuntiColors.ink),
+              child: Icon(icon, size: 20, color: context.lunti.text),
             ),
           ),
         if (showBadge && count > 0)
@@ -202,15 +202,15 @@ class _BagButton extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.all(3),
               constraints: const BoxConstraints(minWidth: 18),
-              decoration: const BoxDecoration(
-                color: LuntiColors.forest,
+              decoration: BoxDecoration(
+                color: context.lunti.accent,
                 shape: BoxShape.circle,
               ),
               child: Text(
                 '$count',
                 textAlign: TextAlign.center,
-                style: LuntiTextStyles.navLabel.copyWith(
-                  color: LuntiColors.cream,
+                style: context.lunti.navLabel.copyWith(
+                  color: context.lunti.background,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -233,14 +233,14 @@ class _LuntiLeafMark extends StatelessWidget {
       child: Container(
         width: 34,
         height: 34,
-        decoration: const BoxDecoration(
-          color: LuntiColors.sage,
+        decoration: BoxDecoration(
+          color: context.lunti.surfaceAlt,
           shape: BoxShape.circle,
         ),
-        child: const Icon(
+        child: Icon(
           Icons.eco_rounded,
           size: 20,
-          color: LuntiColors.forest,
+          color: context.lunti.accent,
         ),
       ),
     );

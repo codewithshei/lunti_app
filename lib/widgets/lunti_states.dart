@@ -39,20 +39,20 @@ class LuntiEmptyState extends StatelessWidget {
             Container(
               width: compact ? 52 : 68,
               height: compact ? 52 : 68,
-              decoration: const BoxDecoration(
-                color: LuntiColors.sage,
+              decoration: BoxDecoration(
+                color: context.lunti.surfaceAlt,
                 shape: BoxShape.circle,
               ),
               child: Icon(
                 icon,
                 size: compact ? 24 : 30,
-                color: LuntiColors.forest,
+                color: context.lunti.accent,
               ),
             ),
             SizedBox(height: compact ? LuntiSpacing.sm : LuntiSpacing.md),
             Text(
               title,
-              style: LuntiTextStyles.sectionTitle.copyWith(
+              style: context.lunti.sectionTitle.copyWith(
                 fontSize: compact ? 17 : 21,
               ),
               textAlign: TextAlign.center,
@@ -62,7 +62,7 @@ class LuntiEmptyState extends StatelessWidget {
               constraints: const BoxConstraints(maxWidth: 280),
               child: Text(
                 message,
-                style: LuntiTextStyles.body,
+                style: context.lunti.body,
                 textAlign: TextAlign.center,
               ),
             ),
@@ -126,7 +126,7 @@ class LuntiLoadingState extends StatelessWidget {
                         width: 44,
                         height: 44,
                         decoration: BoxDecoration(
-                          color: LuntiColors.sage,
+                          color: context.lunti.surfaceAlt,
                           borderRadius: BorderRadius.circular(LuntiRadii.sm),
                         ),
                       ),
@@ -138,7 +138,7 @@ class LuntiLoadingState extends StatelessWidget {
                             Container(
                               height: 12,
                               decoration: BoxDecoration(
-                                color: LuntiColors.sage,
+                                color: context.lunti.surfaceAlt,
                                 borderRadius: BorderRadius.circular(6),
                               ),
                             ),
@@ -147,7 +147,7 @@ class LuntiLoadingState extends StatelessWidget {
                               width: 96,
                               height: 10,
                               decoration: BoxDecoration(
-                                color: LuntiColors.beige,
+                                color: context.lunti.border,
                                 borderRadius: BorderRadius.circular(5),
                               ),
                             ),
@@ -161,7 +161,7 @@ class LuntiLoadingState extends StatelessWidget {
           ),
         ),
         const SizedBox(height: LuntiSpacing.md),
-        Text(label, style: LuntiTextStyles.caption),
+        Text(label, style: context.lunti.caption),
       ],
     );
   }

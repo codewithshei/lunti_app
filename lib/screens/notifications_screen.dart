@@ -33,7 +33,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: LuntiColors.cream,
+      backgroundColor: context.lunti.background,
       body: SafeArea(
         bottom: false,
         child: Column(
@@ -54,11 +54,11 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                   return ListView(
                     padding: const EdgeInsets.all(LuntiSpacing.gutter),
                     children: [
-                      Text('Notifications', style: LuntiTextStyles.display),
+                      Text('Notifications', style: context.lunti.display),
                       const SizedBox(height: LuntiSpacing.xs),
                       Text(
                         'Order updates and news from LUNTI.',
-                        style: LuntiTextStyles.body,
+                        style: context.lunti.body,
                       ),
                       const SizedBox(height: LuntiSpacing.md),
                       if (snapshot.connectionState ==
@@ -84,8 +84,8 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                                     ? 'All caught up'
                                     : '$unread unread update'
                                         '${unread == 1 ? '' : 's'}',
-                                style: LuntiTextStyles.cardTitle.copyWith(
-                                  color: LuntiColors.secondary,
+                                style: context.lunti.cardTitle.copyWith(
+                                  color: context.lunti.textFaint,
                                 ),
                               ),
                             ),
@@ -100,7 +100,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                         const SizedBox(height: LuntiSpacing.xs),
                         Container(
                           decoration: BoxDecoration(
-                            color: LuntiColors.white,
+                            color: context.lunti.surface,
                             borderRadius:
                                 BorderRadius.circular(LuntiRadii.md),
                           ),
@@ -108,8 +108,8 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                             children: [
                               for (var i = 0; i < items.length; i++) ...[
                                 if (i > 0)
-                                  const Divider(
-                                    color: LuntiColors.beige,
+                                  Divider(
+                                    color: context.lunti.border,
                                     height: 1,
                                   ),
                                 _NotificationTile(
@@ -147,26 +147,26 @@ class _EmptyNotificationsCard extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(LuntiSpacing.lg),
       decoration: BoxDecoration(
-        color: LuntiColors.white,
+        color: context.lunti.surface,
         borderRadius: BorderRadius.circular(LuntiRadii.md),
       ),
       child: Column(
         children: [
-          const Icon(
+          Icon(
             Icons.notifications_off_outlined,
             size: 40,
-            color: LuntiColors.secondary,
+            color: context.lunti.textFaint,
           ),
           const SizedBox(height: LuntiSpacing.sm),
           Text(
             'You\u2019re all caught up',
-            style: LuntiTextStyles.sectionTitle.copyWith(fontSize: 20),
+            style: context.lunti.sectionTitle.copyWith(fontSize: 20),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: LuntiSpacing.xs),
           Text(
             'Order updates and announcements will appear here.',
-            style: LuntiTextStyles.body,
+            style: context.lunti.body,
             textAlign: TextAlign.center,
           ),
         ],
@@ -194,14 +194,14 @@ class _NotificationTile extends StatelessWidget {
             Container(
               width: 38,
               height: 38,
-              decoration: const BoxDecoration(
-                color: LuntiColors.sage,
+              decoration: BoxDecoration(
+                color: context.lunti.surfaceAlt,
                 shape: BoxShape.circle,
               ),
               child: Icon(
                 _iconFor(notification.status),
                 size: 19,
-                color: LuntiColors.forest,
+                color: context.lunti.accent,
               ),
             ),
             const SizedBox(width: LuntiSpacing.sm),
@@ -214,7 +214,7 @@ class _NotificationTile extends StatelessWidget {
                       Expanded(
                         child: Text(
                           notification.title,
-                          style: LuntiTextStyles.cardTitle.copyWith(
+                          style: context.lunti.cardTitle.copyWith(
                             fontWeight: notification.isRead
                                 ? FontWeight.w500
                                 : FontWeight.w700,
@@ -225,8 +225,8 @@ class _NotificationTile extends StatelessWidget {
                         Container(
                           width: 8,
                           height: 8,
-                          decoration: const BoxDecoration(
-                            color: LuntiColors.forest,
+                          decoration: BoxDecoration(
+                            color: context.lunti.accent,
                             shape: BoxShape.circle,
                           ),
                         ),
@@ -235,12 +235,12 @@ class _NotificationTile extends StatelessWidget {
                   const SizedBox(height: 2),
                   Text(
                     notification.message,
-                    style: LuntiTextStyles.body,
+                    style: context.lunti.body,
                   ),
                   const SizedBox(height: 4),
                   Text(
                     _relativeTime(notification.createdAt),
-                    style: LuntiTextStyles.caption,
+                    style: context.lunti.caption,
                   ),
                 ],
               ),

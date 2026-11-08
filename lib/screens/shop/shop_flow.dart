@@ -300,14 +300,14 @@ class ShopFlow extends StatelessWidget {
                   final product = snapshot.data;
                   if (product == null) {
                     return Scaffold(
-                      backgroundColor: LuntiColors.cream,
+                      backgroundColor: context.lunti.background,
                       body: Center(
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Text(
+                            Text(
                               'Product not found.',
-                              style: LuntiTextStyles.cardTitle,
+                              style: context.lunti.cardTitle,
                             ),
                             const SizedBox(height: LuntiSpacing.sm),
                             TextButton(
@@ -338,14 +338,14 @@ class ShopFlow extends StatelessWidget {
                   final product = snapshot.data;
                   if (product == null) {
                     return Scaffold(
-                      backgroundColor: LuntiColors.cream,
+                      backgroundColor: context.lunti.background,
                       body: Center(
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Text(
+                            Text(
                               'Product not found.',
-                              style: LuntiTextStyles.cardTitle,
+                              style: context.lunti.cardTitle,
                             ),
                             const SizedBox(height: LuntiSpacing.sm),
                             TextButton(

@@ -21,9 +21,9 @@ class LuntiNavBar extends StatelessWidget {
     return SafeArea(
       top: false,
       child: Container(
-        decoration: const BoxDecoration(
-          color: LuntiColors.cream,
-          border: Border(top: BorderSide(color: LuntiColors.beige, width: 0.5)),
+        decoration: BoxDecoration(
+          color: context.lunti.background,
+          border: Border(top: BorderSide(color: context.lunti.border, width: 0.5)),
         ),
         padding: const EdgeInsets.fromLTRB(
           LuntiSpacing.xs,
@@ -87,9 +87,9 @@ class _NavItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final iconColor = selected ? LuntiColors.forest : LuntiColors.secondary;
-    final labelStyle = LuntiTextStyles.navLabel.copyWith(
-      color: selected ? LuntiColors.forest : LuntiColors.secondary,
+    final iconColor = selected ? context.lunti.accent : context.lunti.textFaint;
+    final labelStyle = context.lunti.navLabel.copyWith(
+      color: selected ? context.lunti.accent : context.lunti.textFaint,
       fontWeight: selected ? FontWeight.w600 : FontWeight.w400,
     );
     return GestureDetector(
@@ -103,7 +103,7 @@ class _NavItem extends StatelessWidget {
               height: 30,
               margin: const EdgeInsets.only(bottom: 4),
               decoration: BoxDecoration(
-                color: selected ? LuntiColors.sage : Colors.transparent,
+                color: selected ? context.lunti.surfaceAlt : Colors.transparent,
                 borderRadius: BorderRadius.circular(LuntiRadii.lg),
               ),
               child: Icon(_icon, size: 20, color: iconColor),

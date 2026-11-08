@@ -40,7 +40,7 @@ class DevIphoneChrome extends StatelessWidget {
               width: 120,
               height: 34,
               decoration: BoxDecoration(
-                color: LuntiColors.ink,
+                color: context.lunti.text,
                 borderRadius: BorderRadius.circular(20),
               ),
             ),
@@ -63,15 +63,15 @@ class _IphoneStatusBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const iconColor = LuntiColors.ink;
+    final iconColor = context.lunti.text;
     return Container(
-      color: LuntiColors.cream,
+      color: context.lunti.background,
       padding: const EdgeInsets.fromLTRB(28, 14, 28, 0),
       child: Row(
         children: [
           Text(
             '9:41',
-            style: LuntiTextStyles.cardTitle.copyWith(
+            style: context.lunti.cardTitle.copyWith(
               fontWeight: FontWeight.w600,
               letterSpacing: 0.2,
               fontFamily: null,
@@ -85,7 +85,7 @@ class _IphoneStatusBar extends StatelessWidget {
             margin: const EdgeInsets.only(right: 5),
             child: CustomPaint(painter: _SignalPainter(color: iconColor)),
           ),
-          const Icon(Icons.wifi, size: 15, color: iconColor),
+          Icon(Icons.wifi, size: 15, color: iconColor),
           const SizedBox(width: 4),
           Container(
             width: 25,
@@ -181,7 +181,7 @@ class _HomeIndicator extends StatelessWidget {
         width: 140,
         height: 5,
         decoration: BoxDecoration(
-          color: LuntiColors.ink,
+          color: context.lunti.text,
           borderRadius: BorderRadius.circular(10),
         ),
       ),

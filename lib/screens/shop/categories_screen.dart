@@ -27,7 +27,7 @@ class CategoriesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: LuntiColors.cream,
+      backgroundColor: context.lunti.background,
       body: SafeArea(
         bottom: false,
         child: ListView(
@@ -43,16 +43,16 @@ class CategoriesScreen extends StatelessWidget {
               child: EyebrowLabel(text: 'The LUNTI shop'),
             ),
             const SizedBox(height: LuntiSpacing.xs),
-            const Padding(
+            Padding(
               padding: EdgeInsets.symmetric(horizontal: LuntiSpacing.gutter),
-              child: Text('Shop by craft', style: LuntiTextStyles.display),
+              child: Text('Shop by craft', style: context.lunti.display),
             ),
             const SizedBox(height: 4),
-            const Padding(
+            Padding(
               padding: EdgeInsets.symmetric(horizontal: LuntiSpacing.gutter),
               child: Text(
                 'Small details. Everyday character.',
-                style: LuntiTextStyles.body,
+                style: context.lunti.body,
               ),
             ),
             const SizedBox(height: LuntiSpacing.md),
@@ -66,9 +66,9 @@ class CategoriesScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: LuntiSpacing.lg),
-            const Padding(
+            Padding(
               padding: EdgeInsets.symmetric(horizontal: LuntiSpacing.gutter),
-              child: Text('Discover', style: LuntiTextStyles.sectionTitle),
+              child: Text('Discover', style: context.lunti.sectionTitle),
             ),
             const SizedBox(height: LuntiSpacing.sm),
             Padding(

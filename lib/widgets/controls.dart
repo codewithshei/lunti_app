@@ -21,10 +21,10 @@ class LuntiChip extends StatelessWidget {
     return PressableScale(
       pressedScale: 0.96,
       child: Material(
-        color: selected ? LuntiColors.forest : LuntiColors.white,
+        color: selected ? context.lunti.accent : context.lunti.surface,
         shape: StadiumBorder(
           side: BorderSide(
-            color: selected ? LuntiColors.forest : LuntiColors.beige,
+            color: selected ? context.lunti.accent : context.lunti.border,
           ),
         ),
         child: InkWell(
@@ -37,8 +37,8 @@ class LuntiChip extends StatelessWidget {
             ),
             child: Text(
               label,
-              style: LuntiTextStyles.cardTitle.copyWith(
-                color: selected ? LuntiColors.cream : LuntiColors.ink,
+              style: context.lunti.cardTitle.copyWith(
+                color: selected ? context.lunti.background : context.lunti.text,
               ),
             ),
           ),
@@ -70,12 +70,12 @@ class PrimaryButton extends StatelessWidget {
       pressedScale: 0.97,
       child: FilledButton(
         style: FilledButton.styleFrom(
-          backgroundColor: LuntiColors.forest,
-          foregroundColor: LuntiColors.white,
+          backgroundColor: context.lunti.accent,
+          foregroundColor: context.lunti.surface,
           minimumSize: Size(expand ? double.infinity : 0, height),
-          textStyle: LuntiTextStyles.cardTitle.copyWith(
+          textStyle: context.lunti.cardTitle.copyWith(
             fontWeight: FontWeight.w600,
-            color: LuntiColors.white,
+            color: context.lunti.surface,
           ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(LuntiRadii.sm),
@@ -112,9 +112,9 @@ class QuantityStepper extends StatelessWidget {
       height: 48,
       padding: const EdgeInsets.symmetric(horizontal: 4),
       decoration: BoxDecoration(
-        color: LuntiColors.white,
+        color: context.lunti.surface,
         borderRadius: BorderRadius.circular(LuntiRadii.sm),
-        border: Border.all(color: LuntiColors.beige),
+        border: Border.all(color: context.lunti.border),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -129,7 +129,7 @@ class QuantityStepper extends StatelessWidget {
             child: Text(
               '$value',
               textAlign: TextAlign.center,
-              style: LuntiTextStyles.cardTitle,
+              style: context.lunti.cardTitle,
             ),
           ),
           _StepButton(
@@ -168,7 +168,7 @@ class _StepButton extends StatelessWidget {
           child: Icon(
             icon,
             size: 18,
-            color: onTap == null ? LuntiColors.secondary : LuntiColors.ink,
+            color: onTap == null ? context.lunti.textFaint : context.lunti.text,
           ),
         ),
       ),
@@ -198,11 +198,11 @@ class LuntiChoiceCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Material(
-        color: selected ? LuntiColors.sage : LuntiColors.white,
+        color: selected ? context.lunti.surfaceAlt : context.lunti.surface,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(LuntiRadii.md),
           side: BorderSide(
-            color: selected ? LuntiColors.forest : LuntiColors.beige,
+            color: selected ? context.lunti.accent : context.lunti.border,
             width: selected ? 1.5 : 1,
           ),
         ),
@@ -222,7 +222,7 @@ class LuntiChoiceCard extends StatelessWidget {
                     children: [
                       Text(
                         label,
-                        style: LuntiTextStyles.cardTitle.copyWith(
+                        style: context.lunti.cardTitle.copyWith(
                           fontWeight: FontWeight.w600,
                         ),
                         maxLines: 1,
@@ -231,8 +231,8 @@ class LuntiChoiceCard extends StatelessWidget {
                       const SizedBox(height: 2),
                       Text(
                         priceLabel,
-                        style: LuntiTextStyles.caption.copyWith(
-                          color: LuntiColors.secondary,
+                        style: context.lunti.caption.copyWith(
+                          color: context.lunti.textFaint,
                         ),
                       ),
                     ],
@@ -243,7 +243,7 @@ class LuntiChoiceCard extends StatelessWidget {
                   Icon(
                     Icons.check_circle_outline,
                     size: 20,
-                    color: selected ? LuntiColors.forest : LuntiColors.beige,
+                    color: selected ? context.lunti.accent : context.lunti.border,
                   )
                 else
                   _RadioDot(selected: selected),
@@ -271,7 +271,7 @@ class _RadioDot extends StatelessWidget {
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         border: Border.all(
-          color: selected ? LuntiColors.forest : LuntiColors.beige,
+          color: selected ? context.lunti.accent : context.lunti.border,
           width: selected ? 6 : 1.5,
         ),
       ),
@@ -291,9 +291,9 @@ class SpecRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: LuntiSpacing.sm),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         border: Border(
-          bottom: BorderSide(color: LuntiColors.beige, width: 0.5),
+          bottom: BorderSide(color: context.lunti.border, width: 0.5),
         ),
       ),
       child: Row(
@@ -303,13 +303,13 @@ class SpecRow extends StatelessWidget {
             width: 90,
             child: Text(
               label,
-              style: LuntiTextStyles.caption.copyWith(
-                color: LuntiColors.secondary,
+              style: context.lunti.caption.copyWith(
+                color: context.lunti.textFaint,
               ),
             ),
           ),
           Expanded(
-            child: Text(value, style: LuntiTextStyles.cardTitle),
+            child: Text(value, style: context.lunti.cardTitle),
           ),
         ],
       ),
@@ -344,16 +344,16 @@ class LinkRow extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title, style: LuntiTextStyles.cardTitle),
+                  Text(title, style: context.lunti.cardTitle),
                   const SizedBox(height: 2),
-                  Text(subtitle, style: LuntiTextStyles.caption),
+                  Text(subtitle, style: context.lunti.caption),
                 ],
               ),
             ),
-            const Icon(
+            Icon(
               Icons.chevron_right,
               size: 22,
-              color: LuntiColors.secondary,
+              color: context.lunti.textFaint,
             ),
           ],
         ),
