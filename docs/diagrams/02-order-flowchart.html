@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>LUNTI — System Order Flowchart</title>
+<style>
+  @font-face { font-family:'Poppins'; src:url('fonts/Poppins-Regular.ttf') format('truetype'); font-weight:400; }
+  @font-face { font-family:'Poppins'; src:url('fonts/Poppins-Medium.ttf') format('truetype'); font-weight:500; }
+  @font-face { font-family:'Poppins'; src:url('fonts/Poppins-SemiBold.ttf') format('truetype'); font-weight:600; }
+  @font-face { font-family:'Poppins'; src:url('fonts/Poppins-Bold.ttf') format('truetype'); font-weight:700; }
+  @font-face { font-family:'Playfair Display'; src:url('fonts/PlayfairDisplay-SemiBold.ttf') format('truetype'); font-weight:600; }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { background:#FAF8F2; }
+  body { font-family:'Poppins','Segoe UI',system-ui,sans-serif; color:#27372D; }
+
+  .stage { position:relative; width:1600px; height:1306px; }
+  .wires { position:absolute; left:0; top:0; width:1600px; height:1306px; z-index:5; }
+
+  .wordmark { position:absolute; left:90px; top:34px; font-family:'Playfair Display',serif;
+              font-weight:600; font-size:32px; letter-spacing:3px; color:#344E41; }
+  .rule { position:absolute; left:196px; top:40px; width:1px; height:32px; background:#DAD7CD; }
+  .doctitle { position:absolute; left:216px; top:42px; font-size:21px; font-weight:600; color:#27372D; }
+  .docsub { position:absolute; left:90px; top:86px; font-size:14px; color:#687267; }
+  .pageno { position:absolute; right:90px; top:44px; font-size:13px; font-weight:600;
+            color:#344E41; background:#E8ECDF; border-radius:999px; padding:6px 16px; }
+  .topline { position:absolute; left:90px; top:122px; width:1420px; height:1px; background:#DAD7CD; }
+
+  .node { position:absolute; background:#FFFFFF; border:1px solid #DAD7CD; border-radius:12px;
+          padding:12px 18px; box-shadow:0 2px 8px rgba(39,55,45,.06); }
+  .ntitle { font-size:17px; font-weight:600; color:#24352B; padding-right:118px; line-height:1.25; }
+  .nsub { font-size:12.5px; color:#57624F; margin-top:3px; padding-right:118px; line-height:1.35; }
+  .nstatus { position:absolute; right:14px; top:13px; font-size:11.5px; font-weight:600;
+             color:#344E41; background:#E8ECDF; border-radius:999px; padding:4px 11px;
+             font-family:'Cascadia Code','Consolas',monospace; }
+
+  .pill { position:absolute; background:#E8ECDF; border:1.5px solid #344E41; border-radius:999px;
+          padding:13px 20px; }
+  .pill .ntitle { padding-right:0; }
+  .pill .nsub { padding-right:0; }
+
+  .settle { background:#D5E4CB; border:2px solid #344E41; }
+  .settle .nstatus { background:#344E41; color:#F4F3EC; }
+  .badge { position:absolute; left:18px; bottom:-11px; font-size:10.5px; font-weight:700;
+           letter-spacing:1.4px; color:#F4F3EC; background:#344E41; border-radius:999px;
+           padding:4px 12px; }
+
+  .cancel .ntitle { color:#7A2E22; }
+  .cancel { border-color:#D9B3AC; background:#FDF6F4; }
+  .cancel .nstatus { background:#F3D9D4; color:#7A2E22; }
+
+  .decision-text { position:absolute; left:425px; top:498px; width:190px; height:60px;
+                   text-align:center; font-size:17px; font-weight:600; color:#24352B; line-height:1.25; }
+
+  .lane-label { position:absolute; font-size:11.5px; font-weight:700; letter-spacing:2.2px; color:#344E41; }
+  .yesno { position:absolute; font-size:12.5px; font-weight:700; color:#344E41; }
+  .rt-label { position:absolute; left:60px; top:640px; width:200px; height:22px;
+              font-size:12px; font-weight:600; color:#548054; text-align:center;
+              transform:rotate(-90deg); transform-origin:center; letter-spacing:.6px; z-index:6; }
+  .decision-text, .yesno, .lane-label, .rt-label { z-index:6; }
+
+  .notes { position:absolute; left:1090px; top:780px; width:420px; background:#FFFFFF;
+           border:1px solid #DAD7CD; border-radius:14px; padding:18px 20px;
+           box-shadow:0 2px 8px rgba(39,55,45,.06); }
+  .notes h4 { font-size:12px; font-weight:700; letter-spacing:2.2px; color:#344E41; margin-bottom:10px; }
+  .notes li { font-size:12.8px; color:#57624F; line-height:1.5; margin-bottom:9px; margin-left:16px; }
+  .notes li b { color:#24352B; font-weight:600; }
+
+  .foot { position:absolute; left:90px; top:1252px; width:1420px; display:flex;
+          justify-content:space-between; font-size:12px; color:#9AA79B; }
+</style>
+</head>
+<body>
+<div class="stage">
+
+  <svg class="wires" viewBox="0 0 1600 1306" fill="none">
+    <defs>
+      <marker id="ah2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M0,0 L10,5 L0,10 z" fill="#344E41"/>
+      </marker>
+      <marker id="ah3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M0,0 L10,5 L0,10 z" fill="#548054"/>
+      </marker>
+    </defs>
+
+    <!-- main chain -->
+    <line x1="520" y1="208" x2="520" y2="248" stroke="#344E41" stroke-width="2" marker-end="url(#ah2)"/>
+    <line x1="520" y1="318" x2="520" y2="358" stroke="#344E41" stroke-width="2" marker-end="url(#ah2)"/>
+    <line x1="520" y1="414" x2="520" y2="433" stroke="#344E41" stroke-width="2" marker-end="url(#ah2)"/>
+    <line x1="520" y1="623" x2="520" y2="663" stroke="#344E41" stroke-width="2" marker-end="url(#ah2)"/>
+    <line x1="520" y1="719" x2="520" y2="759" stroke="#344E41" stroke-width="2" marker-end="url(#ah2)"/>
+    <line x1="520" y1="815" x2="520" y2="855" stroke="#344E41" stroke-width="2" marker-end="url(#ah2)"/>
+    <line x1="520" y1="911" x2="520" y2="951" stroke="#344E41" stroke-width="2" marker-end="url(#ah2)"/>
+    <line x1="520" y1="1007" x2="520" y2="1047" stroke="#344E41" stroke-width="2" marker-end="url(#ah2)"/>
+    <line x1="520" y1="1123" x2="520" y2="1163" stroke="#344E41" stroke-width="2" marker-end="url(#ah2)"/>
+
+    <!-- decision diamond -->
+    <polygon points="520,433 615,528 520,623 425,528" fill="#FBF3DC" stroke="#C58A2B" stroke-width="2"/>
+
+    <!-- "No" branch: diamond -> cancel bus -->
+    <line x1="615" y1="528" x2="960" y2="528" stroke="#344E41" stroke-width="2"/>
+    <line x1="960" y1="979" x2="960" y2="528" stroke="#344E41" stroke-width="2" marker-end="url(#ah2)"/>
+    <line x1="960" y1="528" x2="1090" y2="528" stroke="#344E41" stroke-width="2" marker-end="url(#ah2)"/>
+
+    <!-- cancel bus taps from the fulfilment steps -->
+    <line x1="800" y1="691" x2="960" y2="691" stroke="#344E41" stroke-width="1.6"/>
+    <line x1="800" y1="787" x2="960" y2="787" stroke="#344E41" stroke-width="1.6"/>
+    <line x1="800" y1="883" x2="960" y2="883" stroke="#344E41" stroke-width="1.6"/>
+    <line x1="800" y1="979" x2="960" y2="979" stroke="#344E41" stroke-width="1.6"/>
+
+    <!-- cancel -> stock restore -->
+    <line x1="1300" y1="565" x2="1300" y2="640" stroke="#344E41" stroke-width="2" marker-end="url(#ah2)"/>
+
+    <!-- real-time push back to the app -->
+    <polyline points="240,1007 200,1007 200,400 240,400" fill="none"
+              stroke="#548054" stroke-width="2" stroke-dasharray="7 6" marker-end="url(#ah3)"/>
+  </svg>
+
+  <div class="wordmark">LUNTI</div>
+  <div class="rule"></div>
+  <div class="doctitle">System Order Flowchart</div>
+  <div class="docsub">Capstone &middot; HOA01 — M-Commerce System and Architecture Setup &middot; Order lifecycle from checkout to settlement</div>
+  <div class="pageno">FIGURE 01-B</div>
+  <div class="topline"></div>
+
+  <!-- main chain -->
+  <div class="pill" style="left:240px; top:150px; width:560px; height:58px;">
+    <div class="ntitle">Customer places an order</div>
+    <div class="nsub">Mobile App &middot; bag &amp; checkout, stock validated before save</div>
+  </div>
+
+  <div class="node" style="left:240px; top:248px; width:560px; height:70px;">
+    <div class="ntitle">Firestore document created</div>
+    <div class="nsub">Firestore &middot; orders/{'{id}'} &middot; statusHistory starts at placement</div>
+    <div class="nstatus">pending</div>
+  </div>
+
+  <div class="node" style="left:240px; top:358px; width:560px; height:56px;">
+    <div class="ntitle">Admin views the order</div>
+    <div class="nsub">Admin Studio &middot; live snapshot listener, no reload needed</div>
+  </div>
+
+  <div class="decision-text">Approve<br>order?</div>
+  <div class="yesno" style="left:540px; top:634px;">Yes &#8595;</div>
+  <div class="yesno" style="left:628px; top:516px;">No &#8594;</div>
+
+  <div class="node" style="left:240px; top:663px; width:560px; height:56px;">
+    <div class="ntitle">Mark approved</div>
+    <div class="nsub">Admin Studio &middot; statusHistory entry appended with actor</div>
+    <div class="nstatus">approved</div>
+  </div>
+
+  <div class="node" style="left:240px; top:759px; width:560px; height:56px;">
+    <div class="ntitle">Pack the order</div>
+    <div class="nsub">Admin Studio &middot; fulfilment step 1 of 2</div>
+    <div class="nstatus">packed</div>
+  </div>
+
+  <div class="node" style="left:240px; top:855px; width:560px; height:56px;">
+    <div class="ntitle">Ship the order</div>
+    <div class="nsub">Admin Studio &middot; fulfilment step 2 of 2</div>
+    <div class="nstatus">shipped</div>
+  </div>
+
+  <div class="node" style="left:240px; top:951px; width:560px; height:56px;">
+    <div class="ntitle">Customer receives the item</div>
+    <div class="nsub">Mobile App &middot; delivery confirmed by the admin</div>
+    <div class="nstatus">completed</div>
+  </div>
+
+  <div class="node settle" style="left:240px; top:1047px; width:560px; height:76px;">
+    <div class="ntitle">Automatic payment settlement</div>
+    <div class="nsub">COD: Unpaid (COD) &#8594; Paid (COD) &middot; wallet orders settled up front</div>
+    <div class="nstatus">paid</div>
+    <div class="badge">AUTOMATIC</div>
+  </div>
+
+  <div class="pill" style="left:240px; top:1163px; width:560px; height:58px;">
+    <div class="ntitle">Order complete</div>
+    <div class="nsub">Receipt available &middot; review prompt enabled</div>
+  </div>
+
+  <!-- cancel lane -->
+  <div class="lane-label" style="left:1090px; top:452px;">CANCELLATION PATH</div>
+  <div class="node cancel" style="left:1090px; top:491px; width:420px; height:74px;">
+    <div class="ntitle">Cancel the order</div>
+    <div class="nsub">Any non-final status &middot; writes status: cancelled (terminal)</div>
+    <div class="nstatus">cancelled</div>
+  </div>
+
+  <div class="node cancel" style="left:1090px; top:640px; width:420px; height:74px;">
+    <div class="ntitle">Stock restored</div>
+    <div class="nsub">FieldValue.increment &middot; runs exactly once (stockRestored flag)</div>
+    <div class="nstatus">idempotent</div>
+  </div>
+
+  <div class="rt-label">real-time status sync &middot; Firestore listener</div>
+
+  <div class="notes">
+    <h4>NOTES</h4>
+    <ul>
+      <li><b>Status updates are real-time.</b> Every change writes the document once; the mobile app and the Admin Studio both follow it with a snapshot listener, so neither has to reload.</li>
+      <li><b>Fulfilment advances one step at a time.</b> pending &#8594; approved &#8594; packed &#8594; shipped &#8594; completed. Skipping or reversing a step is rejected.</li>
+      <li><b>Every change is audited.</b> Each transition appends a <b>statusHistory</b> entry recording the new status, the timestamp and the acting admin.</li>
+      <li><b>Cancellation is available from any non-final status</b> and returns each item's quantity to the catalog exactly once.</li>
+      <li><b>Completion settles payment automatically.</b> A delivered cash-on-delivery order is marked <b>Paid (COD)</b>; GCash and card orders were already settled at checkout.</li>
+    </ul>
+  </div>
+
+  <div class="foot">
+    <span>LUNTI &middot; Capstone documentation &middot; HOA01 &middot; Figure 01-B</span>
+    <span>Order state machine &middot; Firestore SDK &middot; Admin Studio + Mobile App</span>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+%% LUNTI — Customer Mobile Application Flowchart (HOA01, Figure 02-A)
+%% Mermaid source for the Capstone diagram set.
+%% Render with:  mmdc -i 02a-customer-app-flow.mmd -o 02a-customer-app-flow.svg
+%% or paste into https://mermaid.live
+flowchart TB
+    S(["Start - customer opens the app"])
+    SP["Splash Screen<br/>branding and session bootstrap"]
+    D{"Session found?"}
+    L["Login / Register<br/>Firebase Auth entry"]
+    V["Email / Password Validation<br/>Firebase Auth, inline errors"]
+    P["Profile Setup<br/>name, address, photo"]
+    H["Home Screen<br/>carousel, recently viewed, craft story"]
+    SH["Shop Screen<br/>catalog grid, category hero cards"]
+    F["Category Filter and Search<br/>craft categories, keyword search"]
+    PD["Product Details<br/>images, price, variations, reviews"]
+    SV["Stock Validation<br/>quantity checked against stock"]
+    AC["Add to Cart<br/>bag line created or incremented"]
+    B["View Bag<br/>lines, quantities, totals"]
+    PM["Select Payment Method<br/>COD, GCash, Card"]
+    CO["Confirm Order<br/>address, delivery, place order"]
+    FD["Firestore Order Document<br/>orders/id created, stock deducted atomically"]
+    OC["Order Confirmation<br/>receipt, order reference"]
+    T["Order Status Tracking<br/>pending, approved, packed, shipped, completed"]
+    R["Write Review<br/>rating and feedback"]
+    SC["Support Chat<br/>real-time thread with the store"]
+    LO["Logout<br/>end session, clear local state"]
+
+    S --> SP --> D
+    D -- "Yes, user" --> H
+    D -- "No, guest" --> L --> V --> P --> H
+    H --> SH --> F --> PD --> SV --> AC --> B --> PM --> CO --> FD --> OC --> T --> R --> SC --> LO

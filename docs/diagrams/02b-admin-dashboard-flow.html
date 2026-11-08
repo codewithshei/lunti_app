@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>LUNTI — Web Admin Dashboard Flowchart</title>
+<style>
+  @font-face { font-family:'Poppins'; src:url('fonts/Poppins-Regular.ttf') format('truetype'); font-weight:400; }
+  @font-face { font-family:'Poppins'; src:url('fonts/Poppins-Medium.ttf') format('truetype'); font-weight:500; }
+  @font-face { font-family:'Poppins'; src:url('fonts/Poppins-SemiBold.ttf') format('truetype'); font-weight:600; }
+  @font-face { font-family:'Poppins'; src:url('fonts/Poppins-Bold.ttf') format('truetype'); font-weight:700; }
+  @font-face { font-family:'Playfair Display'; src:url('fonts/PlayfairDisplay-SemiBold.ttf') format('truetype'); font-weight:600; }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { background:#FAF8F2; }
+  body { font-family:'Poppins','Segoe UI',system-ui,sans-serif; color:#27372D; }
+
+  .stage { position:relative; width:1600px; height:1060px; }
+  .wires { position:absolute; left:0; top:0; width:1600px; height:1060px; z-index:5; }
+  .decision-text, .yesno, .lane, .alt { z-index:6; }
+
+  .wordmark { position:absolute; left:50px; top:32px; font-family:'Playfair Display',serif;
+              font-weight:600; font-size:31px; letter-spacing:3px; color:#344E41; }
+  .rule { position:absolute; left:156px; top:38px; width:1px; height:32px; background:#DAD7CD; }
+  .doctitle { position:absolute; left:176px; top:40px; font-size:20px; font-weight:600; color:#27372D; }
+  .docsub { position:absolute; left:50px; top:84px; font-size:13.5px; color:#687267; }
+  .pageno { position:absolute; right:50px; top:42px; font-size:12px; font-weight:700; letter-spacing:1.6px;
+            color:#344E41; background:#E8ECDF; border-radius:999px; padding:7px 16px; }
+  .topline { position:absolute; left:50px; top:122px; width:1500px; height:1px; background:#DAD7CD; }
+
+  .lane { position:absolute; font-size:11px; font-weight:700; letter-spacing:2px; color:#548054; }
+  .lanebox { position:absolute; border:1px dashed #B9C4AF; border-radius:12px; background:#F7F8F2; }
+
+  .node { position:absolute; background:#FFFFFF; border:1px solid #DAD7CD; border-radius:12px;
+          padding:9px 14px; box-shadow:0 2px 8px rgba(39,55,45,.06); }
+  .ntitle { font-size:15.5px; font-weight:600; color:#24352B; padding-right:70px; line-height:1.2; }
+  .nsub { font-size:11.8px; color:#57624F; margin-top:2px; line-height:1.28; }
+  .nstatus { position:absolute; right:10px; top:9px; font-size:10px; font-weight:600;
+             color:#344E41; background:#E8ECDF; border-radius:999px; padding:3px 8px;
+             font-family:'Cascadia Code','Consolas',monospace; }
+  .nopill .ntitle { padding-right:0; }
+
+  .pill { position:absolute; background:#E8ECDF; border:1.5px solid #344E41; border-radius:999px;
+          padding:10px 16px; box-shadow:0 2px 8px rgba(39,55,45,.06); }
+  .pill .ntitle { padding-right:0; }
+  .pill .nsub { padding-right:0; }
+
+  .dash { position:absolute; background:#FFFFFF; border:1.5px solid #344E41; border-radius:12px;
+          padding:11px 16px; box-shadow:0 2px 8px rgba(39,55,45,.06); }
+  .dash .ntitle { padding-right:0; }
+  .dash .nsub { padding-right:0; }
+  .metrics { position:absolute; left:16px; right:16px; bottom:11px; display:flex; gap:10px; }
+  .metric { flex:1; background:#E8ECDF; border-radius:9px; padding:7px 5px; text-align:center; }
+  .metric b { display:block; font-size:12.5px; font-weight:700; color:#24352B; }
+  .metric span { display:block; font-size:10.2px; color:#57624F; margin-top:2px; line-height:1.22; }
+
+  .decision-text { position:absolute; width:150px; height:56px; text-align:center;
+                   font-size:16.5px; font-weight:600; color:#24352B; line-height:1.25; }
+
+  .mini { position:absolute; left:14px; right:14px; bottom:10px; display:flex;
+          align-items:center; justify-content:space-between; }
+  .mini span { font-size:9.8px; font-weight:600; color:#344E41; background:#E8ECDF;
+               border-radius:999px; padding:3px 6px; white-space:nowrap; }
+  .mini i { font-size:10px; color:#8A9A8C; font-style:normal; }
+
+  .yesno { position:absolute; font-size:12px; font-weight:700; color:#344E41; }
+  .alt { position:absolute; font-size:11px; font-weight:600; color:#7A2E22; }
+
+  .note { position:absolute; background:#FFFFFF; border:1px solid #DAD7CD; border-radius:12px;
+          padding:13px 16px; font-size:12.4px; color:#57624F; line-height:1.5;
+          box-shadow:0 2px 8px rgba(39,55,45,.06); }
+  .note b { color:#24352B; font-weight:600; }
+
+  .legend { position:absolute; left:50px; top:956px; width:1500px; height:54px; background:#FFFFFF;
+            border:1px solid #DAD7CD; border-radius:12px; display:flex; align-items:center;
+            padding:0 22px; gap:34px; font-size:12.5px; color:#57624F; }
+  .legend div { display:flex; align-items:center; gap:9px; }
+  .sw { width:30px; height:16px; border-radius:4px; border:1px solid #DAD7CD; background:#fff; }
+  .sw.pill { border-radius:999px; background:#E8ECDF; border-color:#344E41; }
+  .sw.dia { width:16px; height:16px; background:#FBF3DC; border-color:#C58A2B;
+            transform:rotate(45deg); border-radius:2px; }
+  .sw.arr { width:30px; height:2px; background:#344E41; border:none; border-radius:0; }
+
+  .foot { position:absolute; left:50px; top:1022px; width:1500px; display:flex;
+          justify-content:space-between; font-size:12px; color:#9AA79B; }
+</style>
+</head>
+<body>
+<div class="stage">
+
+  <svg class="wires" viewBox="0 0 1600 1060" fill="none">
+    <defs>
+      <marker id="a2b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M0,0 L10,5 L0,10 z" fill="#344E41"/>
+      </marker>
+    </defs>
+
+    <!-- entry chain -->
+    <line x1="240" y1="212" x2="265" y2="212" stroke="#344E41" stroke-width="2" marker-end="url(#a2b)"/>
+    <line x1="500" y1="212" x2="515" y2="212" stroke="#344E41" stroke-width="2" marker-end="url(#a2b)"/>
+    <line x1="665" y1="212" x2="735" y2="212" stroke="#344E41" stroke-width="2" marker-end="url(#a2b)"/>
+    <line x1="950" y1="212" x2="975" y2="212" stroke="#344E41" stroke-width="2" marker-end="url(#a2b)"/>
+    <polyline points="590,287 590,337 265,337" fill="none"
+              stroke="#344E41" stroke-width="2" marker-end="url(#a2b)"/>
+
+    <!-- decision diamond -->
+    <polygon points="590,137 665,212 590,287 515,212" fill="#FBF3DC" stroke="#C58A2B" stroke-width="2"/>
+
+    <!-- dashboard -> module bus -->
+    <line x1="1262" y1="261" x2="1262" y2="386" stroke="#344E41" stroke-width="2"/>
+    <line x1="222" y1="386" x2="1377" y2="386" stroke="#344E41" stroke-width="2"/>
+    <line x1="222" y1="386" x2="222" y2="406" stroke="#344E41" stroke-width="2" marker-end="url(#a2b)"/>
+    <line x1="607" y1="386" x2="607" y2="406" stroke="#344E41" stroke-width="2" marker-end="url(#a2b)"/>
+    <line x1="992" y1="386" x2="992" y2="406" stroke="#344E41" stroke-width="2" marker-end="url(#a2b)"/>
+    <line x1="1377" y1="386" x2="1377" y2="406" stroke="#344E41" stroke-width="2" marker-end="url(#a2b)"/>
+
+    <!-- column 1 : products -->
+    <line x1="222" y1="506" x2="222" y2="526" stroke="#344E41" stroke-width="2" marker-end="url(#a2b)"/>
+    <line x1="222" y1="582" x2="222" y2="602" stroke="#344E41" stroke-width="2" marker-end="url(#a2b)"/>
+    <line x1="222" y1="658" x2="222" y2="678" stroke="#344E41" stroke-width="2" marker-end="url(#a2b)"/>
+
+    <!-- column 2 : orders -->
+    <line x1="607" y1="506" x2="607" y2="526" stroke="#344E41" stroke-width="2" marker-end="url(#a2b)"/>
+    <line x1="607" y1="582" x2="607" y2="602" stroke="#344E41" stroke-width="2" marker-end="url(#a2b)"/>
+    <line x1="607" y1="658" x2="607" y2="678" stroke="#344E41" stroke-width="2" marker-end="url(#a2b)"/>
+    <line x1="607" y1="770" x2="607" y2="790" stroke="#344E41" stroke-width="2" marker-end="url(#a2b)"/>
+    <line x1="607" y1="846" x2="607" y2="866" stroke="#344E41" stroke-width="2" marker-end="url(#a2b)"/>
+
+    <!-- column 3 : reviews -->
+    <line x1="992" y1="506" x2="992" y2="526" stroke="#344E41" stroke-width="2" marker-end="url(#a2b)"/>
+    <line x1="992" y1="582" x2="992" y2="602" stroke="#344E41" stroke-width="2" marker-end="url(#a2b)"/>
+
+    <!-- column 4 : messages -->
+    <line x1="1377" y1="506" x2="1377" y2="526" stroke="#344E41" stroke-width="2" marker-end="url(#a2b)"/>
+    <line x1="1377" y1="582" x2="1377" y2="602" stroke="#344E41" stroke-width="2" marker-end="url(#a2b)"/>
+  </svg>
+
+  <div class="wordmark">LUNTI</div>
+  <div class="rule"></div>
+  <div class="doctitle">Web Admin Dashboard Flowchart</div>
+  <div class="docsub">Capstone &middot; HOA01 &mdash; M-Commerce System and Architecture Setup &middot; admin_dashboard (Flutter Web, Chrome)</div>
+  <div class="pageno">FIGURE 02-B</div>
+  <div class="topline"></div>
+
+  <!-- ENTRY -->
+  <div class="pill nopill" style="left:50px; top:183px; width:190px; height:58px;">
+    <div class="ntitle">Start</div>
+    <div class="nsub">Admin sign-in</div>
+  </div>
+
+  <div class="node nopill" style="left:265px; top:183px; width:235px; height:58px;">
+    <div class="ntitle">Open Admin Studio</div>
+    <div class="nsub">Flutter Web &middot; Chrome</div>
+  </div>
+
+  <div class="decision-text" style="left:515px; top:184px;">Admin auth<br>verified?</div>
+  <div class="yesno" style="left:676px; top:200px;">Yes &#8594;</div>
+  <div class="yesno" style="left:600px; top:296px;">No &#8594;</div>
+
+  <div class="node nopill" style="left:735px; top:183px; width:215px; height:58px;">
+    <div class="ntitle">Authorized Access</div>
+    <div class="nsub">Role check via Firebase Auth</div>
+  </div>
+
+  <div class="node nopill" style="left:50px; top:308px; width:215px; height:58px;
+                                 border-color:#D9B3AC; background:#FDF6F4;">
+    <div class="ntitle" style="color:#7A2E22;">Access Denied</div>
+    <div class="nsub">Sign-in required</div>
+  </div>
+
+  <div class="dash" style="left:975px; top:165px; width:575px; height:96px;">
+    <div class="ntitle">Dashboard Overview &mdash; Live Analytics</div>
+    <div class="nsub">Real-time Firestore snapshots &middot; no reload needed</div>
+    <div class="metrics">
+      <div class="metric"><b>Total Orders</b><span>all-time count</span></div>
+      <div class="metric"><b>Revenue Trend</b><span>excludes cancelled</span></div>
+      <div class="metric"><b>Needs Action</b><span>pending orders</span></div>
+      <div class="metric"><b>Orders by Status</b><span>status donut</span></div>
+    </div>
+  </div>
+
+  <!-- MODULE LANES -->
+  <div class="lanebox" style="left:35px; top:406px; width:375px; height:530px;"></div>
+  <div class="lane" style="left:53px; top:420px;">PRODUCTS CATALOG</div>
+  <div class="lanebox" style="left:420px; top:406px; width:375px; height:530px;"></div>
+  <div class="lane" style="left:438px; top:420px;">ORDER MANAGEMENT</div>
+  <div class="lanebox" style="left:805px; top:406px; width:375px; height:530px;"></div>
+  <div class="lane" style="left:823px; top:420px;">REVIEWS MODERATION</div>
+  <div class="lanebox" style="left:1190px; top:406px; width:375px; height:530px;"></div>
+  <div class="lane" style="left:1208px; top:420px;">MESSAGES &amp; SUPPORT</div>
+
+  <!-- COLUMN 1 : PRODUCTS -->
+  <div class="node nopill" style="left:45px; top:450px; width:355px; height:56px;">
+    <div class="ntitle">View Product List</div>
+    <div class="nsub">Catalog grid &middot; search &amp; filters</div>
+  </div>
+  <div class="node nopill" style="left:45px; top:526px; width:355px; height:56px;">
+    <div class="ntitle">Add / Edit Product</div>
+    <div class="nsub">Name &middot; price &middot; category &middot; stock</div>
+  </div>
+  <div class="node" style="left:45px; top:602px; width:355px; height:56px;">
+    <div class="ntitle">Base64 Image Upload</div>
+    <div class="nsub">Compressed &amp; stored inside the document</div>
+    <div class="nstatus">1 MB cap</div>
+  </div>
+  <div class="node nopill" style="left:45px; top:678px; width:355px; height:56px;">
+    <div class="ntitle">Update Inventory Stock</div>
+    <div class="nsub">Quantity adjustments &amp; availability</div>
+  </div>
+  <div class="note" style="left:45px; top:770px; width:355px; height:150px;">
+    <b>Spark plan &mdash; no Cloud Storage bucket.</b><br>
+    Product photos are compressed on upload and saved as base64 data URLs inside the
+    Firestore document, so the catalog works entirely within the database.
+  </div>
+
+  <!-- COLUMN 2 : ORDERS -->
+  <div class="node nopill" style="left:430px; top:450px; width:355px; height:56px;">
+    <div class="ntitle">View Order Table</div>
+    <div class="nsub">Live list &middot; distinct short order ids</div>
+  </div>
+  <div class="node nopill" style="left:430px; top:526px; width:355px; height:56px;">
+    <div class="ntitle">Filter by Status</div>
+    <div class="nsub">Pending &middot; approved &middot; packed &middot; shipped</div>
+  </div>
+  <div class="node nopill" style="left:430px; top:602px; width:355px; height:56px;">
+    <div class="ntitle">View Order Details</div>
+    <div class="nsub">Items &middot; customer &middot; address &middot; payment</div>
+  </div>
+  <div class="node nopill" style="left:430px; top:678px; width:355px; height:92px;">
+    <div class="ntitle">Change Status</div>
+    <div class="nsub">One fulfilment step at a time</div>
+    <div class="mini">
+      <span>Approved</span><i>&#8594;</i><span>Pack</span><i>&#8594;</i><span>Ship</span><i>&#8594;</i><span>Complete</span>
+    </div>
+  </div>
+  <div class="node" style="left:430px; top:790px; width:355px; height:56px;">
+    <div class="ntitle">Automatic Settlement</div>
+    <div class="nsub">COD becomes Paid (COD) on completion</div>
+    <div class="nstatus">auto</div>
+  </div>
+  <div class="node" style="left:430px; top:866px; width:355px; height:56px;">
+    <div class="ntitle">Cancel Order &middot; Stock Restored</div>
+    <div class="nsub">Alternative to fulfilment &middot; runs once only</div>
+    <div class="nstatus">cancel</div>
+  </div>
+  <div class="alt" style="left:622px; top:849px;">or cancel &#8595;</div>
+
+  <!-- COLUMN 3 : REVIEWS -->
+  <div class="node nopill" style="left:815px; top:450px; width:355px; height:56px;">
+    <div class="ntitle">View Ratings &amp; Feedback</div>
+    <div class="nsub">Every product review in one table</div>
+  </div>
+  <div class="node" style="left:815px; top:526px; width:355px; height:56px;">
+    <div class="ntitle">Moderate Review</div>
+    <div class="nsub">Hide from the storefront &middot; audit trail</div>
+    <div class="nstatus">hide</div>
+  </div>
+  <div class="node" style="left:815px; top:602px; width:355px; height:56px;">
+    <div class="ntitle">Delete Review</div>
+    <div class="nsub">Remove permanently &middot; stock untouched</div>
+    <div class="nstatus">delete</div>
+  </div>
+  <div class="note" style="left:815px; top:690px; width:355px; height:230px;">
+    <b>Moderation is immediate.</b><br>
+    A moderated review is filtered out of the mobile app&rsquo;s product feed the next
+    time the screen loads, while the rest of the rating summary recalculates from the
+    remaining visible reviews.
+  </div>
+
+  <!-- COLUMN 4 : MESSAGES -->
+  <div class="node nopill" style="left:1200px; top:450px; width:355px; height:56px;">
+    <div class="ntitle">Real-time Chat Inbox</div>
+    <div class="nsub">Live list of customer conversations</div>
+  </div>
+  <div class="node nopill" style="left:1200px; top:526px; width:355px; height:56px;">
+    <div class="ntitle">Open Conversation</div>
+    <div class="nsub">Message history &middot; customer context</div>
+  </div>
+  <div class="node" style="left:1200px; top:602px; width:355px; height:56px;">
+    <div class="ntitle">Reply to Customer</div>
+    <div class="nsub">Sent as the admin &middot; delivered instantly</div>
+    <div class="nstatus">send</div>
+  </div>
+  <div class="note" style="left:1200px; top:690px; width:355px; height:230px;">
+    <b>Threads follow the customer.</b><br>
+    Conversations live under <b>support_chats/{uid}/messages</b> and update in real
+    time for both the admin dashboard and the mobile app, so a reply appears on the
+    customer&rsquo;s phone without a refresh.
+  </div>
+
+  <div class="legend">
+    <div><span class="sw pill"></span> Start</div>
+    <div><span class="sw dia"></span> Decision</div>
+    <div><span class="sw"></span> Process</div>
+    <div><span class="sw arr"></span> Flow direction</div>
+    <div style="margin-left:auto; color:#9AA79B;">Four navigation modules branch from the Dashboard Overview &middot; every module shares the same Firestore backend</div>
+  </div>
+
+  <div class="foot">
+    <span>LUNTI &middot; Capstone documentation &middot; HOA01 &middot; Figure 02-B</span>
+    <span>Web Admin Dashboard &middot; Flutter Web &middot; Firebase Auth &middot; Cloud Firestore</span>
+  </div>
+
+</div>
+</body>
+</html>

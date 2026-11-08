@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "874902773570",
+    "project_id": "lunti-admin",
+    "storage_bucket": "lunti-admin.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:874902773570:android:8ddd1b9422c4de1142f2db",
+        "android_client_info": {
+          "package_name": "com.example.admin_dashboard"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGjDaGjBV1IH5ckkt2JJ_s9Q-xY20ZaX4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

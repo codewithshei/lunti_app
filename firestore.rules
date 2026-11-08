@@ -1,0 +1,154 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Access model for the Nov 8 school MVP.
+    //
+    // There is deliberately NO custom-claim check. admin_dashboard's
+    // AuthService.isStaff is just "is signed in", so requiring an `admin` claim
+    // in these rules locked the dashboard out of its own writes: every status
+    // update was rejected with permission-denied because the live ruleset
+    // predated the statusHistory audit field.
+    //
+    // Consequence: any signed-in Firebase account can read every order, support
+    // thread and admin notification, move orders through fulfilment, edit the
+    // catalog, post into any support thread (as itself) and moderate reviews.
+    // The dashboard URL is the only real barrier — fine for a school demo, not
+    // for a public launch.
+    //
+    // To harden later: set the custom claim per SET_ADMIN.md and restore
+    // isAdmin(), or replace isSignedIn() in the admin branches with an email
+    // allow-list, e.g.
+    //   function isStaff() { return isSignedIn() && request.auth.token.email in ['you@example.com']; }
+
+    function isSignedIn() { return request.auth != null; }
+    function isOwner(uid) { return isSignedIn() && request.auth.uid == uid; }
+
+    match /users/{uid} {
+      allow read: if isOwner(uid);
+      // The role fields are admin-issued; a user may never self-assign them.
+      // `.get` with a default is required: reading a key the write does not set
+      // raises an error, and an errored rule denies the whole request. The app
+      // creates its profile documents with a merge set that never carries these
+      // fields, so a direct read always denied the first write.
+      allow create: if isOwner(uid)
+        && request.resource.data.get('role', '') != 'admin'
+        && request.resource.data.get('isAdmin', false) != true;
+      allow update: if isOwner(uid)
+        && !request.resource.data.diff(resource.data).affectedKeys().hasAny(['role','isAdmin']);
+      allow delete: if false;
+    }
+
+    // In-app notifications for the signed-in customer.
+    match /users/{uid}/notifications/{notificationId} {
+      allow read: if isOwner(uid);
+      allow create: if isOwner(uid);
+      allow update: if isOwner(uid)
+        && request.resource.data.diff(resource.data).affectedKeys()
+             .hasOnly(['isRead']);
+      allow delete: if isOwner(uid);
+    }
+
+    match /products/{id} {
+      allow read: if true;
+      // Catalog edits and the checkout/cancellation stock transactions cannot
+      // be told apart without a claim or allow-list, so any signed-in user may
+      // write. Restrict this to isStaff() once an allow-list exists.
+      allow write: if isSignedIn();
+    }
+
+    // One review per customer per product (document id = reviewer uid).
+    // A reviewer may only change their own review's content; the `moderated`
+    // flag is separately gated so moderation cannot rewrite what someone said.
+    match /products/{productId}/reviews/{reviewId} {
+      allow read: if true;
+      allow create: if isSignedIn()
+        && request.auth.uid == reviewId
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.rating is int
+        && request.resource.data.rating >= 1
+        && request.resource.data.rating <= 5;
+      allow update: if isSignedIn()
+        && (
+          (request.auth.uid == reviewId
+            && request.resource.data.userId == request.auth.uid
+            && request.resource.data.rating is int
+            && request.resource.data.rating >= 1
+            && request.resource.data.rating <= 5)
+          || (request.resource.data.diff(resource.data).affectedKeys()
+                .hasOnly(['moderated'])
+              && request.resource.data.userId == resource.data.userId)
+        );
+      allow delete: if isSignedIn();
+    }
+
+    // Alerts surfaced by the dashboard notification bell. Any signed-in user
+    // creates them (new order, cancellation, review) and the dashboard reads
+    // and clears them.
+    match /admin_notifications/{id} {
+      allow read, create, update, delete: if isSignedIn();
+    }
+
+    // Customer <-> admin support conversation. The parent document keeps the
+    // thread preview and unread counter used by the admin inbox.
+    match /support_chats/{uid} {
+      allow read: if isOwner(uid) || isSignedIn();
+      allow create, update: if isSignedIn();
+      allow delete: if false;
+    }
+
+    match /support_chats/{uid}/messages/{messageId} {
+      allow read: if isOwner(uid) || isSignedIn();
+      // A sender may only write a message as themselves, but any signed-in user
+      // (the support agent included) may post into a thread.
+      allow create: if isSignedIn()
+        && request.resource.data.senderId == request.auth.uid
+        && request.resource.data.text is string
+        && request.resource.data.text.size() > 0;
+      allow update, delete: if false;
+    }
+
+    match /categories/{id} {
+      allow read: if true;
+      allow write: if isSignedIn();
+    }
+
+    match /banners/{id} {
+      allow read: if true;
+      allow write: if isSignedIn();
+    }
+
+    match /orders/{id} {
+      // The dashboard reads the whole collection; the mobile app filters by
+      // owner. Without an allow-list there is no way to tell the dashboard's
+      // query from a customer reading someone else's order.
+      allow read: if isSignedIn();
+
+      allow create: if isSignedIn()
+                    && request.resource.data.userId == request.auth.uid
+                    && request.resource.data.status == 'pending';
+
+      // Fulfilment is open to any signed-in user (see the header note). The
+      // field allowlist still pins exactly what a status change may touch:
+      // status, the timestamp, the one-shot restock flag, the payment status
+      // settled on completion, and the audit trail.
+      allow update: if isSignedIn()
+                    && request.resource.data.diff(resource.data).affectedKeys()
+                         .hasOnly(['status', 'updatedAt', 'stockRestored', 'paymentStatus', 'statusHistory'])
+                    && request.resource.data.status in
+                         ['pending', 'approved', 'packed', 'shipped', 'completed', 'cancelled'];
+
+      allow delete: if false;
+    }
+
+    match /coupons/{id} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn();
+    }
+
+    match /stats/{doc=**} {
+      allow read: if isSignedIn();
+      allow write: if false;
+    }
+  }
+}

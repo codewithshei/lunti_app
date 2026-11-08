@@ -1,0 +1,31 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/{allPaths=**} {
+    function isSignedIn() { return request.auth != null; }
+    function isAdmin() { return isSignedIn() && request.auth.token.admin == true; }
+    function isOwner(uid) { return isSignedIn() && request.auth.uid == uid; }
+    
+    match /products/{fileName} {
+      allow read: if true;
+      allow write: if isAdmin()
+        && request.resource.size < 5 * 1024 * 1024  // 5MB max
+        && request.resource.contentType.startsWith('image/');
+    }
+    
+    match /banners/{fileName} {
+      allow read: if true;
+      allow write: if isAdmin()
+        && request.resource.size < 5 * 1024 * 1024
+        && request.resource.contentType.startsWith('image/');
+    }
+
+    // Customer profile photos (users/{uid}/profile.jpg), uploaded from the
+    // Profile screen's Edit profile flow.
+    match /users/{uid}/{fileName} {
+      allow read: if true;
+      allow write: if isOwner(uid)
+        && request.resource.size < 5 * 1024 * 1024  // 5MB max
+        && request.resource.contentType.startsWith('image/');
+    }
+  }
+}

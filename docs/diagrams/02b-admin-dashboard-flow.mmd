@@ -1,0 +1,31 @@
+%% LUNTI — Web Admin Dashboard Flowchart (HOA01, Figure 02-B)
+%% Mermaid source for the Capstone diagram set.
+%% Render with:  mmdc -i 02b-admin-dashboard-flow.mmd -o 02b-admin-dashboard-flow.svg
+%% or paste into https://mermaid.live
+flowchart TB
+    S(["Start - admin sign-in"])
+    O["Open Admin Studio<br/>Flutter Web, Chrome"]
+    D{"Admin auth verified?"}
+    A["Authorized Access<br/>role check via Firebase Auth"]
+    DN["Access Denied<br/>sign-in required"]
+    DB["Dashboard Overview - Live Analytics<br/>total orders, revenue trend, needs action, orders by status"]
+
+    subgraph CATALOG["Products Catalog"]
+        P1["View Product List"] --> P2["Add / Edit Product"] --> P3["Base64 Image Upload"] --> P4["Update Inventory Stock"]
+    end
+    subgraph ORDERS["Order Management"]
+        O1["View Order Table"] --> O2["Filter by Status"] --> O3["View Order Details"]
+        O3 --> O4["Change Status<br/>approved, pack, ship, complete"]
+        O4 --> O5["Automatic Settlement"] --> O6["Cancel Order, Stock Restored"]
+    end
+    subgraph REVIEWS["Reviews Moderation"]
+        R1["View Ratings and Feedback"] --> R2["Moderate Review"] --> R3["Delete Review"]
+    end
+    subgraph MESSAGES["Messages and Support"]
+        M1["Real-time Chat Inbox"] --> M2["Open Conversation"] --> M3["Reply to Customer"]
+    end
+
+    S --> O --> D
+    D -- "Yes" --> A --> DB
+    D -- "No" --> DN
+    DB --> P1 & O1 & R1 & M1

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>LUNTI — Customer Mobile Application Flowchart</title>
+<style>
+  @font-face { font-family:'Poppins'; src:url('fonts/Poppins-Regular.ttf') format('truetype'); font-weight:400; }
+  @font-face { font-family:'Poppins'; src:url('fonts/Poppins-Medium.ttf') format('truetype'); font-weight:500; }
+  @font-face { font-family:'Poppins'; src:url('fonts/Poppins-SemiBold.ttf') format('truetype'); font-weight:600; }
+  @font-face { font-family:'Poppins'; src:url('fonts/Poppins-Bold.ttf') format('truetype'); font-weight:700; }
+  @font-face { font-family:'Playfair Display'; src:url('fonts/PlayfairDisplay-SemiBold.ttf') format('truetype'); font-weight:600; }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { background:#FAF8F2; }
+  body { font-family:'Poppins','Segoe UI',system-ui,sans-serif; color:#27372D; }
+
+  .stage { position:relative; width:1600px; height:990px; }
+  .wires { position:absolute; left:0; top:0; width:1600px; height:990px; z-index:5; }
+  .decision-text, .yesno, .lane { z-index:6; }
+
+  .wordmark { position:absolute; left:50px; top:32px; font-family:'Playfair Display',serif;
+              font-weight:600; font-size:31px; letter-spacing:3px; color:#344E41; }
+  .rule { position:absolute; left:156px; top:38px; width:1px; height:32px; background:#DAD7CD; }
+  .doctitle { position:absolute; left:176px; top:40px; font-size:20px; font-weight:600; color:#27372D; }
+  .docsub { position:absolute; left:50px; top:84px; font-size:13.5px; color:#687267; }
+  .pageno { position:absolute; right:50px; top:42px; font-size:12px; font-weight:700; letter-spacing:1.6px;
+            color:#344E41; background:#E8ECDF; border-radius:999px; padding:7px 16px; }
+  .topline { position:absolute; left:50px; top:122px; width:1500px; height:1px; background:#DAD7CD; }
+
+  .lane { position:absolute; font-size:11px; font-weight:700; letter-spacing:2px; color:#548054; }
+  .lanebox { position:absolute; border:1px dashed #B9C4AF; border-radius:12px; background:#F7F8F2; }
+
+  .node { position:absolute; background:#FFFFFF; border:1px solid #DAD7CD; border-radius:12px;
+          padding:11px 16px; box-shadow:0 2px 8px rgba(39,55,45,.06); }
+  .ntitle { font-size:16.5px; font-weight:600; color:#24352B; padding-right:96px; line-height:1.22; }
+  .nsub { font-size:12.3px; color:#57624F; margin-top:3px; padding-right:96px; line-height:1.32; }
+  .nstatus { position:absolute; right:12px; top:12px; font-size:11px; font-weight:600;
+             color:#344E41; background:#E8ECDF; border-radius:999px; padding:4px 10px;
+             font-family:'Cascadia Code','Consolas',monospace; }
+
+  .pill { position:absolute; background:#E8ECDF; border:1.5px solid #344E41; border-radius:999px;
+          padding:12px 18px; box-shadow:0 2px 8px rgba(39,55,45,.06); }
+  .pill .ntitle { padding-right:0; }
+  .pill .nsub { padding-right:0; }
+
+  .decision-text { position:absolute; width:176px; height:60px; text-align:center;
+                   font-size:17px; font-weight:600; color:#24352B; line-height:1.25; }
+
+  .mini { position:absolute; left:16px; right:16px; bottom:12px; display:flex;
+          align-items:center; justify-content:space-between; }
+  .mini span { font-size:10.5px; font-weight:600; color:#344E41; background:#E8ECDF;
+               border-radius:999px; padding:3px 8px; white-space:nowrap; }
+  .mini i { font-size:11px; color:#8A9A8C; font-style:normal; }
+
+  .yesno { position:absolute; font-size:12px; font-weight:700; color:#344E41; }
+
+  .note { position:absolute; background:#FFFFFF; border:1px solid #DAD7CD; border-radius:12px;
+          padding:14px 18px; font-size:12.6px; color:#57624F; line-height:1.5;
+          box-shadow:0 2px 8px rgba(39,55,45,.06); }
+  .note b { color:#24352B; font-weight:600; }
+
+  .legend { position:absolute; left:50px; top:884px; width:1500px; height:54px; background:#FFFFFF;
+            border:1px solid #DAD7CD; border-radius:12px; display:flex; align-items:center;
+            padding:0 22px; gap:34px; font-size:12.5px; color:#57624F; }
+  .legend div { display:flex; align-items:center; gap:9px; }
+  .sw { width:30px; height:16px; border-radius:4px; border:1px solid #DAD7CD; background:#fff; }
+  .sw.pill { border-radius:999px; background:#E8ECDF; border-color:#344E41; }
+  .sw.dia { width:16px; height:16px; background:#FBF3DC; border-color:#C58A2B;
+            transform:rotate(45deg); border-radius:2px; }
+  .sw.arr { width:30px; height:2px; background:#344E41; border:none; border-radius:0; }
+
+  .foot { position:absolute; left:50px; top:952px; width:1500px; display:flex;
+          justify-content:space-between; font-size:12px; color:#9AA79B; }
+</style>
+</head>
+<body>
+<div class="stage">
+
+  <svg class="wires" viewBox="0 0 1600 990" fill="none">
+    <defs>
+      <marker id="a2a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M0,0 L10,5 L0,10 z" fill="#344E41"/>
+      </marker>
+    </defs>
+
+    <!-- column 1 internal -->
+    <line x1="260" y1="247" x2="260" y2="271" stroke="#344E41" stroke-width="2" marker-end="url(#a2a)"/>
+    <line x1="260" y1="329" x2="260" y2="344" stroke="#344E41" stroke-width="2" marker-end="url(#a2a)"/>
+    <line x1="260" y1="520" x2="260" y2="544" stroke="#344E41" stroke-width="2" marker-end="url(#a2a)"/>
+    <line x1="260" y1="602" x2="260" y2="630" stroke="#344E41" stroke-width="2" marker-end="url(#a2a)"/>
+    <line x1="260" y1="688" x2="260" y2="716" stroke="#344E41" stroke-width="2" marker-end="url(#a2a)"/>
+
+    <!-- decision diamond -->
+    <polygon points="260,344 348,432 260,520 172,432" fill="#FBF3DC" stroke="#C58A2B" stroke-width="2"/>
+
+    <!-- session "Yes" -> Home -->
+    <polyline points="348,432 530,432 530,215 590,215" fill="none"
+              stroke="#344E41" stroke-width="2" marker-end="url(#a2a)"/>
+    <!-- auth path -> Home -->
+    <polyline points="470,745 556,745 556,235 590,235" fill="none"
+              stroke="#344E41" stroke-width="2" marker-end="url(#a2a)"/>
+
+    <!-- column 2 internal -->
+    <line x1="800" y1="269" x2="800" y2="293" stroke="#344E41" stroke-width="2" marker-end="url(#a2a)"/>
+    <line x1="800" y1="351" x2="800" y2="375" stroke="#344E41" stroke-width="2" marker-end="url(#a2a)"/>
+    <line x1="800" y1="433" x2="800" y2="457" stroke="#344E41" stroke-width="2" marker-end="url(#a2a)"/>
+    <line x1="800" y1="529" x2="800" y2="553" stroke="#344E41" stroke-width="2" marker-end="url(#a2a)"/>
+    <line x1="800" y1="611" x2="800" y2="635" stroke="#344E41" stroke-width="2" marker-end="url(#a2a)"/>
+    <line x1="800" y1="693" x2="800" y2="717" stroke="#344E41" stroke-width="2" marker-end="url(#a2a)"/>
+    <line x1="800" y1="775" x2="800" y2="799" stroke="#344E41" stroke-width="2" marker-end="url(#a2a)"/>
+
+    <!-- column 2 -> column 3 -->
+    <polyline points="1010,828 1070,828 1070,218 1130,218" fill="none"
+              stroke="#344E41" stroke-width="2" marker-end="url(#a2a)"/>
+
+    <!-- column 3 internal -->
+    <line x1="1340" y1="248" x2="1340" y2="276" stroke="#344E41" stroke-width="2" marker-end="url(#a2a)"/>
+    <line x1="1340" y1="348" x2="1340" y2="376" stroke="#344E41" stroke-width="2" marker-end="url(#a2a)"/>
+    <line x1="1340" y1="434" x2="1340" y2="462" stroke="#344E41" stroke-width="2" marker-end="url(#a2a)"/>
+    <line x1="1340" y1="558" x2="1340" y2="586" stroke="#344E41" stroke-width="2" marker-end="url(#a2a)"/>
+    <line x1="1340" y1="644" x2="1340" y2="670" stroke="#344E41" stroke-width="2" marker-end="url(#a2a)"/>
+    <line x1="1340" y1="728" x2="1340" y2="754" stroke="#344E41" stroke-width="2" marker-end="url(#a2a)"/>
+  </svg>
+
+  <div class="wordmark">LUNTI</div>
+  <div class="rule"></div>
+  <div class="doctitle">Customer Mobile Application Flowchart</div>
+  <div class="docsub">Capstone &middot; HOA01 &mdash; M-Commerce System and Architecture Setup &middot; lunti_app (Flutter, Android / iOS)</div>
+  <div class="pageno">FIGURE 02-A</div>
+  <div class="topline"></div>
+
+  <div class="lanebox" style="left:40px; top:150px; width:440px; height:720px;"></div>
+  <div class="lane" style="left:58px; top:164px;">SESSION &amp; AUTHENTICATION</div>
+  <div class="lanebox" style="left:580px; top:150px; width:440px; height:724px;"></div>
+  <div class="lane" style="left:598px; top:164px;">BROWSE &amp; CHECKOUT</div>
+  <div class="lanebox" style="left:1120px; top:150px; width:440px; height:690px;"></div>
+  <div class="lane" style="left:1138px; top:164px;">ORDER &amp; ACCOUNT</div>
+
+  <!-- COLUMN 1 : SESSION & AUTH -->
+  <div class="pill" style="left:50px; top:193px; width:420px; height:54px;">
+    <div class="ntitle">Start &mdash; customer opens the app</div>
+    <div class="nsub">Splash entry point</div>
+  </div>
+
+  <div class="node" style="left:50px; top:271px; width:420px; height:58px;">
+    <div class="ntitle">Splash Screen</div>
+    <div class="nsub">Branding &middot; session bootstrap</div>
+  </div>
+
+  <div class="decision-text" style="left:172px; top:402px;">Session<br>found?</div>
+  <div class="yesno" style="left:272px; top:528px;">No &#8595;</div>
+  <div class="yesno" style="left:360px; top:420px;">Yes &#8594;</div>
+
+  <div class="node" style="left:50px; top:544px; width:420px; height:58px;">
+    <div class="ntitle">Login / Register</div>
+    <div class="nsub">Firebase Auth entry</div>
+  </div>
+
+  <div class="node" style="left:50px; top:630px; width:420px; height:58px;">
+    <div class="ntitle">Email / Password Validation</div>
+    <div class="nsub">Firebase Auth &middot; inline error handling</div>
+  </div>
+
+  <div class="node" style="left:50px; top:716px; width:420px; height:58px;">
+    <div class="ntitle">Profile Setup</div>
+    <div class="nsub">Name &middot; delivery address &middot; photo</div>
+  </div>
+
+  <div class="note" style="left:50px; top:800px; width:420px; height:58px;">
+    <b>Guest browsing</b> is allowed &mdash; catalog, bag and checkout all work before an account exists.
+  </div>
+
+  <!-- COLUMN 2 : BROWSE & CHECKOUT -->
+  <div class="node" style="left:590px; top:193px; width:420px; height:76px;">
+    <div class="ntitle">Home Screen</div>
+    <div class="nsub">Carousel &middot; Recently Viewed &middot; Craft Story</div>
+  </div>
+
+  <div class="node" style="left:590px; top:293px; width:420px; height:58px;">
+    <div class="ntitle">Shop Screen</div>
+    <div class="nsub">Full catalog grid &middot; category hero cards</div>
+  </div>
+
+  <div class="node" style="left:590px; top:375px; width:420px; height:58px;">
+    <div class="ntitle">Category Filter &amp; Search</div>
+    <div class="nsub">Craft categories &middot; keyword search</div>
+  </div>
+
+  <div class="node" style="left:590px; top:457px; width:420px; height:72px;">
+    <div class="ntitle">Product Details</div>
+    <div class="nsub">Images &middot; price &middot; variations &middot; reviews</div>
+  </div>
+
+  <div class="node" style="left:590px; top:553px; width:420px; height:58px;">
+    <div class="ntitle">Stock Validation</div>
+    <div class="nsub">Quantity checked against catalog stock</div>
+  </div>
+
+  <div class="node" style="left:590px; top:635px; width:420px; height:58px;">
+    <div class="ntitle">Add to Cart</div>
+    <div class="nsub">Bag line created or incremented</div>
+  </div>
+
+  <div class="node" style="left:590px; top:717px; width:420px; height:58px;">
+    <div class="ntitle">View Bag</div>
+    <div class="nsub">Lines &middot; quantities &middot; order totals</div>
+  </div>
+
+  <div class="node" style="left:590px; top:799px; width:420px; height:58px;">
+    <div class="ntitle">Select Payment Method</div>
+    <div class="nsub">COD &middot; GCash &middot; Card</div>
+  </div>
+
+  <!-- COLUMN 3 : ORDER & ACCOUNT -->
+  <div class="node" style="left:1130px; top:190px; width:420px; height:58px;">
+    <div class="ntitle">Confirm Order</div>
+    <div class="nsub">Address &middot; delivery &middot; place order</div>
+  </div>
+
+  <div class="node" style="left:1130px; top:276px; width:420px; height:72px;">
+    <div class="ntitle">Firestore Order Document</div>
+    <div class="nsub">orders/{id} created &middot; stock deducted atomically</div>
+    <div class="nstatus">pending</div>
+  </div>
+
+  <div class="node" style="left:1130px; top:376px; width:420px; height:58px;">
+    <div class="ntitle">Order Confirmation</div>
+    <div class="nsub">Receipt &middot; order reference</div>
+  </div>
+
+  <div class="node" style="left:1130px; top:462px; width:420px; height:96px;">
+    <div class="ntitle">Order Status Tracking</div>
+    <div class="nsub">Live status, pushed in real time</div>
+    <div class="mini">
+      <span>Pending</span><i>&#8594;</i><span>Approved</span><i>&#8594;</i><span>Packed</span><i>&#8594;</i><span>Shipped</span><i>&#8594;</i><span>Completed</span>
+    </div>
+  </div>
+
+  <div class="node" style="left:1130px; top:586px; width:420px; height:58px;">
+    <div class="ntitle">Write Review</div>
+    <div class="nsub">Rating &middot; feedback on the product</div>
+  </div>
+
+  <div class="node" style="left:1130px; top:670px; width:420px; height:58px;">
+    <div class="ntitle">Support Chat</div>
+    <div class="nsub">Real-time thread with the store</div>
+  </div>
+
+  <div class="node" style="left:1130px; top:754px; width:420px; height:58px;">
+    <div class="ntitle">Logout</div>
+    <div class="nsub">End session &middot; clear local state</div>
+  </div>
+
+  <div class="legend">
+    <div><span class="sw pill"></span> Start / end</div>
+    <div><span class="sw dia"></span> Decision</div>
+    <div><span class="sw"></span> Process</div>
+    <div><span class="sw arr"></span> Flow direction</div>
+    <div style="margin-left:auto; color:#9AA79B;">Swimlanes group the app&rsquo;s feature areas &middot; arrows cross lanes where the journey moves on</div>
+  </div>
+
+  <div class="foot">
+    <span>LUNTI &middot; Capstone documentation &middot; HOA01 &middot; Figure 02-A</span>
+    <span>Customer Mobile Application &middot; Flutter &middot; Firebase Auth &middot; Cloud Firestore</span>
+  </div>
+
+</div>
+</body>
+</html>

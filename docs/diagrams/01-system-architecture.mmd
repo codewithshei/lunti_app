@@ -1,0 +1,35 @@
+%% LUNTI — System Architecture Diagram (HOA01)
+%% Mermaid source for the Capstone diagram set.
+%% Render with:  mmdc -i 01-system-architecture.mmd -o 01-system-architecture.svg
+%% or paste into https://mermaid.live
+flowchart TB
+    subgraph CLIENT["CLIENT LAYER"]
+        direction LR
+        A1["Mobile App<br/>Flutter - Android / iOS<br/>lunti_app"]
+        A2["Admin Studio Dashboard<br/>Flutter Web - Chrome<br/>admin_dashboard"]
+    end
+
+    subgraph FLOW["INTEGRATION and DATA FLOW"]
+        direction LR
+        F1["Firestore SDK<br/>real-time snapshot listeners"]
+        F2["Callable Cloud Functions<br/>admin helpers"]
+        F3["Atomic transactions<br/>stock and order integrity"]
+    end
+
+    subgraph CLOUD["BACKEND / CLOUD SERVICES - FIREBASE"]
+        direction LR
+        C1["Firebase Authentication<br/>email / password identity"]
+        C2["Cloud Firestore<br/>documents and collections"]
+        C3["Media Storage<br/>base64 data URLs in documents"]
+        C4["Security Rules Engine<br/>field-level access control"]
+    end
+
+    A1 <--> F1
+    A2 <--> F2
+    F1 <--> C2
+    F2 <--> C1
+    F3 <--> C3
+    F1 <--> C4
+
+    note["Spark (free) plan: no Cloud Storage bucket.<br/>Product and profile photos are compressed and stored<br/>as base64 data URLs inside Firestore documents."]
+    C3 -.-> note

@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2022",
+    "lib": ["es2022", "dom", "indexeddb"],
+    "moduleResolution": "node",
+    "strict": true,
+    "noImplicitAny": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "outDir": "lib",
+    "rootDir": "src",
+    "allowJs": false,
+    "resolvePackageModulePaths": true,
+    "typeRoots": ["./node_modules/@types", "./node_modules/firebase-functions/lib"]
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "lib"]
+}

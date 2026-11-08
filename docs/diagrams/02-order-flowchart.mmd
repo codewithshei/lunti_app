@@ -1,0 +1,27 @@
+%% LUNTI — System Order Flowchart (HOA01)
+%% Mermaid source for the Capstone diagram set.
+%% Render with:  mmdc -i 02-order-flowchart.mmd -o 02-order-flowchart.svg
+%% or paste into https://mermaid.live
+flowchart TD
+    S(["Start - Customer places an order<br/>Mobile App, checkout"])
+    P["Firestore document created<br/>orders/id - status: pending"]
+    V["Admin views the order<br/>Admin Studio, live listener"]
+    D{"Approve order?"}
+    A["Mark approved<br/>status: approved"]
+    K["Pack the order<br/>status: packed"]
+    H["Ship the order<br/>status: shipped"]
+    R["Customer receives the item<br/>status: completed"]
+    T["Automatic payment settlement<br/>COD: Unpaid (COD) to Paid (COD)"]
+    E(["Order complete"])
+
+    X["Cancel the order<br/>status: cancelled - terminal"]
+    XS["Stock restored<br/>FieldValue.increment - runs once only"]
+
+    S --> P --> V --> D
+    D -- "Yes" --> A --> K --> H --> R --> T --> E
+    D -- "No" --> X
+    A -. "cancel" .-> X
+    K -. "cancel" .-> X
+    H -. "cancel" .-> X
+    R -. "cancel" .-> X
+    X --> XS

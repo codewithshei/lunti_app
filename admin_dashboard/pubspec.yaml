@@ -1,0 +1,46 @@
+name: admin_dashboard
+description: "Admin dashboard for LUNTI m-commerce app. Runs on Firebase."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.12.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+
+  # Firebase
+  firebase_core: ^3.0.0
+  firebase_auth: ^5.0.0
+  cloud_firestore: ^5.0.0
+  cloud_functions: ^5.0.0
+
+  # Routing & State
+  go_router: ^14.0.0
+  provider: ^6.1.0
+
+  # UI Components
+  fl_chart: ^0.70.0
+  cached_network_image: ^3.3.0
+  file_picker: ^8.0.0
+
+  # Utilities
+  intl: ^0.20.2
+  image: ^4.12.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+  fonts:
+    - family: PlayfairDisplay
+      fonts:
+        - asset: assets/fonts/PlayfairDisplay-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/PlayfairDisplay-SemiBold.ttf
+          weight: 600
