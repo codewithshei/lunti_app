@@ -55,6 +55,10 @@ hs_err_pid*.log
 admin_dashboard/build/
 **/ephemeral/
 
+# admin_dashboard is its own repository (github.com/codewithshei/lunti_admin).
+# Keep the parent repo from treating it as an embedded git repository.
+/admin_dashboard/
+
 # Local Firebase admin credentials — never commit private keys
 **/service-account*.json
 functions/.env*
